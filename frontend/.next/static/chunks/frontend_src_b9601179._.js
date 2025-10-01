@@ -2358,7 +2358,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/quote.js [app-client] (ecmascript) <export default as Quote>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/next-intl/dist/esm/development/react-client/index.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/navigation.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -2366,8 +2366,76 @@ var _s = __turbopack_context__.k.signature();
 ;
 function Research() {
     _s();
-    const t = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"])('research');
-    const tStats = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"])('research.stats');
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
+    const isSpanish = pathname.startsWith('/es');
+    const t = (key)=>{
+        const translations = {
+            en: {
+                title: "Backed by Industry Research",
+                subtitle: "Leading organizations trust customer experience as their competitive advantage",
+                quotes: [
+                    {
+                        text: "Companies that skillfully manage the entire customer experience can realize a 20% improvement in customer satisfaction, a 15% increase in sales conversion, and a 30% lower cost-to-serve.",
+                        source: "Harvard Business Review",
+                        author: "Harvard Business Review Research"
+                    },
+                    {
+                        text: "More than two-thirds of companies now compete primarily on the basis of customer experience, up from only 36% in 2010.",
+                        source: "Gartner",
+                        author: "Gartner Research"
+                    },
+                    {
+                        text: "Organizations that prioritize customer experience achieve revenue growth rates 4%–8% above their market.",
+                        source: "McKinsey & Company",
+                        author: "McKinsey Research"
+                    }
+                ],
+                stats: {
+                    title: "The Research is Clear",
+                    subtitle: "Customer experience is the new competitive battleground",
+                    compete: "of companies now compete on CX",
+                    competeSub: "vs 36% in 2010",
+                    growth: "higher revenue growth",
+                    growthSub: "for CX-focused companies",
+                    improvement: "improvement in satisfaction",
+                    improvementSub: "with proper CX management"
+                }
+            },
+            es: {
+                title: "Respaldado por Investigación de la Industria",
+                subtitle: "Las organizaciones líderes confían en la experiencia del cliente como su ventaja competitiva",
+                quotes: [
+                    {
+                        text: "Las empresas que gestionan hábilmente toda la experiencia del cliente pueden lograr una mejora del 20% en la satisfacción del cliente, un aumento del 15% en la conversión de ventas y un 30% menos en el costo de servicio.",
+                        source: "Harvard Business Review",
+                        author: "Investigación Harvard Business Review"
+                    },
+                    {
+                        text: "Más de dos tercios de las empresas ahora compiten principalmente en base a la experiencia del cliente, aumentando del solo 36% en 2010.",
+                        source: "Gartner",
+                        author: "Investigación Gartner"
+                    },
+                    {
+                        text: "Las organizaciones que priorizan la experiencia del cliente logran tasas de crecimiento de ingresos 4%-8% por encima de su mercado.",
+                        source: "McKinsey & Company",
+                        author: "Investigación McKinsey"
+                    }
+                ],
+                stats: {
+                    title: "La Investigación es Clara",
+                    subtitle: "La experiencia del cliente es el nuevo campo de batalla competitivo",
+                    compete: "de las empresas ahora compiten en CX",
+                    competeSub: "vs 36% en 2010",
+                    growth: "mayor crecimiento de ingresos",
+                    growthSub: "para empresas enfocadas en CX",
+                    improvement: "mejora en satisfacción",
+                    improvementSub: "con gestión adecuada de CX"
+                }
+            }
+        };
+        return translations[isSpanish ? 'es' : 'en'][key];
+    };
+    const data = t('');
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         id: "research",
         className: "py-24 bg-white",
@@ -2379,29 +2447,29 @@ function Research() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                             className: "text-4xl md:text-5xl font-bold text-gray-900 mb-6",
-                            children: t('title')
+                            children: data.title
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 21,
+                            lineNumber: 85,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "text-xl text-gray-600 max-w-3xl mx-auto",
-                            children: t('subtitle')
+                            children: data.subtitle
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 24,
+                            lineNumber: 88,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                    lineNumber: 20,
+                    lineNumber: 84,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "space-y-12",
-                    children: t.raw('quotes').map((quote, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    children: data.quotes.map((quote, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "flex items-center ".concat(index % 2 === 1 ? 'flex-row-reverse' : ''),
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2417,17 +2485,17 @@ function Research() {
                                                         className: "w-4 h-4 text-white"
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                        lineNumber: 38,
+                                                        lineNumber: 102,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                    lineNumber: 37,
+                                                    lineNumber: 101,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 36,
+                                                lineNumber: 100,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("blockquote", {
@@ -2439,7 +2507,7 @@ function Research() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 43,
+                                                lineNumber: 107,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2452,7 +2520,7 @@ function Research() {
                                                                 children: quote.author
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                                lineNumber: 50,
+                                                                lineNumber: 114,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2460,13 +2528,13 @@ function Research() {
                                                                 children: quote.source
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                                lineNumber: 51,
+                                                                lineNumber: 115,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                        lineNumber: 49,
+                                                        lineNumber: 113,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2476,29 +2544,29 @@ function Research() {
                                                             children: quote.source.split(' ')[0]
                                                         }, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                            lineNumber: 56,
+                                                            lineNumber: 120,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                        lineNumber: 55,
+                                                        lineNumber: 119,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 48,
+                                                lineNumber: 112,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                        lineNumber: 34,
+                                        lineNumber: 98,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 33,
+                                    lineNumber: 97,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2510,7 +2578,7 @@ function Research() {
                                                 className: "absolute inset-y-0 left-1/2 w-0.5 bg-gradient-to-b from-blue-300 to-teal-300"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 68,
+                                                lineNumber: 132,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2519,34 +2587,34 @@ function Research() {
                                                     className: "w-4 h-4 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                    lineNumber: 72,
+                                                    lineNumber: 136,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 71,
+                                                lineNumber: 135,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                        lineNumber: 66,
+                                        lineNumber: 130,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 65,
+                                    lineNumber: 129,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, index, true, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 32,
+                            lineNumber: 96,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                    lineNumber: 30,
+                    lineNumber: 94,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2557,24 +2625,24 @@ function Research() {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                     className: "text-3xl font-bold mb-4",
-                                    children: tStats('title')
+                                    children: data.stats.title
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 83,
+                                    lineNumber: 147,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "text-blue-100 text-lg",
-                                    children: tStats('subtitle')
+                                    children: data.stats.subtitle
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 84,
+                                    lineNumber: 148,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 82,
+                            lineNumber: 146,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2588,29 +2656,29 @@ function Research() {
                                             children: "67%"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 89,
+                                            lineNumber: 153,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "text-blue-100",
-                                            children: tStats('compete')
+                                            children: data.stats.compete
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 90,
+                                            lineNumber: 154,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "text-xs text-blue-200",
-                                            children: tStats('competeSub')
+                                            children: data.stats.competeSub
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 91,
+                                            lineNumber: 155,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 88,
+                                    lineNumber: 152,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2621,29 +2689,29 @@ function Research() {
                                             children: "4-8%"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 95,
+                                            lineNumber: 159,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "text-blue-100",
-                                            children: tStats('growth')
+                                            children: data.stats.growth
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 96,
+                                            lineNumber: 160,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "text-xs text-blue-200",
-                                            children: tStats('growthSub')
+                                            children: data.stats.growthSub
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 97,
+                                            lineNumber: 161,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 94,
+                                    lineNumber: 158,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2654,59 +2722,58 @@ function Research() {
                                             children: "20%"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 101,
+                                            lineNumber: 165,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "text-blue-100",
-                                            children: tStats('improvement')
+                                            children: data.stats.improvement
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 102,
+                                            lineNumber: 166,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "text-xs text-blue-200",
-                                            children: tStats('improvementSub')
+                                            children: data.stats.improvementSub
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 103,
+                                            lineNumber: 167,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 100,
+                                    lineNumber: 164,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 87,
+                            lineNumber: 151,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                    lineNumber: 81,
+                    lineNumber: 145,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-            lineNumber: 18,
+            lineNumber: 82,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-        lineNumber: 17,
+        lineNumber: 81,
         columnNumber: 5
     }, this);
 }
-_s(Research, "f5hPVcUWQuL9cuV+zo/f1XCla3I=", false, function() {
+_s(Research, "xbyQPtUVMO7MNj7WjJlpdWqRcTo=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];
 });
 _c = Research;
@@ -2727,7 +2794,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/circle-check-big.js [app-client] (ecmascript) <export default as CheckCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/calendar.js [app-client] (ecmascript) <export default as Calendar>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/next-intl/dist/esm/development/react-client/index.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$DemoForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/src/components/DemoForm.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
@@ -2739,7 +2806,36 @@ var _s = __turbopack_context__.k.signature();
 function CTA() {
     _s();
     const [isDemoFormOpen, setIsDemoFormOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const t = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"])('cta');
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
+    const isSpanish = pathname.startsWith('/es');
+    const t = (key)=>{
+        const translations = {
+            en: {
+                title: "Ready to Transform Your Customer Experience?",
+                subtitle: "Join leading companies that use Siete CX to drive growth and customer satisfaction",
+                features: [
+                    "30-minute personalized demo",
+                    "Free CX assessment",
+                    "Custom implementation roadmap",
+                    "No commitment required"
+                ],
+                button: "Book your free demo now"
+            },
+            es: {
+                title: "¿Listo para Transformar Tu Experiencia del Cliente?",
+                subtitle: "Únete a empresas líderes que usan Siete CX para impulsar el crecimiento y la satisfacción del cliente",
+                features: [
+                    "Demo personalizado de 30 minutos",
+                    "Evaluación gratuita de CX",
+                    "Hoja de ruta de implementación personalizada",
+                    "No se requiere compromiso"
+                ],
+                button: "Reserva tu demo gratuito ahora"
+            }
+        };
+        return translations[isSpanish ? 'es' : 'en'][key];
+    };
+    const data = t('');
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -2752,30 +2848,30 @@ function CTA() {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                 className: "text-4xl md:text-5xl font-bold text-white mb-6",
-                                children: t('title')
+                                children: data.title
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                lineNumber: 17,
+                                lineNumber: 48,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "text-xl text-blue-100 mb-8",
-                                children: t('subtitle')
+                                children: data.subtitle
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                lineNumber: 20,
+                                lineNumber: 51,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-4 mb-8",
-                                children: t.raw('features').map((feature, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: data.features.map((feature, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center justify-center space-x-3",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
                                                 className: "w-6 h-6 text-green-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                                lineNumber: 27,
+                                                lineNumber: 58,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2783,18 +2879,18 @@ function CTA() {
                                                 children: feature
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                                lineNumber: 28,
+                                                lineNumber: 59,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, index, true, {
                                         fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                        lineNumber: 26,
+                                        lineNumber: 57,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                lineNumber: 24,
+                                lineNumber: 55,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2805,30 +2901,30 @@ function CTA() {
                                         className: "w-5 h-5 mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                        lineNumber: 37,
+                                        lineNumber: 68,
                                         columnNumber: 15
                                     }, this),
-                                    t('button')
+                                    data.button
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                lineNumber: 33,
+                                lineNumber: 64,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                        lineNumber: 16,
+                        lineNumber: 47,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                    lineNumber: 15,
+                    lineNumber: 46,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                lineNumber: 14,
+                lineNumber: 45,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$DemoForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2836,15 +2932,15 @@ function CTA() {
                 onClose: ()=>setIsDemoFormOpen(false)
             }, void 0, false, {
                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                lineNumber: 44,
+                lineNumber: 75,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true);
 }
-_s(CTA, "kb/jLU03orGYcilCZ4asMhJTYUg=", false, function() {
+_s(CTA, "okTwJZfefrZB5gx7R19yqD0Uro0=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];
 });
 _c = CTA;
@@ -2868,7 +2964,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$linkedin$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Linkedin$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/linkedin.js [app-client] (ecmascript) <export default as Linkedin>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$twitter$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Twitter$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/twitter.js [app-client] (ecmascript) <export default as Twitter>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/image.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/next-intl/dist/esm/development/react-client/index.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/navigation.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -2877,7 +2973,34 @@ var _s = __turbopack_context__.k.signature();
 ;
 function Footer() {
     _s();
-    const t = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"])('footer');
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
+    const isSpanish = pathname.startsWith('/es');
+    const t = (key)=>{
+        const translations = {
+            en: {
+                description: "Transforming customer experience through intelligent analytics and mystery shopping.",
+                contact: "Contact",
+                links: "Links",
+                about: "About Us",
+                privacy: "Privacy Policy",
+                terms: "Terms of Service",
+                support: "Support",
+                copyright: "© 2024 Siete Inteligencia Creativa. All rights reserved."
+            },
+            es: {
+                description: "Transformando la experiencia del cliente a través de análisis inteligente y mystery shopping.",
+                contact: "Contacto",
+                links: "Enlaces",
+                about: "Acerca de Nosotros",
+                privacy: "Política de Privacidad",
+                terms: "Términos de Servicio",
+                support: "Soporte",
+                copyright: "© 2024 Siete Inteligencia Creativa. Todos los derechos reservados."
+            }
+        };
+        return translations[isSpanish ? 'es' : 'en'][key];
+    };
+    const data = t('');
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
         className: "bg-gray-900 text-white",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2897,15 +3020,15 @@ function Footer() {
                                     className: "h-12 w-auto mb-4"
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 16,
+                                    lineNumber: 45,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "text-gray-400 mb-6 max-w-md",
-                                    children: t('description')
+                                    children: data.description
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 23,
+                                    lineNumber: 52,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2918,12 +3041,12 @@ function Footer() {
                                                 className: "w-5 h-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                lineNumber: 30,
+                                                lineNumber: 59,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 29,
+                                            lineNumber: 58,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -2933,34 +3056,34 @@ function Footer() {
                                                 className: "w-5 h-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                lineNumber: 33,
+                                                lineNumber: 62,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 32,
+                                            lineNumber: 61,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 28,
+                                    lineNumber: 57,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                            lineNumber: 15,
+                            lineNumber: 44,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                     className: "text-lg font-semibold mb-4",
-                                    children: t('contact')
+                                    children: data.contact
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 40,
+                                    lineNumber: 69,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2974,14 +3097,14 @@ function Footer() {
                                                     className: "w-4 h-4 mr-3"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                    lineNumber: 43,
+                                                    lineNumber: 72,
                                                     columnNumber: 17
                                                 }, this),
                                                 "info@sieteic.com"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 42,
+                                            lineNumber: 71,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2991,14 +3114,14 @@ function Footer() {
                                                     className: "w-4 h-4 mr-3"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                    lineNumber: 47,
+                                                    lineNumber: 76,
                                                     columnNumber: 17
                                                 }, this),
                                                 "+1 829 961 0082"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 46,
+                                            lineNumber: 75,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3008,7 +3131,7 @@ function Footer() {
                                                     className: "w-4 h-4 mr-3 mt-1"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                    lineNumber: 51,
+                                                    lineNumber: 80,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3016,48 +3139,48 @@ function Footer() {
                                                         "Distrito Nacional,",
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                            lineNumber: 52,
+                                                            lineNumber: 81,
                                                             columnNumber: 41
                                                         }, this),
                                                         "Santo Domingo,",
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                            lineNumber: 52,
+                                                            lineNumber: 81,
                                                             columnNumber: 61
                                                         }, this),
                                                         "República Dominicana"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                    lineNumber: 52,
+                                                    lineNumber: 81,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 50,
+                                            lineNumber: 79,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 41,
+                                    lineNumber: 70,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                            lineNumber: 39,
+                            lineNumber: 68,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                     className: "text-lg font-semibold mb-4",
-                                    children: t('links')
+                                    children: data.links
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 59,
+                                    lineNumber: 88,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3066,87 +3189,87 @@ function Footer() {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                             href: "#",
                                             className: "block text-gray-400 hover:text-white transition-colors",
-                                            children: t('about')
+                                            children: data.about
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 61,
+                                            lineNumber: 90,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                             href: "#",
                                             className: "block text-gray-400 hover:text-white transition-colors",
-                                            children: t('privacy')
+                                            children: data.privacy
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 62,
+                                            lineNumber: 91,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                             href: "#",
                                             className: "block text-gray-400 hover:text-white transition-colors",
-                                            children: t('terms')
+                                            children: data.terms
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 63,
+                                            lineNumber: 92,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                             href: "#",
                                             className: "block text-gray-400 hover:text-white transition-colors",
-                                            children: t('support')
+                                            children: data.support
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 64,
+                                            lineNumber: 93,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 60,
+                                    lineNumber: 89,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                            lineNumber: 58,
+                            lineNumber: 87,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                    lineNumber: 13,
+                    lineNumber: 42,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "border-t border-gray-800 mt-12 pt-8 text-center",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         className: "text-gray-400",
-                        children: t('copyright')
+                        children: data.copyright
                     }, void 0, false, {
                         fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                        lineNumber: 70,
+                        lineNumber: 99,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                    lineNumber: 69,
+                    lineNumber: 98,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-            lineNumber: 12,
+            lineNumber: 41,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-        lineNumber: 11,
+        lineNumber: 40,
         columnNumber: 5
     }, this);
 }
-_s(Footer, "h6+q2O3NJKPY5uL0BIJGLIanww8=", false, function() {
+_s(Footer, "xbyQPtUVMO7MNj7WjJlpdWqRcTo=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];
 });
 _c = Footer;
