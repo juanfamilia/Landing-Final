@@ -1,16 +1,26 @@
 'use client';
 
 import { Monitor, BarChart, FileText, Zap } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-
-interface ProductFeature {
-  title: string;
-  description: string;
-}
 
 export default function Product() {
-  const t = useTranslations('product');
-  const tDashboard = useTranslations('product.dashboard');
+  const features = [
+    {
+      title: "Real-time CX Dashboard",
+      description: "Advanced capabilities that drive real business results."
+    },
+    {
+      title: "Advanced Analytics Engine",
+      description: "Advanced capabilities that drive real business results."
+    },
+    {
+      title: "Automated Reporting",
+      description: "Advanced capabilities that drive real business results."
+    },
+    {
+      title: "Seamless Integrations",
+      description: "Advanced capabilities that drive real business results."
+    }
+  ];
   
   const icons = [Monitor, BarChart, FileText, Zap];
   const colors = [
@@ -26,17 +36,17 @@ export default function Product() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t('title')}
+            See Siete CX in Action
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('subtitle')}
+            Comprehensive dashboards and analytics for complete customer experience visibility
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Features List */}
           <div className="space-y-8">
-            {(t.raw('features') as ProductFeature[]).map((feature, index: number) => {
+            {features.map((feature, index: number) => {
               const Icon = icons[index];
               const colorClass = colors[index];
               return (
@@ -79,22 +89,22 @@ export default function Product() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900">{tDashboard('title')}</h3>
-                    <p className="text-gray-600">{tDashboard('subtitle')}</p>
+                    <h3 className="text-2xl font-bold text-gray-900">Real-time Dashboard</h3>
+                    <p className="text-gray-600">Monitor customer experience metrics</p>
                   </div>
                   <div className="flex items-center space-x-1 text-xs text-gray-500">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span>{tDashboard('live')}</span>
+                    <span>Live</span>
                   </div>
                 </div>
 
                 {/* Metrics Grid */}
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { label: tDashboard('metrics.csat'), value: "4.8/5", trend: "+12%" },
-                    { label: tDashboard('metrics.nps'), value: "72", trend: "+8%" },
-                    { label: tDashboard('metrics.responseTime'), value: "2.3s", trend: "-15%" },
-                    { label: tDashboard('metrics.resolutionRate'), value: "94%", trend: "+5%" }
+                    { label: "CSAT Score", value: "4.8/5", trend: "+12%" },
+                    { label: "NPS", value: "72", trend: "+8%" },
+                    { label: "Response Time", value: "2.3s", trend: "-15%" },
+                    { label: "Resolution Rate", value: "94%", trend: "+5%" }
                   ].map((metric, index) => (
                     <div key={index} className="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-xl">
                       <div className="text-2xl font-bold text-gray-900">{metric.value}</div>
@@ -102,7 +112,7 @@ export default function Product() {
                       <div className={`text-xs font-medium ${
                         metric.trend.startsWith('+') ? 'text-green-600' : 'text-red-600'
                       }`}>
-                        {metric.trend} {tDashboard('trends.vsLastMonth')}
+                        {metric.trend} vs last month
                       </div>
                     </div>
                   ))}

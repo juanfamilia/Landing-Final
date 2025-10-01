@@ -1,17 +1,25 @@
 'use client';
 
 import { Quote } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-
-interface ResearchQuote {
-  text: string;
-  source: string;
-  author: string;
-}
 
 export default function Research() {
-  const t = useTranslations('research');
-  const tStats = useTranslations('research.stats');
+  const quotes = [
+    {
+      text: "Companies that skillfully manage the entire customer experience can realize a 20% improvement in customer satisfaction, a 15% increase in sales conversion, and a 30% lower cost-to-serve.",
+      source: "Harvard Business Review",
+      author: "Harvard Business Review Research"
+    },
+    {
+      text: "More than two-thirds of companies now compete primarily on the basis of customer experience, up from only 36% in 2010.",
+      source: "Gartner",
+      author: "Gartner Research"
+    },
+    {
+      text: "Organizations that prioritize customer experience achieve revenue growth rates 4%–8% above their market.",
+      source: "McKinsey & Company",
+      author: "McKinsey Research"
+    }
+  ];
 
   return (
     <section id="research" className="py-24 bg-white">
@@ -19,16 +27,16 @@ export default function Research() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t('title')}
+            Backed by Industry Research
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('subtitle')}
+            Leading organizations trust customer experience as their competitive advantage
           </p>
         </div>
 
         {/* Research Quotes */}
         <div className="space-y-12">
-          {(t.raw('quotes') as ResearchQuote[]).map((quote, index: number) => (
+          {quotes.map((quote, index: number) => (
             <div key={index} className={`flex items-center ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}>
               <div className="flex-1">
                 <div className="bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl p-8 lg:p-12 relative rounded-2xl">
@@ -80,27 +88,27 @@ export default function Research() {
         {/* Bottom Statistics */}
         <div className="mt-20 bg-gradient-to-r from-blue-600 to-teal-600 rounded-3xl p-12 text-white">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4">{tStats('title')}</h3>
-            <p className="text-blue-100 text-lg">{tStats('subtitle')}</p>
+            <h3 className="text-3xl font-bold mb-4">The Research is Clear</h3>
+            <p className="text-blue-100 text-lg">Customer experience is the new competitive battleground</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="space-y-2">
               <div className="text-4xl font-bold text-yellow-300">67%</div>
-              <div className="text-blue-100">{tStats('compete')}</div>
-              <div className="text-xs text-blue-200">{tStats('competeSub')}</div>
+              <div className="text-blue-100">of companies now compete on CX</div>
+              <div className="text-xs text-blue-200">vs 36% in 2010</div>
             </div>
             
             <div className="space-y-2">
               <div className="text-4xl font-bold text-green-300">4-8%</div>
-              <div className="text-blue-100">{tStats('growth')}</div>
-              <div className="text-xs text-blue-200">{tStats('growthSub')}</div>
+              <div className="text-blue-100">higher revenue growth</div>
+              <div className="text-xs text-blue-200">for CX-focused companies</div>
             </div>
             
             <div className="space-y-2">
               <div className="text-4xl font-bold text-orange-300">20%</div>
-              <div className="text-blue-100">{tStats('improvement')}</div>
-              <div className="text-xs text-blue-200">{tStats('improvementSub')}</div>
+              <div className="text-blue-100">improvement in satisfaction</div>
+              <div className="text-xs text-blue-200">with proper CX management</div>
             </div>
           </div>
         </div>
