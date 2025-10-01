@@ -88,7 +88,7 @@ export default function Hero() {
                 className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white px-8 py-4 text-lg rounded-full font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 group"
               >
                 <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                {t('primaryCTA')}
+                Request a Demo
               </Button>
               
               <Button
@@ -96,7 +96,7 @@ export default function Hero() {
                 variant="outline"
                 className="px-8 py-4 text-lg rounded-full font-semibold border-2 border-gray-300 text-gray-700 hover:border-blue-600 hover:text-blue-600 bg-white/80 backdrop-blur-sm transition-all duration-300 group"
               >
-                {t('secondaryCTA')}
+                Learn More
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
