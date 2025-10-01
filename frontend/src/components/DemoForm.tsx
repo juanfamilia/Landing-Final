@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Calendar, CheckCircle, X, User, Mail, Building, Phone, MessageSquare } from 'lucide-react';
 import { submitToHubSpot } from '@/lib/hubspot';
 import { trackDemoRequest } from '@/lib/analytics';
-import { usePathname } from 'next/navigation';
+import { useLocale } from 'next-intl';
 
 interface DemoFormProps {
   isOpen: boolean;
