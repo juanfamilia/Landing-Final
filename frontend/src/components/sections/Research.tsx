@@ -49,7 +49,7 @@ export default function Research() {
 
                   {/* Quote Text */}
                   <blockquote className="text-lg lg:text-xl text-gray-700 leading-relaxed mb-6 italic">
-                    "{quote.text}"
+                    &ldquo;{quote.text}&rdquo;
                   </blockquote>
 
                   {/* Attribution */}
