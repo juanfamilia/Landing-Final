@@ -3,10 +3,10 @@ export const locales = ['en', 'es'] as const;
 export type LocaleType = typeof locales[number];
 
 interface Messages {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
-let cachedMessages: Record<string, Messages> = {};
+const cachedMessages: Record<string, Messages> = {};
 
 export async function getTranslations(locale: LocaleType): Promise<Messages> {
   if (cachedMessages[locale]) {
