@@ -19,10 +19,8 @@ export default function Navigation() {
   ];
 
   const switchLocale = (newLocale: string) => {
-    const segments = pathname.split('/');
-    segments[1] = newLocale;
-    router.push(segments.join('/'));
-    setShowLangMenu(false);
+    setLocale(newLocale);
+    // TODO: Implement actual language switching
   };
 
   const scrollToSection = (href: string) => {
