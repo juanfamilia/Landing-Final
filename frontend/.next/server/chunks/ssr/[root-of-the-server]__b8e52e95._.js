@@ -1,3 +1,0 @@
-module.exports=[64433,a=>{a.v({className:"inter_5972bc34-module__OU16Qa__className"})},22768,a=>{"use strict";a.s(["default",()=>f,"generateStaticParams",()=>e],22768);var b=a.i(18332),c=a.i(64433);let d={className:c.default.className,style:{fontFamily:"'Inter', 'Inter Fallback'",fontStyle:"normal"}};function e(){return[{locale:"en"},{locale:"es"}]}function f({children:a}){return(0,b.jsx)("html",{lang:"en",children:(0,b.jsx)("body",{className:d.className,children:a})})}null!=c.default.variable&&(d.variable=c.default.variable)}];
-
-//# sourceMappingURL=%5Broot-of-the-server%5D__b8e52e95._.js.map
