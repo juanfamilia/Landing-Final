@@ -1,15 +1,26 @@
 'use client';
 
 import { TrendingDown, TrendingUp, Phone, BarChart3 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-
-interface BenefitItem {
-  title: string;
-  description: string;
-}
 
 export default function Benefits() {
-  const t = useTranslations('benefits');
+  const benefits = [
+    {
+      title: "Reduce Churn",
+      description: "Identify friction points before customers leave and improve retention rates."
+    },
+    {
+      title: "Increase CSAT",
+      description: "Boost customer satisfaction scores with data-driven experience improvements."
+    },
+    {
+      title: "Real Call Insights",
+      description: "Get actionable intelligence from actual customer interactions and calls."
+    },
+    {
+      title: "Actionable Analytics",
+      description: "Turn customer experience data into strategic business decisions."
+    }
+  ];
 
   const icons = [TrendingDown, TrendingUp, Phone, BarChart3];
 
@@ -19,16 +30,16 @@ export default function Benefits() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t('title')}
+            Transform Your Customer Experience
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('subtitle')}
+            Powerful insights to drive real business results
           </p>
         </div>
 
         {/* Benefits Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {(t.raw('items') as BenefitItem[]).map((benefit, index: number) => {
+          {benefits.map((benefit, index) => {
             const Icon = icons[index];
             return (
               <div key={index} className="group">
@@ -49,15 +60,15 @@ export default function Benefits() {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="text-white">
               <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent mb-2">500+</div>
-              <div className="text-gray-300">{t('stats.companies')}</div>
+              <div className="text-gray-300">Companies Trust Us</div>
             </div>
             <div className="text-white">
               <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent mb-2">25%</div>
-              <div className="text-gray-300">{t('stats.csatIncrease')}</div>
+              <div className="text-gray-300">Average CSAT Increase</div>
             </div>
             <div className="text-white">
               <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent mb-2">92%</div>
-              <div className="text-gray-300">{t('stats.satisfaction')}</div>
+              <div className="text-gray-300">Customer Satisfaction</div>
             </div>
           </div>
         </div>
