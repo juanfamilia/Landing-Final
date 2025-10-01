@@ -2,14 +2,22 @@
 
 import { TrendingDown, TrendingUp, Phone, BarChart3 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { BenefitItem, StatsData } from '@/types/translations';
+
+interface BenefitsTranslations {
+  title: string;
+  subtitle: string;
+  items: BenefitItem[];
+  stats: StatsData;
+}
 
 export default function Benefits() {
   const pathname = usePathname();
   const isSpanish = pathname.startsWith('/es');
   const icons = [TrendingDown, TrendingUp, Phone, BarChart3];
 
-  const t = () => {
-    const translations: any = {
+  const t = (): BenefitsTranslations => {
+    const translations: Record<string, BenefitsTranslations> = {
       en: {
         title: "Transform Your Customer Experience",
         subtitle: "Powerful insights to drive real business results",
@@ -85,7 +93,7 @@ export default function Benefits() {
 
         {/* Benefits Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {data.items.map((benefit: any, index: number) => {
+          {data.items.map((benefit: BenefitItem, index: number) => {
             const Icon = icons[index];
             return (
               <div key={index} className="group">

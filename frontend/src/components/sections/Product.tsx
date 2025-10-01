@@ -2,6 +2,14 @@
 
 import { Monitor, BarChart, FileText, Zap } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { ProductFeature, DashboardData } from '@/types/translations';
+
+interface ProductTranslations {
+  title: string;
+  subtitle: string;
+  features: ProductFeature[];
+  dashboard: DashboardData;
+}
 
 export default function Product() {
   const pathname = usePathname();
@@ -15,8 +23,8 @@ export default function Product() {
     "from-orange-500 to-orange-600"
   ];
 
-  const t = () => {
-    const translations: any = {
+  const t = (): ProductTranslations => {
+    const translations: Record<string, ProductTranslations> = {
       en: {
         title: "See Siete CX in Action",
         subtitle: "Comprehensive dashboards and analytics for complete customer experience visibility",
@@ -111,7 +119,7 @@ export default function Product() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Features List */}
           <div className="space-y-8">
-            {data.features.map((feature: any, index: number) => {
+            {data.features.map((feature: ProductFeature, index: number) => {
               const Icon = icons[index];
               const colorClass = colors[index];
               return (
