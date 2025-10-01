@@ -2,7 +2,8 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { initGA, pageview, initHubSpot, trackHubSpotPageView } from '@/lib/analytics';
+import { initGA, pageview } from '@/lib/analytics';
+import { initHubSpot, trackHubSpotPageView } from '@/lib/hubspot';
 
 interface AnalyticsProviderProps {
   children: React.ReactNode;
