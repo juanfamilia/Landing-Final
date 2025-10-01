@@ -1,30 +1,12 @@
 'use client';
 
 import { TrendingDown, TrendingUp, Phone, BarChart3 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export default function Benefits() {
-  const benefits = [
-    {
-      icon: TrendingDown,
-      title: "Reduce Churn",
-      description: "Identify friction points before customers leave and improve retention rates."
-    },
-    {
-      icon: TrendingUp,
-      title: "Increase CSAT",
-      description: "Boost customer satisfaction scores with data-driven experience improvements."
-    },
-    {
-      icon: Phone,
-      title: "Real Call Insights",
-      description: "Get actionable intelligence from actual customer interactions and calls."
-    },
-    {
-      icon: BarChart3,
-      title: "Actionable Analytics",
-      description: "Turn customer experience data into strategic business decisions."
-    }
-  ];
+  const t = useTranslations('benefits');
+
+  const icons = [TrendingDown, TrendingUp, Phone, BarChart3];
 
   return (
     <section id="benefits" className="py-24 bg-white">
@@ -32,17 +14,17 @@ export default function Benefits() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Transform Your Customer Experience
+            {t('title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Powerful insights to drive real business results
+            {t('subtitle')}
           </p>
         </div>
 
         {/* Benefits Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {benefits.map((benefit, index) => {
-            const Icon = benefit.icon;
+          {t.raw('items').map((benefit: any, index: number) => {
+            const Icon = icons[index];
             return (
               <div key={index} className="group">
                 <div className="bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl p-8 text-center h-full hover:shadow-2xl hover:scale-105 transition-all duration-300 rounded-2xl">
@@ -62,15 +44,15 @@ export default function Benefits() {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="text-white">
               <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent mb-2">500+</div>
-              <div className="text-gray-300">Companies Trust Us</div>
+              <div className="text-gray-300">{t('stats.companies')}</div>
             </div>
             <div className="text-white">
               <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent mb-2">25%</div>
-              <div className="text-gray-300">Average CSAT Increase</div>
+              <div className="text-gray-300">{t('stats.csatIncrease')}</div>
             </div>
             <div className="text-white">
               <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent mb-2">92%</div>
-              <div className="text-gray-300">Customer Satisfaction</div>
+              <div className="text-gray-300">{t('stats.satisfaction')}</div>
             </div>
           </div>
         </div>
