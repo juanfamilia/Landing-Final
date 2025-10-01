@@ -1,14 +1,32 @@
-import { notFound } from 'next/navigation';
-import { getRequestConfig } from 'next-intl/server';
-
-// Can be imported from a shared config
+// Manual translation system - replacement for next-intl
 export const locales = ['en', 'es'] as const;
+export type LocaleType = typeof locales[number];
 
-export default getRequestConfig(async ({ locale }) => {
-  // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as typeof locales[number])) notFound();
+interface Messages {
+  [key: string]: any;
+}
 
-  return {
-    messages: (await import(`../messages/${locale}.json`)).default
-  };
-});
+let cachedMessages: Record<string, Messages> = {};
+
+export async function getTranslations(locale: LocaleType): Promise<Messages> {
+  if (cachedMessages[locale]) {
+    return cachedMessages[locale];
+  }
+
+  try {
+    const messages = (await import(`../messages/${locale}.json`)).default;
+    cachedMessages[locale] = messages;
+    return messages;
+  } catch (error) {
+    console.error(`Failed to load translations for locale: ${locale}`, error);
+    // Fallback to English if locale fails
+    if (locale !== 'en') {
+      return getTranslations('en');
+    }
+    throw error;
+  }
+}
+
+export function isValidLocale(locale: string): locale is LocaleType {
+  return locales.includes(locale as LocaleType);
+}
