@@ -1,26 +1,3 @@
 {
-  "pages": {
-    "/[locale]/page": [
-      "static/chunks/frontend_src_app_globals_a7e5a063.css",
-      "static/chunks/9e883_next_dist_6ea86932._.js",
-      "static/chunks/frontend_src_app_layout_tsx_c11d305c._.js",
-      "static/chunks/9e883_next_dist_client_components_builtin_global-error_92d9db12.js",
-      "static/chunks/9e883_e55ec295._.js",
-      "static/chunks/frontend_src_162d47a7._.js",
-      "static/chunks/[next]_internal_font_google_inter_5972bc34_module_e80b9c0d.css",
-      "static/chunks/frontend_src_app_[locale]_layout_tsx_92d9db12._.js",
-      "static/chunks/frontend_src_components_297095e9._.js",
-      "static/chunks/9e883_5e47df34._.js",
-      "static/chunks/frontend_src_app_[locale]_page_tsx_259da05f._.js",
-      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_51deae60._.js",
-      "static/chunks/9e883_next_dist_compiled_react-dom_33d456f8._.js",
-      "static/chunks/9e883_next_dist_compiled_next-devtools_index_e18dabda.js",
-      "static/chunks/9e883_next_dist_compiled_649610a4._.js",
-      "static/chunks/9e883_next_dist_client_af6cb9d5._.js",
-      "static/chunks/9e883_next_dist_0e511d54._.js",
-      "static/chunks/9e883_@swc_helpers_cjs_652634af._.js",
-      "static/chunks/frontend_a0ff3932._.js",
-      "static/chunks/turbopack-frontend_a50d7e93._.js"
-    ]
-  }
+  "pages": {}
 }
