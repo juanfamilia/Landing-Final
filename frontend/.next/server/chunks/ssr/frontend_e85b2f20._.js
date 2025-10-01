@@ -1,0 +1,3 @@
+module.exports=[32073,a=>{"use strict";a.s(["default",()=>d]);var b=a.i(82963),c=a.i(57850);function d({locale:a,...d}){if(!a)throw Error(void 0);return(0,c.jsx)(b.IntlProvider,{locale:a,...d})}},25574,a=>{"use strict";a.s(["default",()=>g]);var b=a.i(57850),c=a.i(45056),d=a.i(93609),e=a.i(4506),f=a.i(31285);function g({children:a}){let g=(0,d.usePathname)();return(0,c.useEffect)(()=>{(0,e.initGA)(),(0,f.initHubSpot)()},[]),(0,c.useEffect)(()=>{(0,e.pageview)(g),(0,f.trackHubSpotPageView)(g)},[g]),(0,b.jsx)(b.Fragment,{children:a})}}];
+
+//# sourceMappingURL=frontend_e85b2f20._.js.map
