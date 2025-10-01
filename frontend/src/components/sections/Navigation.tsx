@@ -68,42 +68,26 @@ export default function Navigation() {
           {/* Language Switcher & CTA */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Language Switcher */}
-            <div className="relative">
+            <div className="flex items-center space-x-2">
+              <Globe className="w-4 h-4 text-gray-500" />
               <button
-                onClick={() => setShowLangMenu(!showLangMenu)}
-                className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                onClick={() => switchLocale('en')}
+                className={cn(
+                  "px-2 py-1 rounded text-sm font-medium transition-colors",
+                  locale === 'en' ? 'bg-blue-100 text-blue-600' : 'text-gray-700 hover:bg-gray-100'
+                )}
               >
-                <Globe className="w-4 h-4" />
-                <span className="uppercase">{locale}</span>
+                EN
               </button>
-              
-              {showLangMenu && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200/20 overflow-hidden"
-                >
-                  <button
-                    onClick={() => switchLocale('en')}
-                    className={cn(
-                      "block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors",
-                      locale === 'en' ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
-                    )}
-                  >
-                    🇺🇸 English
-                  </button>
-                  <button
-                    onClick={() => switchLocale('es')}
-                    className={cn(
-                      "block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors",
-                      locale === 'es' ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
-                    )}
-                  >
-                    🇪🇸 Español
-                  </button>
-                </motion.div>
-              )}
+              <button
+                onClick={() => switchLocale('es')}
+                className={cn(
+                  "px-2 py-1 rounded text-sm font-medium transition-colors",
+                  locale === 'es' ? 'bg-blue-100 text-blue-600' : 'text-gray-700 hover:bg-gray-100'
+                )}
+              >
+                ES
+              </button>
             </div>
 
             {/* CTA Button */}
