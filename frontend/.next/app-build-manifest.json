@@ -2,26 +2,35 @@
   "pages": {
     "/\\[locale\\]/page": [
       "static/chunks/2269edd16259f990.css",
-      "static/chunks/ff1a16fafef87110.js",
-      "static/chunks/7dd66bdf8a7e5707.js",
-      "static/chunks/b9014af95cdb0633.js",
-      "static/chunks/2ed58c56b809ae98.js",
-      "static/chunks/483d1abe263e9e9f.js",
-      "static/chunks/fd2be76e6b40ca47.js",
-      "static/chunks/569f8ca39997ccda.js",
-      "static/chunks/150316a471952cee.js",
-      "static/chunks/3e0f93b37bf948e9.js",
-      "static/chunks/turbopack-6c14f186f6a32a4e.js"
+      "static/chunks/6e9ac5b86215ad1c.js",
+      "static/chunks/28e4c9a7d7eec4ef.js",
+      "static/chunks/efe5a519b1373757.js",
+      "static/chunks/cc7db6339a5039d1.js",
+      "static/chunks/20e9d90fe8c64d04.js",
+      "static/chunks/bd827972e7eee67c.js",
+      "static/chunks/371af6986a30695b.js",
+      "static/chunks/224724be6bf4ef7e.js",
+      "static/chunks/turbopack-41c7bf6f509ad31e.js"
     ],
     "/_not-found/page": [
       "static/chunks/2269edd16259f990.css",
-      "static/chunks/ff1a16fafef87110.js",
-      "static/chunks/7dd66bdf8a7e5707.js",
-      "static/chunks/fd2be76e6b40ca47.js",
-      "static/chunks/569f8ca39997ccda.js",
-      "static/chunks/150316a471952cee.js",
-      "static/chunks/3e0f93b37bf948e9.js",
-      "static/chunks/turbopack-6c14f186f6a32a4e.js"
+      "static/chunks/6e9ac5b86215ad1c.js",
+      "static/chunks/28e4c9a7d7eec4ef.js",
+      "static/chunks/bd827972e7eee67c.js",
+      "static/chunks/371af6986a30695b.js",
+      "static/chunks/224724be6bf4ef7e.js",
+      "static/chunks/turbopack-41c7bf6f509ad31e.js"
+    ],
+    "/page": [
+      "static/chunks/2269edd16259f990.css",
+      "static/chunks/6e9ac5b86215ad1c.js",
+      "static/chunks/28e4c9a7d7eec4ef.js",
+      "static/chunks/cc7db6339a5039d1.js",
+      "static/chunks/20e9d90fe8c64d04.js",
+      "static/chunks/bd827972e7eee67c.js",
+      "static/chunks/371af6986a30695b.js",
+      "static/chunks/224724be6bf4ef7e.js",
+      "static/chunks/turbopack-41c7bf6f509ad31e.js"
     ]
   }
 }
