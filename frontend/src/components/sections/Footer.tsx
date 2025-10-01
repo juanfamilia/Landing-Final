@@ -8,7 +8,7 @@ export default function Footer() {
   const pathname = usePathname();
   const isSpanish = pathname.startsWith('/es');
 
-  const t = (key: string) => {
+  const t = () => {
     const translations: any = {
       en: {
         description: "Transforming customer experience through intelligent analytics and mystery shopping.",

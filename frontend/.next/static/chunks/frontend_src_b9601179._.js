@@ -1916,7 +1916,7 @@ function Product() {
         "from-purple-500 to-purple-600",
         "from-orange-500 to-orange-600"
     ];
-    const t = (key)=>{
+    const t = ()=>{
         const translations = {
             en: {
                 title: "See Siete CX in Action",
@@ -2368,7 +2368,7 @@ function Research() {
     _s();
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const isSpanish = pathname.startsWith('/es');
-    const t = (key)=>{
+    const t = ()=>{
         const translations = {
             en: {
                 title: "Backed by Industry Research",
@@ -2808,7 +2808,7 @@ function CTA() {
     const [isDemoFormOpen, setIsDemoFormOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const isSpanish = pathname.startsWith('/es');
-    const t = (key)=>{
+    const t = ()=>{
         const translations = {
             en: {
                 title: "Ready to Transform Your Customer Experience?",
@@ -2975,7 +2975,7 @@ function Footer() {
     _s();
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const isSpanish = pathname.startsWith('/es');
-    const t = (key)=>{
+    const t = ()=>{
         const translations = {
             en: {
                 description: "Transforming customer experience through intelligent analytics and mystery shopping.",

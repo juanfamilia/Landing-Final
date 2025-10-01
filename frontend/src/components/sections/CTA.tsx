@@ -10,7 +10,7 @@ export default function CTA() {
   const pathname = usePathname();
   const isSpanish = pathname.startsWith('/es');
 
-  const t = (key: string) => {
+  const t = () => {
     const translations: any = {
       en: {
         title: "Ready to Transform Your Customer Experience?",

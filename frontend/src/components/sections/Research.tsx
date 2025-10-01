@@ -7,7 +7,7 @@ export default function Research() {
   const pathname = usePathname();
   const isSpanish = pathname.startsWith('/es');
 
-  const t = (key: string) => {
+  const t = () => {
     const translations: any = {
       en: {
         title: "Backed by Industry Research",

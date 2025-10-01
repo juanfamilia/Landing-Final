@@ -15,7 +15,7 @@ export default function Product() {
     "from-orange-500 to-orange-600"
   ];
 
-  const t = (key: string) => {
+  const t = () => {
     const translations: any = {
       en: {
         title: "See Siete CX in Action",
