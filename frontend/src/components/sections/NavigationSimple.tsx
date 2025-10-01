@@ -6,6 +6,15 @@ import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import DemoForm from '../DemoForm';
 
+interface NavigationTranslations {
+  benefits: string;
+  product: string;
+  research: string;
+  contact: string;
+  requestDemo: string;
+  language: string;
+}
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
@@ -36,8 +45,8 @@ export default function Navigation() {
     setIsOpen(false);
   };
 
-  const t = (key: string) => {
-    const translations: any = {
+  const t = (key: string): string => {
+    const translations: Record<string, NavigationTranslations> = {
       en: {
         benefits: "Benefits",
         product: "Product",
@@ -55,7 +64,7 @@ export default function Navigation() {
         language: "Idioma"
       }
     };
-    return translations[currentLocale][key] || key;
+    return translations[currentLocale][key as keyof NavigationTranslations] || key;
   };
 
   return (
