@@ -1,12 +1,10 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Play, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Hero() {
-  const t = useTranslations('hero');
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
