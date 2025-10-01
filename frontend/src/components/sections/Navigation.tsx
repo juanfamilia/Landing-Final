@@ -3,17 +3,49 @@
 import { useState } from 'react';
 import { Menu, X, Globe } from 'lucide-react';
 import Image from 'next/image';
-import { useTranslations, useLocale } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 import DemoForm from '../DemoForm';
+
+interface NavigationTranslations {
+  benefits: string;
+  product: string;
+  research: string;
+  contact: string;
+  language: string;
+  requestDemo: string;
+}
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
-  const t = useTranslations('navigation');
-  const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  
+  const locale = pathname.startsWith('/es') ? 'es' : 'en';
+  
+  const getTranslations = (): NavigationTranslations => {
+    const translations: Record<string, NavigationTranslations> = {
+      en: {
+        benefits: 'Benefits',
+        product: 'Product',
+        research: 'Research',
+        contact: 'Contact',
+        language: 'Language',
+        requestDemo: 'Request Demo'
+      },
+      es: {
+        benefits: 'Beneficios',
+        product: 'Producto',
+        research: 'Investigación',
+        contact: 'Contacto',
+        language: 'Idioma',
+        requestDemo: 'Solicitar Demo'
+      }
+    };
+    return translations[locale];
+  };
+  
+  const t = getTranslations();
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
