@@ -10,13 +10,17 @@ export function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'es' }];
 }
 
+interface LocaleLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}
+
 export default async function LocaleLayout({
   children,
-  params: { locale }
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}) {
+  params
+}: LocaleLayoutProps) {
+  const { locale } = await params;
+  
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
