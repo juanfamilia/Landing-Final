@@ -3,6 +3,11 @@
 import { Monitor, BarChart, FileText, Zap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+interface ProductFeature {
+  title: string;
+  description: string;
+}
+
 export default function Product() {
   const t = useTranslations('product');
   const tDashboard = useTranslations('product.dashboard');
@@ -31,7 +36,7 @@ export default function Product() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Features List */}
           <div className="space-y-8">
-            {t.raw('features').map((feature: any, index: number) => {
+            {(t.raw('features') as ProductFeature[]).map((feature, index: number) => {
               const Icon = icons[index];
               const colorClass = colors[index];
               return (

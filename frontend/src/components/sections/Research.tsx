@@ -3,6 +3,12 @@
 import { Quote } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+interface ResearchQuote {
+  text: string;
+  source: string;
+  author: string;
+}
+
 export default function Research() {
   const t = useTranslations('research');
   const tStats = useTranslations('research.stats');
@@ -22,7 +28,7 @@ export default function Research() {
 
         {/* Research Quotes */}
         <div className="space-y-12">
-          {t.raw('quotes').map((quote: any, index: number) => (
+          {(t.raw('quotes') as ResearchQuote[]).map((quote, index: number) => (
             <div key={index} className={`flex items-center ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}>
               <div className="flex-1">
                 <div className="bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl p-8 lg:p-12 relative rounded-2xl">
