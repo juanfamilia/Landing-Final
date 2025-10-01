@@ -2,8 +2,11 @@
 
 import { Mail, Phone, MapPin, Linkedin, Twitter } from 'lucide-react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function Footer() {
+  const t = useTranslations('footer');
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -18,7 +21,7 @@ export default function Footer() {
               className="h-12 w-auto mb-4"
             />
             <p className="text-gray-400 mb-6 max-w-md">
-              Transforming customer experience through intelligent analytics and mystery shopping.
+              {t('description')}
             </p>
             
             {/* Social Links */}
@@ -34,7 +37,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('contact')}</h3>
             <div className="space-y-3">
               <a href="mailto:info@sieteic.com" className="flex items-center text-gray-400 hover:text-white transition-colors">
                 <Mail className="w-4 h-4 mr-3" />
@@ -53,19 +56,19 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Links</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('links')}</h3>
             <div className="space-y-2">
-              <a href="#" className="block text-gray-400 hover:text-white transition-colors">About Us</a>
-              <a href="#" className="block text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="block text-gray-400 hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="block text-gray-400 hover:text-white transition-colors">Support</a>
+              <a href="#" className="block text-gray-400 hover:text-white transition-colors">{t('about')}</a>
+              <a href="#" className="block text-gray-400 hover:text-white transition-colors">{t('privacy')}</a>
+              <a href="#" className="block text-gray-400 hover:text-white transition-colors">{t('terms')}</a>
+              <a href="#" className="block text-gray-400 hover:text-white transition-colors">{t('support')}</a>
             </div>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
           <p className="text-gray-400">
-            © 2024 Siete Inteligencia Creativa. All rights reserved.
+            {t('copyright')}
           </p>
         </div>
       </div>
