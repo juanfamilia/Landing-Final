@@ -8,7 +8,7 @@ export default function Benefits() {
   const isSpanish = pathname.startsWith('/es');
   const icons = [TrendingDown, TrendingUp, Phone, BarChart3];
 
-  const t = (key: string) => {
+  const t = () => {
     const translations: any = {
       en: {
         title: "Transform Your Customer Experience",
@@ -65,10 +65,10 @@ export default function Benefits() {
         }
       }
     };
-    return translations[isSpanish ? 'es' : 'en'][key];
+    return translations[isSpanish ? 'es' : 'en'];
   };
 
-  const data = t('');
+  const data = t();
 
   return (
     <section id="benefits" className="py-24 bg-white">
