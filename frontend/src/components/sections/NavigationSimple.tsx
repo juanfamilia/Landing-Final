@@ -148,7 +148,7 @@ export default function Navigation() {
                 <div className="px-3 pt-2 border-t border-gray-200">
                   <div className="flex items-center space-x-2 mb-2">
                     <Globe className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">{t('language')}:</span>
+                    <span className="text-sm text-gray-600">{t.language}:</span>
                     <button 
                       onClick={() => switchLocale('en')}
                       className={`px-2 py-1 rounded text-xs font-medium transition-colors ${currentLocale === 'en' ? 'bg-blue-100 text-blue-600' : 'text-gray-700'}`}
