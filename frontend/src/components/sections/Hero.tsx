@@ -60,9 +60,9 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6"
             >
-              <span className="block">{t('headline').split('–')[0]}–</span>
+              <span className="block">Siete CX –</span>
               <span className="siete-text-gradient">
-                {t('headline').split('–')[1]}
+                Customer Experience Platform
               </span>
             </motion.h1>
 
@@ -73,7 +73,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl"
             >
-              {t('subheadline')}
+              Measure, analyze, and improve customer experience with video mystery shopping and call analysis.
             </motion.p>
 
             {/* CTAs */}
