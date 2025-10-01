@@ -31,7 +31,7 @@ export default function Footer() {
         copyright: "© 2024 Siete Inteligencia Creativa. Todos los derechos reservados."
       }
     };
-    return translations[isSpanish ? 'es' : 'en'][key];
+    return translations[isSpanish ? 'es' : 'en'];
   };
 
   const data = t();

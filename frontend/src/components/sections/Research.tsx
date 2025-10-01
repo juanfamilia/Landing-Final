@@ -72,7 +72,7 @@ export default function Research() {
         }
       }
     };
-    return translations[isSpanish ? 'es' : 'en'][key];
+    return translations[isSpanish ? 'es' : 'en'];
   };
 
   const data = t();

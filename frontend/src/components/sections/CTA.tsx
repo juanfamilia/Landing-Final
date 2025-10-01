@@ -35,7 +35,7 @@ export default function CTA() {
         button: "Reserva tu demo gratuito ahora"
       }
     };
-    return translations[isSpanish ? 'es' : 'en'][key];
+    return translations[isSpanish ? 'es' : 'en'];
   };
 
   const data = t();
