@@ -2454,7 +2454,7 @@ function Research() {
                             children: data.title
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 85,
+                            lineNumber: 93,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2462,13 +2462,13 @@ function Research() {
                             children: data.subtitle
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 88,
+                            lineNumber: 96,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                    lineNumber: 84,
+                    lineNumber: 92,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2489,17 +2489,17 @@ function Research() {
                                                         className: "w-4 h-4 text-white"
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                        lineNumber: 102,
+                                                        lineNumber: 110,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                    lineNumber: 101,
+                                                    lineNumber: 109,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 100,
+                                                lineNumber: 108,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("blockquote", {
@@ -2511,7 +2511,7 @@ function Research() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 107,
+                                                lineNumber: 115,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2524,7 +2524,7 @@ function Research() {
                                                                 children: quote.author
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                                lineNumber: 114,
+                                                                lineNumber: 122,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2532,13 +2532,13 @@ function Research() {
                                                                 children: quote.source
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                                lineNumber: 115,
+                                                                lineNumber: 123,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                        lineNumber: 113,
+                                                        lineNumber: 121,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2548,29 +2548,29 @@ function Research() {
                                                             children: quote.source.split(' ')[0]
                                                         }, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                            lineNumber: 120,
+                                                            lineNumber: 128,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                        lineNumber: 119,
+                                                        lineNumber: 127,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 112,
+                                                lineNumber: 120,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                        lineNumber: 98,
+                                        lineNumber: 106,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 97,
+                                    lineNumber: 105,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2582,7 +2582,7 @@ function Research() {
                                                 className: "absolute inset-y-0 left-1/2 w-0.5 bg-gradient-to-b from-blue-300 to-teal-300"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 132,
+                                                lineNumber: 140,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2591,34 +2591,34 @@ function Research() {
                                                     className: "w-4 h-4 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                    lineNumber: 136,
+                                                    lineNumber: 144,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                                lineNumber: 135,
+                                                lineNumber: 143,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                        lineNumber: 130,
+                                        lineNumber: 138,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 129,
+                                    lineNumber: 137,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, index, true, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 96,
+                            lineNumber: 104,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                    lineNumber: 94,
+                    lineNumber: 102,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2632,7 +2632,7 @@ function Research() {
                                     children: data.stats.title
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 147,
+                                    lineNumber: 155,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2640,13 +2640,13 @@ function Research() {
                                     children: data.stats.subtitle
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 148,
+                                    lineNumber: 156,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 146,
+                            lineNumber: 154,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2660,7 +2660,7 @@ function Research() {
                                             children: "67%"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 153,
+                                            lineNumber: 161,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2668,7 +2668,7 @@ function Research() {
                                             children: data.stats.compete
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 154,
+                                            lineNumber: 162,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2676,13 +2676,13 @@ function Research() {
                                             children: data.stats.competeSub
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 155,
+                                            lineNumber: 163,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 152,
+                                    lineNumber: 160,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2693,7 +2693,7 @@ function Research() {
                                             children: "4-8%"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 159,
+                                            lineNumber: 167,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2701,7 +2701,7 @@ function Research() {
                                             children: data.stats.growth
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 160,
+                                            lineNumber: 168,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2709,13 +2709,13 @@ function Research() {
                                             children: data.stats.growthSub
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 161,
+                                            lineNumber: 169,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 158,
+                                    lineNumber: 166,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2726,7 +2726,7 @@ function Research() {
                                             children: "20%"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 165,
+                                            lineNumber: 173,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2734,7 +2734,7 @@ function Research() {
                                             children: data.stats.improvement
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 166,
+                                            lineNumber: 174,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2742,36 +2742,36 @@ function Research() {
                                             children: data.stats.improvementSub
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                            lineNumber: 167,
+                                            lineNumber: 175,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                                    lineNumber: 164,
+                                    lineNumber: 172,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                            lineNumber: 151,
+                            lineNumber: 159,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/Research.tsx",
-                    lineNumber: 145,
+                    lineNumber: 153,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/frontend/src/components/sections/Research.tsx",
-            lineNumber: 82,
+            lineNumber: 90,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/sections/Research.tsx",
-        lineNumber: 81,
+        lineNumber: 89,
         columnNumber: 5
     }, this);
 }
@@ -2855,7 +2855,7 @@ function CTA() {
                                 children: data.title
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                lineNumber: 48,
+                                lineNumber: 55,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2863,7 +2863,7 @@ function CTA() {
                                 children: data.subtitle
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                lineNumber: 51,
+                                lineNumber: 58,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2875,7 +2875,7 @@ function CTA() {
                                                 className: "w-6 h-6 text-green-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                                lineNumber: 58,
+                                                lineNumber: 65,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2883,18 +2883,18 @@ function CTA() {
                                                 children: feature
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                                lineNumber: 59,
+                                                lineNumber: 66,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, index, true, {
                                         fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                        lineNumber: 57,
+                                        lineNumber: 64,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                lineNumber: 55,
+                                lineNumber: 62,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2905,30 +2905,30 @@ function CTA() {
                                         className: "w-5 h-5 mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                        lineNumber: 68,
+                                        lineNumber: 75,
                                         columnNumber: 15
                                     }, this),
                                     data.button
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                                lineNumber: 64,
+                                lineNumber: 71,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                        lineNumber: 47,
+                        lineNumber: 54,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                    lineNumber: 46,
+                    lineNumber: 53,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                lineNumber: 45,
+                lineNumber: 52,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$src$2f$components$2f$DemoForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2936,7 +2936,7 @@ function CTA() {
                 onClose: ()=>setIsDemoFormOpen(false)
             }, void 0, false, {
                 fileName: "[project]/frontend/src/components/sections/CTA.tsx",
-                lineNumber: 75,
+                lineNumber: 82,
                 columnNumber: 7
             }, this)
         ]
@@ -3024,7 +3024,7 @@ function Footer() {
                                     className: "h-12 w-auto mb-4"
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 45,
+                                    lineNumber: 56,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3032,7 +3032,7 @@ function Footer() {
                                     children: data.description
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 52,
+                                    lineNumber: 63,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3045,12 +3045,12 @@ function Footer() {
                                                 className: "w-5 h-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                lineNumber: 59,
+                                                lineNumber: 70,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 58,
+                                            lineNumber: 69,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -3060,24 +3060,24 @@ function Footer() {
                                                 className: "w-5 h-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                lineNumber: 62,
+                                                lineNumber: 73,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 61,
+                                            lineNumber: 72,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 57,
+                                    lineNumber: 68,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                            lineNumber: 44,
+                            lineNumber: 55,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3087,7 +3087,7 @@ function Footer() {
                                     children: data.contact
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 69,
+                                    lineNumber: 80,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3101,14 +3101,14 @@ function Footer() {
                                                     className: "w-4 h-4 mr-3"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                    lineNumber: 72,
+                                                    lineNumber: 83,
                                                     columnNumber: 17
                                                 }, this),
                                                 "info@sieteic.com"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 71,
+                                            lineNumber: 82,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3118,14 +3118,14 @@ function Footer() {
                                                     className: "w-4 h-4 mr-3"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                    lineNumber: 76,
+                                                    lineNumber: 87,
                                                     columnNumber: 17
                                                 }, this),
                                                 "+1 829 961 0082"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 75,
+                                            lineNumber: 86,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3135,7 +3135,7 @@ function Footer() {
                                                     className: "w-4 h-4 mr-3 mt-1"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                    lineNumber: 80,
+                                                    lineNumber: 91,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3143,38 +3143,38 @@ function Footer() {
                                                         "Distrito Nacional,",
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                            lineNumber: 81,
+                                                            lineNumber: 92,
                                                             columnNumber: 41
                                                         }, this),
                                                         "Santo Domingo,",
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                            lineNumber: 81,
+                                                            lineNumber: 92,
                                                             columnNumber: 61
                                                         }, this),
                                                         "República Dominicana"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                                    lineNumber: 81,
+                                                    lineNumber: 92,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 79,
+                                            lineNumber: 90,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 70,
+                                    lineNumber: 81,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                            lineNumber: 68,
+                            lineNumber: 79,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3184,7 +3184,7 @@ function Footer() {
                                     children: data.links
                                 }, void 0, false, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 88,
+                                    lineNumber: 99,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3196,7 +3196,7 @@ function Footer() {
                                             children: data.about
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 90,
+                                            lineNumber: 101,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -3205,7 +3205,7 @@ function Footer() {
                                             children: data.privacy
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 91,
+                                            lineNumber: 102,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -3214,7 +3214,7 @@ function Footer() {
                                             children: data.terms
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 92,
+                                            lineNumber: 103,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -3223,25 +3223,25 @@ function Footer() {
                                             children: data.support
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                            lineNumber: 93,
+                                            lineNumber: 104,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                                    lineNumber: 89,
+                                    lineNumber: 100,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                            lineNumber: 87,
+                            lineNumber: 98,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                    lineNumber: 42,
+                    lineNumber: 53,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3251,23 +3251,23 @@ function Footer() {
                         children: data.copyright
                     }, void 0, false, {
                         fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                        lineNumber: 99,
+                        lineNumber: 110,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-                    lineNumber: 98,
+                    lineNumber: 109,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-            lineNumber: 41,
+            lineNumber: 52,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/sections/Footer.tsx",
-        lineNumber: 40,
+        lineNumber: 51,
         columnNumber: 5
     }, this);
 }

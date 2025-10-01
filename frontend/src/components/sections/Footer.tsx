@@ -4,12 +4,23 @@ import { Mail, Phone, MapPin, Linkedin, Twitter } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
+interface FooterTranslations {
+  description: string;
+  contact: string;
+  links: string;
+  about: string;
+  privacy: string;
+  terms: string;
+  support: string;
+  copyright: string;
+}
+
 export default function Footer() {
   const pathname = usePathname();
   const isSpanish = pathname.startsWith('/es');
 
-  const t = () => {
-    const translations: any = {
+  const t = (): FooterTranslations => {
+    const translations: Record<string, FooterTranslations> = {
       en: {
         description: "Transforming customer experience through intelligent analytics and mystery shopping.",
         contact: "Contact",

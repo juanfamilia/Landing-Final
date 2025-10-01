@@ -2,13 +2,21 @@
 
 import { Quote } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { ResearchQuote, ResearchStats } from '@/types/translations';
+
+interface ResearchTranslations {
+  title: string;
+  subtitle: string;
+  quotes: ResearchQuote[];
+  stats: ResearchStats;
+}
 
 export default function Research() {
   const pathname = usePathname();
   const isSpanish = pathname.startsWith('/es');
 
-  const t = () => {
-    const translations: any = {
+  const t = (): ResearchTranslations => {
+    const translations: Record<string, ResearchTranslations> = {
       en: {
         title: "Backed by Industry Research",
         subtitle: "Leading organizations trust customer experience as their competitive advantage",
@@ -92,7 +100,7 @@ export default function Research() {
 
         {/* Research Quotes */}
         <div className="space-y-12">
-          {data.quotes.map((quote: any, index: number) => (
+          {data.quotes.map((quote: ResearchQuote, index: number) => (
             <div key={index} className={`flex items-center ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}>
               <div className="flex-1">
                 <div className="bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl p-8 lg:p-12 relative rounded-2xl">

@@ -5,13 +5,20 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import DemoForm from '../DemoForm';
 
+interface CTATranslations {
+  title: string;
+  subtitle: string;
+  features: string[];
+  button: string;
+}
+
 export default function CTA() {
   const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
   const pathname = usePathname();
   const isSpanish = pathname.startsWith('/es');
 
-  const t = () => {
-    const translations: any = {
+  const t = (): CTATranslations => {
+    const translations: Record<string, CTATranslations> = {
       en: {
         title: "Ready to Transform Your Customer Experience?",
         subtitle: "Join leading companies that use Siete CX to drive growth and customer satisfaction",
