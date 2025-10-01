@@ -103,3 +103,5 @@ frontend/node_modules/.cache/default-development/10.pack
 *.env.*
 frontend/siete-cx-nextjs/node_modules/@next/swc-linux-arm64-gnu/next-swc.linux-arm64-gnu.node
 frontend/siete-cx-nextjs/node_modules/@next/swc-linux-arm64-musl/next-swc.linux-arm64-musl.node
+frontend/nextjs-temp/node_modules/@next/swc-linux-arm64-gnu/next-swc.linux-arm64-gnu.node
+frontend/nextjs-temp/node_modules/@next/swc-linux-arm64-musl/next-swc.linux-arm64-musl.node
