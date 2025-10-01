@@ -34,16 +34,16 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <button onClick={() => scrollToSection('#benefits')} className="text-gray-700 hover:text-blue-600 font-medium">
+            <button onClick={() => scrollToSection('#benefits')} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-blue-50">
               Benefits
             </button>
-            <button onClick={() => scrollToSection('#product')} className="text-gray-700 hover:text-blue-600 font-medium">
+            <button onClick={() => scrollToSection('#product')} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-blue-50">
               Product
             </button>
-            <button onClick={() => scrollToSection('#research')} className="text-gray-700 hover:text-blue-600 font-medium">
+            <button onClick={() => scrollToSection('#research')} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-blue-50">
               Research
             </button>
-            <button onClick={() => scrollToSection('#contact')} className="text-gray-700 hover:text-blue-600 font-medium">
+            <button onClick={() => scrollToSection('#contact')} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-blue-50">
               Contact
             </button>
           </div>
