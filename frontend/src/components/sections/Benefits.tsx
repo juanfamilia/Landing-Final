@@ -1,11 +1,9 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { TrendingDown, TrendingUp, Phone, BarChart3 } from 'lucide-react';
 
 export default function Benefits() {
-  const t = useTranslations('benefits');
 
   const benefits = [
     {
