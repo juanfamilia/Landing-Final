@@ -3,20 +3,13 @@
 import { useState } from 'react';
 import { Menu, X, Globe } from 'lucide-react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
 import DemoForm from '../DemoForm';
-import { trackLanguageSwitch } from '@/lib/analytics';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
-  const t = useTranslations('navigation');
-  const router = useRouter();
-  const pathname = usePathname();
   
-  // Extract current locale from pathname
-  const currentLocale = pathname.startsWith('/es') ? 'es' : 'en';
+  const currentLocale = 'en'; // Temporary hardcode
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -24,14 +17,6 @@ export default function Navigation() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
     setIsOpen(false);
-  };
-
-  const switchLocale = (locale: string) => {
-    if (locale !== currentLocale) {
-      trackLanguageSwitch(currentLocale, locale);
-      const newPathname = `/${locale}${pathname.startsWith('/en') || pathname.startsWith('/es') ? pathname.slice(3) : pathname}`;
-      router.push(newPathname);
-    }
   };
 
   const openDemoForm = () => {
@@ -59,16 +44,16 @@ export default function Navigation() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               <button onClick={() => scrollToSection('#benefits')} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-blue-50">
-                {t('benefits')}
+                Benefits
               </button>
               <button onClick={() => scrollToSection('#product')} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-blue-50">
-                {t('product')}
+                Product
               </button>
               <button onClick={() => scrollToSection('#research')} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-blue-50">
-                {t('research')}
+                Research
               </button>
               <button onClick={() => scrollToSection('#contact')} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-blue-50">
-                {t('contact')}
+                Contact
               </button>
             </div>
 
@@ -76,16 +61,10 @@ export default function Navigation() {
             <div className="hidden md:flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Globe className="w-4 h-4 text-gray-500" />
-                <button 
-                  onClick={() => switchLocale('en')}
-                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${currentLocale === 'en' ? 'bg-blue-100 text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
-                >
+                <button className={`px-2 py-1 rounded text-sm font-medium transition-colors ${currentLocale === 'en' ? 'bg-blue-100 text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}>
                   EN
                 </button>
-                <button 
-                  onClick={() => switchLocale('es')}
-                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${currentLocale === 'es' ? 'bg-blue-100 text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
-                >
+                <button className={`px-2 py-1 rounded text-sm font-medium transition-colors ${currentLocale === 'es' ? 'bg-blue-100 text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}>
                   ES
                 </button>
               </div>
@@ -93,7 +72,7 @@ export default function Navigation() {
                 onClick={openDemoForm}
                 className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all"
               >
-                {t('requestDemo')}
+                Request Demo
               </button>
             </div>
 
@@ -109,26 +88,20 @@ export default function Navigation() {
           {isOpen && (
             <div className="md:hidden border-t border-gray-200 bg-white">
               <div className="px-2 pt-2 pb-3 space-y-1">
-                <button onClick={() => scrollToSection('#benefits')} className="block w-full text-left px-3 py-2">{t('benefits')}</button>
-                <button onClick={() => scrollToSection('#product')} className="block w-full text-left px-3 py-2">{t('product')}</button>
-                <button onClick={() => scrollToSection('#research')} className="block w-full text-left px-3 py-2">{t('research')}</button>
-                <button onClick={() => scrollToSection('#contact')} className="block w-full text-left px-3 py-2">{t('contact')}</button>
+                <button onClick={() => scrollToSection('#benefits')} className="block w-full text-left px-3 py-2">Benefits</button>
+                <button onClick={() => scrollToSection('#product')} className="block w-full text-left px-3 py-2">Product</button>
+                <button onClick={() => scrollToSection('#research')} className="block w-full text-left px-3 py-2">Research</button>
+                <button onClick={() => scrollToSection('#contact')} className="block w-full text-left px-3 py-2">Contact</button>
                 
                 {/* Mobile Language Switcher */}
                 <div className="px-3 pt-2 border-t border-gray-200">
                   <div className="flex items-center space-x-2 mb-2">
                     <Globe className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">{t('language')}:</span>
-                    <button 
-                      onClick={() => switchLocale('en')}
-                      className={`px-2 py-1 rounded text-xs font-medium transition-colors ${currentLocale === 'en' ? 'bg-blue-100 text-blue-600' : 'text-gray-700'}`}
-                    >
+                    <span className="text-sm text-gray-600">Language:</span>
+                    <button className={`px-2 py-1 rounded text-xs font-medium transition-colors ${currentLocale === 'en' ? 'bg-blue-100 text-blue-600' : 'text-gray-700'}`}>
                       EN
                     </button>
-                    <button 
-                      onClick={() => switchLocale('es')}
-                      className={`px-2 py-1 rounded text-xs font-medium transition-colors ${currentLocale === 'es' ? 'bg-blue-100 text-blue-600' : 'text-gray-700'}`}
-                    >
+                    <button className={`px-2 py-1 rounded text-xs font-medium transition-colors ${currentLocale === 'es' ? 'bg-blue-100 text-blue-600' : 'text-gray-700'}`}>
                       ES
                     </button>
                   </div>
@@ -136,7 +109,7 @@ export default function Navigation() {
                     onClick={openDemoForm}
                     className="w-full bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-full font-semibold py-2"
                   >
-                    {t('requestDemo')}
+                    Request Demo
                   </button>
                 </div>
               </div>
