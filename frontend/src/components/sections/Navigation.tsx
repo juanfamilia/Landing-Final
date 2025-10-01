@@ -1,28 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [showLangMenu, setShowLangMenu] = useState(false);
-  const t = useTranslations('navigation');
-  const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
+  const [locale, setLocale] = useState('en');
 
   const navigation = [
-    { name: t('benefits'), href: '#benefits' },
-    { name: t('product'), href: '#product' },
-    { name: t('research'), href: '#research' },
-    { name: t('contact'), href: '#contact' },
+    { name: 'Benefits', href: '#benefits' },
+    { name: 'Product', href: '#product' },
+    { name: 'Research', href: '#research' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   const switchLocale = (newLocale: string) => {
