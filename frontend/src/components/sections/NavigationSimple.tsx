@@ -164,7 +164,7 @@ export default function Navigation() {
                   </div>
                   <button
                     onClick={openDemoForm}
-                    className="w-full bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-full font-semibold py-2"
+                    className="w-full bg-gradient-to-r from-siete-navy to-siete-teal text-white rounded-full font-semibold py-2"
                   >
                     {t.requestDemo}
                   </button>
