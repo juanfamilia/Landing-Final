@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [locale, setLocale] = useState('en');
+  const [locale] = useState('en');
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
