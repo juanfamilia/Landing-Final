@@ -38,7 +38,7 @@ export default function CTA() {
     return translations[isSpanish ? 'es' : 'en'][key];
   };
 
-  const data = t('');
+  const data = t();
 
   return (
     <>

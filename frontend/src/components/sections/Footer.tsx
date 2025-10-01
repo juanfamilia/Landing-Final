@@ -34,7 +34,7 @@ export default function Footer() {
     return translations[isSpanish ? 'es' : 'en'][key];
   };
 
-  const data = t('');
+  const data = t();
 
   return (
     <footer className="bg-gray-900 text-white">

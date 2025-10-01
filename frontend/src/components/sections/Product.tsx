@@ -93,7 +93,7 @@ export default function Product() {
     return translations[isSpanish ? 'es' : 'en'][key];
   };
 
-  const data = t('');
+  const data = t();
 
   return (
     <section id="product" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">

@@ -75,7 +75,7 @@ export default function Research() {
     return translations[isSpanish ? 'es' : 'en'][key];
   };
 
-  const data = t('');
+  const data = t();
 
   return (
     <section id="research" className="py-24 bg-white">
