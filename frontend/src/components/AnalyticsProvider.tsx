@@ -21,7 +21,7 @@ export default function AnalyticsProvider({ children }: AnalyticsProviderProps) 
   useEffect(() => {
     // Track page views on route changes
     pageview(pathname);
-    trackHubSpotPageView(pathname);
+    trackHubSpotPageView();
   }, [pathname]);
 
   return <>{children}</>;
