@@ -80,7 +80,7 @@ export const initGA = () => {
   document.head.appendChild(script);
 
   // Initialize gtag
-  window.gtag = window.gtag || function (command: string, targetId: string, config?: GtagConfig) {
+  window.gtag = window.gtag || function (...args: unknown[]) {
     // eslint-disable-next-line prefer-rest-params
     ((window.gtag as unknown as { q: IArguments[] }).q = (window.gtag as unknown as { q: IArguments[] }).q || []).push(arguments);
   };

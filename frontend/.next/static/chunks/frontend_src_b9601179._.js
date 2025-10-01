@@ -201,7 +201,10 @@ const initGA = ()=>{
     script.async = true;
     document.head.appendChild(script);
     // Initialize gtag
-    window.gtag = window.gtag || function(command, targetId, config) {
+    window.gtag = window.gtag || function() {
+        for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+            args[_key] = arguments[_key];
+        }
         // eslint-disable-next-line prefer-rest-params
         (window.gtag.q = window.gtag.q || []).push(arguments);
     };
