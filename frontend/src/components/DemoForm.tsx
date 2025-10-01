@@ -5,6 +5,7 @@ import { Calendar, CheckCircle, X, User, Mail, Building, Phone, MessageSquare } 
 import { submitToHubSpot } from '@/lib/hubspot';
 import { trackDemoRequest } from '@/lib/analytics';
 import { useLocale } from 'next-intl';
+import { usePathname } from 'next/navigation';
 
 interface DemoFormProps {
   isOpen: boolean;
