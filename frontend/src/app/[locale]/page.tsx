@@ -1,4 +1,4 @@
-import NavigationSimple from '@/components/sections/NavigationSimple';
+import Navigation from '@/components/sections/NavigationSimple';
 import Hero from '@/components/sections/Hero';
 import Benefits from '@/components/sections/Benefits';
 import Product from '@/components/sections/Product';
@@ -7,10 +7,21 @@ import CTA from '@/components/sections/CTA';
 import Footer from '@/components/sections/Footer';
 import { Metadata } from 'next';
 
+interface TranslationData {
+  title: string;
+  description: string;
+  keywords: string;
+}
+
+interface Translations {
+  en: TranslationData;
+  es: TranslationData;
+}
+
 const isSpanish = false; // We'll make this dynamic based on the route
 
-const getTranslations = (locale: string) => {
-  const translations: any = {
+const getTranslations = (locale: string): TranslationData => {
+  const translations: Translations = {
     en: {
       title: 'Siete CX - Customer Experience Platform | Video Mystery Shopping & Call Analysis',
       description: 'Transform your customer experience with Siete CX. Measure, analyze, and improve CX with video mystery shopping and call analysis. Book your free demo today.',
@@ -22,7 +33,7 @@ const getTranslations = (locale: string) => {
       keywords: 'experiencia del cliente, mystery shopping, análisis de llamadas, plataforma CX, satisfacción del cliente, NPS, CSAT'
     }
   };
-  return translations[locale];
+  return translations[locale as keyof Translations];
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -62,7 +73,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   return (
     <>
-      <NavigationSimple />
+      <Navigation />
       <main>
         <Hero />
         <Benefits />
