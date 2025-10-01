@@ -1,16 +1,74 @@
 'use client';
 
 import { TrendingDown, TrendingUp, Phone, BarChart3 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-
-interface BenefitItem {
-  title: string;
-  description: string;
-}
+import { usePathname } from 'next/navigation';
 
 export default function Benefits() {
-  const t = useTranslations('benefits');
+  const pathname = usePathname();
+  const isSpanish = pathname.startsWith('/es');
   const icons = [TrendingDown, TrendingUp, Phone, BarChart3];
+
+  const t = (key: string) => {
+    const translations: any = {
+      en: {
+        title: "Transform Your Customer Experience",
+        subtitle: "Powerful insights to drive real business results",
+        items: [
+          {
+            title: "Reduce Churn",
+            description: "Identify friction points before customers leave and improve retention rates."
+          },
+          {
+            title: "Increase CSAT",
+            description: "Boost customer satisfaction scores with data-driven experience improvements."
+          },
+          {
+            title: "Real Call Insights",
+            description: "Get actionable intelligence from actual customer interactions and calls."
+          },
+          {
+            title: "Actionable Analytics",
+            description: "Turn customer experience data into strategic business decisions."
+          }
+        ],
+        stats: {
+          companies: "Companies Trust Us",
+          csatIncrease: "Average CSAT Increase",
+          satisfaction: "Customer Satisfaction"
+        }
+      },
+      es: {
+        title: "Transforma Tu Experiencia del Cliente",
+        subtitle: "Insights poderosos para impulsar resultados reales de negocio",
+        items: [
+          {
+            title: "Reducir Abandono",
+            description: "Identifica puntos de fricción antes de que los clientes se vayan y mejora las tasas de retención."
+          },
+          {
+            title: "Aumentar CSAT",
+            description: "Aumenta los puntajes de satisfacción del cliente con mejoras de experiencia basadas en datos."
+          },
+          {
+            title: "Insights de Llamadas Reales",
+            description: "Obtén inteligencia accionable de las interacciones y llamadas reales de clientes."
+          },
+          {
+            title: "Analítica Accionable",
+            description: "Convierte los datos de experiencia del cliente en decisiones estratégicas de negocio."
+          }
+        ],
+        stats: {
+          companies: "Empresas Nos Confían",
+          csatIncrease: "Aumento Promedio de CSAT",
+          satisfaction: "Satisfacción del Cliente"
+        }
+      }
+    };
+    return translations[isSpanish ? 'es' : 'en'][key];
+  };
+
+  const data = t('');
 
   return (
     <section id="benefits" className="py-24 bg-white">
@@ -18,16 +76,16 @@ export default function Benefits() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t('title')}
+            {data.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('subtitle')}
+            {data.subtitle}
           </p>
         </div>
 
         {/* Benefits Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {(t.raw('items') as BenefitItem[]).map((benefit, index) => {
+          {data.items.map((benefit: any, index: number) => {
             const Icon = icons[index];
             return (
               <div key={index} className="group">
@@ -48,15 +106,15 @@ export default function Benefits() {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="text-white">
               <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent mb-2">500+</div>
-              <div className="text-gray-300">{t('stats.companies')}</div>
+              <div className="text-gray-300">{data.stats.companies}</div>
             </div>
             <div className="text-white">
               <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent mb-2">25%</div>
-              <div className="text-gray-300">{t('stats.csatIncrease')}</div>
+              <div className="text-gray-300">{data.stats.csatIncrease}</div>
             </div>
             <div className="text-white">
               <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent mb-2">92%</div>
-              <div className="text-gray-300">{t('stats.satisfaction')}</div>
+              <div className="text-gray-300">{data.stats.satisfaction}</div>
             </div>
           </div>
         </div>

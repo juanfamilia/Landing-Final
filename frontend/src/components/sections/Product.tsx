@@ -1,16 +1,11 @@
 'use client';
 
 import { Monitor, BarChart, FileText, Zap } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-
-interface ProductFeature {
-  title: string;
-  description: string;
-}
+import { usePathname } from 'next/navigation';
 
 export default function Product() {
-  const t = useTranslations('product');
-  const tDashboard = useTranslations('product.dashboard');
+  const pathname = usePathname();
+  const isSpanish = pathname.startsWith('/es');
   
   const icons = [Monitor, BarChart, FileText, Zap];
   const colors = [
@@ -20,23 +15,103 @@ export default function Product() {
     "from-orange-500 to-orange-600"
   ];
 
+  const t = (key: string) => {
+    const translations: any = {
+      en: {
+        title: "See Siete CX in Action",
+        subtitle: "Comprehensive dashboards and analytics for complete customer experience visibility",
+        features: [
+          {
+            title: "Real-time CX Dashboard",
+            description: "Advanced capabilities that drive real business results."
+          },
+          {
+            title: "Advanced Analytics Engine",
+            description: "Advanced capabilities that drive real business results."
+          },
+          {
+            title: "Automated Reporting",
+            description: "Advanced capabilities that drive real business results."
+          },
+          {
+            title: "Seamless Integrations",
+            description: "Advanced capabilities that drive real business results."
+          }
+        ],
+        dashboard: {
+          title: "Real-time Dashboard",
+          subtitle: "Monitor customer experience metrics",
+          live: "Live",
+          metrics: {
+            csat: "CSAT Score",
+            nps: "NPS",
+            responseTime: "Response Time",
+            resolutionRate: "Resolution Rate"
+          },
+          trends: {
+            vsLastMonth: "vs last month"
+          }
+        }
+      },
+      es: {
+        title: "Ve Siete CX en Acción",
+        subtitle: "Paneles de control y análisis completos para visibilidad total de la experiencia del cliente",
+        features: [
+          {
+            title: "Panel de Control CX en Tiempo Real",
+            description: "Capacidades avanzadas que impulsan resultados reales de negocio."
+          },
+          {
+            title: "Motor de Análisis Avanzado",
+            description: "Capacidades avanzadas que impulsan resultados reales de negocio."
+          },
+          {
+            title: "Informes Automatizados",
+            description: "Capacidades avanzadas que impulsan resultados reales de negocio."
+          },
+          {
+            title: "Integraciones Fluidas",
+            description: "Capacidades avanzadas que impulsan resultados reales de negocio."
+          }
+        ],
+        dashboard: {
+          title: "Panel de Control en Tiempo Real",
+          subtitle: "Monitorea métricas de experiencia del cliente",
+          live: "En Vivo",
+          metrics: {
+            csat: "Puntaje CSAT",
+            nps: "NPS",
+            responseTime: "Tiempo de Respuesta",
+            resolutionRate: "Tasa de Resolución"
+          },
+          trends: {
+            vsLastMonth: "vs mes pasado"
+          }
+        }
+      }
+    };
+    return translations[isSpanish ? 'es' : 'en'][key];
+  };
+
+  const data = t('');
+
   return (
     <section id="product" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t('title')}
+            {data.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('subtitle')}
+            {data.subtitle}
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Features List */}
           <div className="space-y-8">
-            {(t.raw('features') as ProductFeature[]).map((feature, index) => {
+            {data.features.map((feature: any, index: number) => {
               const Icon = icons[index];
               const colorClass = colors[index];
               return (
@@ -79,22 +154,22 @@ export default function Product() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900">{tDashboard('title')}</h3>
-                    <p className="text-gray-600">{tDashboard('subtitle')}</p>
+                    <h3 className="text-2xl font-bold text-gray-900">{data.dashboard.title}</h3>
+                    <p className="text-gray-600">{data.dashboard.subtitle}</p>
                   </div>
                   <div className="flex items-center space-x-1 text-xs text-gray-500">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span>{tDashboard('live')}</span>
+                    <span>{data.dashboard.live}</span>
                   </div>
                 </div>
 
                 {/* Metrics Grid */}
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { label: tDashboard('metrics.csat'), value: "4.8/5", trend: "+12%" },
-                    { label: tDashboard('metrics.nps'), value: "72", trend: "+8%" },
-                    { label: tDashboard('metrics.responseTime'), value: "2.3s", trend: "-15%" },
-                    { label: tDashboard('metrics.resolutionRate'), value: "94%", trend: "+5%" }
+                    { label: data.dashboard.metrics.csat, value: "4.8/5", trend: "+12%" },
+                    { label: data.dashboard.metrics.nps, value: "72", trend: "+8%" },
+                    { label: data.dashboard.metrics.responseTime, value: "2.3s", trend: "-15%" },
+                    { label: data.dashboard.metrics.resolutionRate, value: "94%", trend: "+5%" }
                   ].map((metric, index) => (
                     <div key={index} className="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-xl">
                       <div className="text-2xl font-bold text-gray-900">{metric.value}</div>
@@ -102,7 +177,7 @@ export default function Product() {
                       <div className={`text-xs font-medium ${
                         metric.trend.startsWith('+') ? 'text-green-600' : 'text-red-600'
                       }`}>
-                        {metric.trend} {tDashboard('trends.vsLastMonth')}
+                        {metric.trend} {data.dashboard.trends.vsLastMonth}
                       </div>
                     </div>
                   ))}

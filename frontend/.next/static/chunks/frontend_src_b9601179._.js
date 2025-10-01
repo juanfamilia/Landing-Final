@@ -1604,7 +1604,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trending$2d$up$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TrendingUp$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/trending-up.js [app-client] (ecmascript) <export default as TrendingUp>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/phone.js [app-client] (ecmascript) <export default as Phone>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$column$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BarChart3$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/chart-column.js [app-client] (ecmascript) <export default as BarChart3>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/next-intl/dist/esm/development/react-client/index.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/navigation.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -1612,13 +1612,74 @@ var _s = __turbopack_context__.k.signature();
 ;
 function Benefits() {
     _s();
-    const t = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"])('benefits');
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
+    const isSpanish = pathname.startsWith('/es');
     const icons = [
         __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trending$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TrendingDown$3e$__["TrendingDown"],
         __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trending$2d$up$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TrendingUp$3e$__["TrendingUp"],
         __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__["Phone"],
         __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$column$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BarChart3$3e$__["BarChart3"]
     ];
+    const t = (key)=>{
+        const translations = {
+            en: {
+                title: "Transform Your Customer Experience",
+                subtitle: "Powerful insights to drive real business results",
+                items: [
+                    {
+                        title: "Reduce Churn",
+                        description: "Identify friction points before customers leave and improve retention rates."
+                    },
+                    {
+                        title: "Increase CSAT",
+                        description: "Boost customer satisfaction scores with data-driven experience improvements."
+                    },
+                    {
+                        title: "Real Call Insights",
+                        description: "Get actionable intelligence from actual customer interactions and calls."
+                    },
+                    {
+                        title: "Actionable Analytics",
+                        description: "Turn customer experience data into strategic business decisions."
+                    }
+                ],
+                stats: {
+                    companies: "Companies Trust Us",
+                    csatIncrease: "Average CSAT Increase",
+                    satisfaction: "Customer Satisfaction"
+                }
+            },
+            es: {
+                title: "Transforma Tu Experiencia del Cliente",
+                subtitle: "Insights poderosos para impulsar resultados reales de negocio",
+                items: [
+                    {
+                        title: "Reducir Abandono",
+                        description: "Identifica puntos de fricción antes de que los clientes se vayan y mejora las tasas de retención."
+                    },
+                    {
+                        title: "Aumentar CSAT",
+                        description: "Aumenta los puntajes de satisfacción del cliente con mejoras de experiencia basadas en datos."
+                    },
+                    {
+                        title: "Insights de Llamadas Reales",
+                        description: "Obtén inteligencia accionable de las interacciones y llamadas reales de clientes."
+                    },
+                    {
+                        title: "Analítica Accionable",
+                        description: "Convierte los datos de experiencia del cliente en decisiones estratégicas de negocio."
+                    }
+                ],
+                stats: {
+                    companies: "Empresas Nos Confían",
+                    csatIncrease: "Aumento Promedio de CSAT",
+                    satisfaction: "Satisfacción del Cliente"
+                }
+            }
+        };
+        return translations[isSpanish ? 'es' : 'en'][key];
+    };
+    const data = t('');
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         id: "benefits",
         className: "py-24 bg-white",
@@ -1630,29 +1691,29 @@ function Benefits() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                             className: "text-4xl md:text-5xl font-bold text-gray-900 mb-6",
-                            children: t('title')
+                            children: data.title
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                            lineNumber: 20,
+                            lineNumber: 78,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "text-xl text-gray-600 max-w-3xl mx-auto",
-                            children: t('subtitle')
+                            children: data.subtitle
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                            lineNumber: 23,
+                            lineNumber: 81,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                    lineNumber: 19,
+                    lineNumber: 77,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "grid md:grid-cols-2 lg:grid-cols-4 gap-8",
-                    children: t.raw('items').map((benefit, index)=>{
+                    children: data.items.map((benefit, index)=>{
                         const Icon = icons[index];
                         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "group",
@@ -1665,12 +1726,12 @@ function Benefits() {
                                             className: "w-8 h-8 text-white"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                            lineNumber: 36,
+                                            lineNumber: 94,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                        lineNumber: 35,
+                                        lineNumber: 93,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1678,7 +1739,7 @@ function Benefits() {
                                         children: benefit.title
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                        lineNumber: 38,
+                                        lineNumber: 96,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1686,24 +1747,24 @@ function Benefits() {
                                         children: benefit.description
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                        lineNumber: 39,
+                                        lineNumber: 97,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                lineNumber: 34,
+                                lineNumber: 92,
                                 columnNumber: 17
                             }, this)
                         }, index, false, {
                             fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                            lineNumber: 33,
+                            lineNumber: 91,
                             columnNumber: 15
                         }, this);
                     })
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                    lineNumber: 29,
+                    lineNumber: 87,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1719,21 +1780,21 @@ function Benefits() {
                                         children: "500+"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                        lineNumber: 50,
+                                        lineNumber: 108,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "text-gray-300",
-                                        children: t('stats.companies')
+                                        children: data.stats.companies
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                        lineNumber: 51,
+                                        lineNumber: 109,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                lineNumber: 49,
+                                lineNumber: 107,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1744,21 +1805,21 @@ function Benefits() {
                                         children: "25%"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                        lineNumber: 54,
+                                        lineNumber: 112,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "text-gray-300",
-                                        children: t('stats.csatIncrease')
+                                        children: data.stats.csatIncrease
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                        lineNumber: 55,
+                                        lineNumber: 113,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                lineNumber: 53,
+                                lineNumber: 111,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1769,49 +1830,49 @@ function Benefits() {
                                         children: "92%"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                        lineNumber: 58,
+                                        lineNumber: 116,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "text-gray-300",
-                                        children: t('stats.satisfaction')
+                                        children: data.stats.satisfaction
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                        lineNumber: 59,
+                                        lineNumber: 117,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                                lineNumber: 57,
+                                lineNumber: 115,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                        lineNumber: 48,
+                        lineNumber: 106,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-                    lineNumber: 47,
+                    lineNumber: 105,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-            lineNumber: 17,
+            lineNumber: 75,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/sections/Benefits.tsx",
-        lineNumber: 16,
+        lineNumber: 74,
         columnNumber: 5
     }, this);
 }
-_s(Benefits, "h6+q2O3NJKPY5uL0BIJGLIanww8=", false, function() {
+_s(Benefits, "xbyQPtUVMO7MNj7WjJlpdWqRcTo=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];
 });
 _c = Benefits;
@@ -1833,7 +1894,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$no$2d$axes$2d$column$2d$increasing$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BarChart$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/chart-no-axes-column-increasing.js [app-client] (ecmascript) <export default as BarChart>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/file-text.js [app-client] (ecmascript) <export default as FileText>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/zap.js [app-client] (ecmascript) <export default as Zap>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/next-intl/dist/esm/development/react-client/index.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/navigation.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -1841,8 +1902,8 @@ var _s = __turbopack_context__.k.signature();
 ;
 function Product() {
     _s();
-    const t = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"])('product');
-    const tDashboard = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"])('product.dashboard');
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
+    const isSpanish = pathname.startsWith('/es');
     const icons = [
         __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$monitor$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Monitor$3e$__["Monitor"],
         __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$no$2d$axes$2d$column$2d$increasing$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BarChart$3e$__["BarChart"],
@@ -1855,6 +1916,84 @@ function Product() {
         "from-purple-500 to-purple-600",
         "from-orange-500 to-orange-600"
     ];
+    const t = (key)=>{
+        const translations = {
+            en: {
+                title: "See Siete CX in Action",
+                subtitle: "Comprehensive dashboards and analytics for complete customer experience visibility",
+                features: [
+                    {
+                        title: "Real-time CX Dashboard",
+                        description: "Advanced capabilities that drive real business results."
+                    },
+                    {
+                        title: "Advanced Analytics Engine",
+                        description: "Advanced capabilities that drive real business results."
+                    },
+                    {
+                        title: "Automated Reporting",
+                        description: "Advanced capabilities that drive real business results."
+                    },
+                    {
+                        title: "Seamless Integrations",
+                        description: "Advanced capabilities that drive real business results."
+                    }
+                ],
+                dashboard: {
+                    title: "Real-time Dashboard",
+                    subtitle: "Monitor customer experience metrics",
+                    live: "Live",
+                    metrics: {
+                        csat: "CSAT Score",
+                        nps: "NPS",
+                        responseTime: "Response Time",
+                        resolutionRate: "Resolution Rate"
+                    },
+                    trends: {
+                        vsLastMonth: "vs last month"
+                    }
+                }
+            },
+            es: {
+                title: "Ve Siete CX en Acción",
+                subtitle: "Paneles de control y análisis completos para visibilidad total de la experiencia del cliente",
+                features: [
+                    {
+                        title: "Panel de Control CX en Tiempo Real",
+                        description: "Capacidades avanzadas que impulsan resultados reales de negocio."
+                    },
+                    {
+                        title: "Motor de Análisis Avanzado",
+                        description: "Capacidades avanzadas que impulsan resultados reales de negocio."
+                    },
+                    {
+                        title: "Informes Automatizados",
+                        description: "Capacidades avanzadas que impulsan resultados reales de negocio."
+                    },
+                    {
+                        title: "Integraciones Fluidas",
+                        description: "Capacidades avanzadas que impulsan resultados reales de negocio."
+                    }
+                ],
+                dashboard: {
+                    title: "Panel de Control en Tiempo Real",
+                    subtitle: "Monitorea métricas de experiencia del cliente",
+                    live: "En Vivo",
+                    metrics: {
+                        csat: "Puntaje CSAT",
+                        nps: "NPS",
+                        responseTime: "Tiempo de Respuesta",
+                        resolutionRate: "Tasa de Resolución"
+                    },
+                    trends: {
+                        vsLastMonth: "vs mes pasado"
+                    }
+                }
+            }
+        };
+        return translations[isSpanish ? 'es' : 'en'][key];
+    };
+    const data = t('');
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         id: "product",
         className: "py-24 bg-gradient-to-br from-gray-50 to-blue-50",
@@ -1866,24 +2005,24 @@ function Product() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                             className: "text-4xl md:text-5xl font-bold text-gray-900 mb-6",
-                            children: t('title')
+                            children: data.title
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                            lineNumber: 28,
+                            lineNumber: 103,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "text-xl text-gray-600 max-w-3xl mx-auto",
-                            children: t('subtitle')
+                            children: data.subtitle
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                            lineNumber: 31,
+                            lineNumber: 106,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                    lineNumber: 27,
+                    lineNumber: 102,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1891,7 +2030,7 @@ function Product() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "space-y-8",
-                            children: t.raw('features').map((feature, index)=>{
+                            children: data.features.map((feature, index)=>{
                                 const Icon = icons[index];
                                 const colorClass = colors[index];
                                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1903,12 +2042,12 @@ function Product() {
                                                 className: "w-6 h-6 text-white"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                lineNumber: 45,
+                                                lineNumber: 120,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                            lineNumber: 44,
+                                            lineNumber: 119,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1918,7 +2057,7 @@ function Product() {
                                                     children: feature.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                    lineNumber: 48,
+                                                    lineNumber: 123,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1926,25 +2065,25 @@ function Product() {
                                                     children: feature.description
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                    lineNumber: 51,
+                                                    lineNumber: 126,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                            lineNumber: 47,
+                                            lineNumber: 122,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, index, true, {
                                     fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                    lineNumber: 43,
+                                    lineNumber: 118,
                                     columnNumber: 17
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                            lineNumber: 38,
+                            lineNumber: 113,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1962,27 +2101,27 @@ function Product() {
                                                         className: "w-3 h-3 bg-red-500 rounded-full"
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                        lineNumber: 66,
+                                                        lineNumber: 141,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-3 h-3 bg-yellow-500 rounded-full"
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                        lineNumber: 67,
+                                                        lineNumber: 142,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-3 h-3 bg-green-500 rounded-full"
                                                     }, void 0, false, {
                                                         fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                        lineNumber: 68,
+                                                        lineNumber: 143,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                lineNumber: 65,
+                                                lineNumber: 140,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1992,18 +2131,18 @@ function Product() {
                                                     children: "siete-cx.com/dashboard"
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                    lineNumber: 71,
+                                                    lineNumber: 146,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                lineNumber: 70,
+                                                lineNumber: 145,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                        lineNumber: 64,
+                                        lineNumber: 139,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2016,24 +2155,24 @@ function Product() {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                                                 className: "text-2xl font-bold text-gray-900",
-                                                                children: tDashboard('title')
+                                                                children: data.dashboard.title
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                                lineNumber: 82,
+                                                                lineNumber: 157,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                 className: "text-gray-600",
-                                                                children: tDashboard('subtitle')
+                                                                children: data.dashboard.subtitle
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                                lineNumber: 83,
+                                                                lineNumber: 158,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                        lineNumber: 81,
+                                                        lineNumber: 156,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2043,48 +2182,48 @@ function Product() {
                                                                 className: "w-2 h-2 bg-green-500 rounded-full animate-pulse"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                                lineNumber: 86,
+                                                                lineNumber: 161,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                children: tDashboard('live')
+                                                                children: data.dashboard.live
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                                lineNumber: 87,
+                                                                lineNumber: 162,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                        lineNumber: 85,
+                                                        lineNumber: 160,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                lineNumber: 80,
+                                                lineNumber: 155,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "grid grid-cols-2 gap-4",
                                                 children: [
                                                     {
-                                                        label: tDashboard('metrics.csat'),
+                                                        label: data.dashboard.metrics.csat,
                                                         value: "4.8/5",
                                                         trend: "+12%"
                                                     },
                                                     {
-                                                        label: tDashboard('metrics.nps'),
+                                                        label: data.dashboard.metrics.nps,
                                                         value: "72",
                                                         trend: "+8%"
                                                     },
                                                     {
-                                                        label: tDashboard('metrics.responseTime'),
+                                                        label: data.dashboard.metrics.responseTime,
                                                         value: "2.3s",
                                                         trend: "-15%"
                                                     },
                                                     {
-                                                        label: tDashboard('metrics.resolutionRate'),
+                                                        label: data.dashboard.metrics.resolutionRate,
                                                         value: "94%",
                                                         trend: "+5%"
                                                     }
@@ -2096,7 +2235,7 @@ function Product() {
                                                                 children: metric.value
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                                lineNumber: 100,
+                                                                lineNumber: 175,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2104,7 +2243,7 @@ function Product() {
                                                                 children: metric.label
                                                             }, void 0, false, {
                                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                                lineNumber: 101,
+                                                                lineNumber: 176,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2112,22 +2251,22 @@ function Product() {
                                                                 children: [
                                                                     metric.trend,
                                                                     " ",
-                                                                    tDashboard('trends.vsLastMonth')
+                                                                    data.dashboard.trends.vsLastMonth
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                                lineNumber: 102,
+                                                                lineNumber: 177,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, index, true, {
                                                         fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                        lineNumber: 99,
+                                                        lineNumber: 174,
                                                         columnNumber: 21
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                lineNumber: 92,
+                                                lineNumber: 167,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2150,58 +2289,57 @@ function Product() {
                                                             }
                                                         }, index, false, {
                                                             fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                            lineNumber: 115,
+                                                            lineNumber: 190,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                    lineNumber: 113,
+                                                    lineNumber: 188,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                                lineNumber: 112,
+                                                lineNumber: 187,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                        lineNumber: 78,
+                                        lineNumber: 153,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                                lineNumber: 62,
+                                lineNumber: 137,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                            lineNumber: 61,
+                            lineNumber: 136,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/sections/Product.tsx",
-                    lineNumber: 36,
+                    lineNumber: 111,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/frontend/src/components/sections/Product.tsx",
-            lineNumber: 25,
+            lineNumber: 100,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/sections/Product.tsx",
-        lineNumber: 24,
+        lineNumber: 99,
         columnNumber: 5
     }, this);
 }
-_s(Product, "y9F4+HHtjYeLLEaucNOjw44Mj0M=", false, function() {
+_s(Product, "xbyQPtUVMO7MNj7WjJlpdWqRcTo=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$react$2d$client$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useTranslations"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];
 });
 _c = Product;
