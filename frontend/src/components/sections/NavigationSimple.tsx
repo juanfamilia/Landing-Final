@@ -45,7 +45,7 @@ export default function Navigation() {
     setIsOpen(false);
   };
 
-  const t = (key: string): string => {
+  const getTranslations = (): NavigationTranslations => {
     const translations: Record<string, NavigationTranslations> = {
       en: {
         benefits: "Benefits",
@@ -64,8 +64,10 @@ export default function Navigation() {
         language: "Idioma"
       }
     };
-    return translations[currentLocale][key as keyof NavigationTranslations] || key;
+    return translations[currentLocale];
   };
+  
+  const t = getTranslations();
 
   return (
     <>
