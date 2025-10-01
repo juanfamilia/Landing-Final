@@ -9,10 +9,11 @@ import { getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
@@ -45,7 +46,9 @@ export async function generateMetadata({ params: { locale } }: Props): Promise<M
   };
 }
 
-export default function Home({ params: { locale } }: Props) {
+export default async function Home({ params }: Props) {
+  const { locale } = await params;
+  
   return (
     <>
       <Navigation />
