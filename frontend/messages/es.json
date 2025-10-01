@@ -1,0 +1,120 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "benefits": "Beneficios",
+    "product": "Producto", 
+    "research": "Investigación",
+    "contact": "Contacto",
+    "requestDemo": "Solicitar Demo"
+  },
+  "hero": {
+    "headline": "Siete CX – Plataforma de Experiencia del Cliente",
+    "subheadline": "Mide, analiza y mejora la experiencia del cliente con cliente incógnito en video y análisis de llamadas.",
+    "primaryCTA": "Solicitar una Demo",
+    "secondaryCTA": "Conoce Más"
+  },
+  "benefits": {
+    "title": "Transforma Tu Experiencia del Cliente",
+    "subtitle": "Insights poderosos para impulsar resultados empresariales reales",
+    "items": {
+      "churn": {
+        "title": "Reduce la Rotación",
+        "description": "Identifica puntos de fricción antes de que los clientes se vayan y mejora las tasas de retención."
+      },
+      "csat": {
+        "title": "Incrementa el CSAT",
+        "description": "Aumenta las puntuaciones de satisfacción del cliente con mejoras basadas en datos."
+      },
+      "insights": {
+        "title": "Insights Reales de Llamadas",
+        "description": "Obtén inteligencia accionable de interacciones y llamadas reales de clientes."
+      },
+      "analytics": {
+        "title": "Analítica Accionable",
+        "description": "Convierte los datos de experiencia del cliente en decisiones empresariales estratégicas."
+      }
+    }
+  },
+  "product": {
+    "title": "Ve Siete CX en Acción",
+    "subtitle": "Dashboards completos y analíticas para visibilidad total de la experiencia del cliente",
+    "features": {
+      "dashboard": "Dashboard CX en Tiempo Real",
+      "analytics": "Motor de Analíticas Avanzado",
+      "reporting": "Reportes Automatizados", 
+      "integration": "Integraciones Perfectas"
+    }
+  },
+  "research": {
+    "title": "Respaldado por Investigación de la Industria",
+    "subtitle": "Las organizaciones líderes confían en la experiencia del cliente como su ventaja competitiva",
+    "quotes": [
+      {
+        "text": "Las empresas que gestionan hábilmente toda la experiencia del cliente pueden lograr un 20% de mejora en la satisfacción, un 15% más en conversión de ventas y un 30% menos en costos de servicio.",
+        "source": "Harvard Business Review",
+        "author": "Investigación Harvard Business Review"
+      },
+      {
+        "text": "Más de dos tercios de las empresas ahora compiten principalmente en función de la experiencia del cliente, frente al 36% en 2010.",
+        "source": "Gartner", 
+        "author": "Investigación Gartner"
+      },
+      {
+        "text": "Las organizaciones que priorizan la experiencia del cliente alcanzan tasas de crecimiento de ingresos 4%–8% por encima de su mercado.",
+        "source": "McKinsey & Company",
+        "author": "Investigación McKinsey"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Listo para Transformar tu Experiencia del Cliente?",
+    "subtitle": "Únete a las empresas líderes que usan Siete CX para impulsar el crecimiento y la satisfacción del cliente",
+    "button": "Agenda tu demo gratuita ahora",
+    "features": [
+      "Demo personalizada de 30 minutos",
+      "Evaluación gratuita de CX",
+      "Hoja de ruta de implementación personalizada",
+      "Sin compromiso requerido"
+    ]
+  },
+  "footer": {
+    "company": "Siete Inteligencia Creativa",
+    "description": "Transformando la experiencia del cliente a través de analíticas inteligentes y cliente incógnito.",
+    "contact": {
+      "title": "Contacto",
+      "email": "info@sieteic.com",
+      "phone": "+1 829 961 0082",
+      "address": "Distrito Nacional, Santo Domingo, República Dominicana"
+    },
+    "links": {
+      "about": "Acerca de Nosotros",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio", 
+      "support": "Soporte"
+    },
+    "copyright": "© 2024 Siete Inteligencia Creativa. Todos los derechos reservados."
+  },
+  "form": {
+    "demo": {
+      "title": "Solicita tu Demo",
+      "subtitle": "Obtén un recorrido personalizado de Siete CX",
+      "fields": {
+        "name": "Nombre Completo",
+        "email": "Email Empresarial",
+        "company": "Nombre de la Empresa",
+        "phone": "Número de Teléfono",
+        "role": "Tu Rol",
+        "employees": "Tamaño de la Empresa",
+        "message": "Cuéntanos sobre tus desafíos de CX"
+      },
+      "submit": "Solicitar Demo",
+      "submitting": "Enviando...",
+      "success": "¡Gracias! Te contactaremos pronto para programar tu demo.",
+      "error": "Algo salió mal. Por favor intenta de nuevo."
+    }
+  },
+  "meta": {
+    "title": "Siete CX - Plataforma de Experiencia del Cliente | Cliente Incógnito y Análisis de Llamadas",
+    "description": "Transforma tu experiencia del cliente con Siete CX. Mide, analiza y mejora la CX con cliente incógnito en video y análisis de llamadas. Agenda tu demo gratuita hoy."
+  }
+}
