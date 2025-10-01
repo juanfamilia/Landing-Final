@@ -62,7 +62,8 @@ function generateStaticParams() {
         }
     ];
 }
-async function LocaleLayout({ children, params: { locale } }) {
+async function LocaleLayout({ children, params }) {
+    const { locale } = await params;
     // Providing all messages to the client
     // side is the easiest way to get started
     const messages = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2d$intl$2f$dist$2f$esm$2f$development$2f$server$2f$react$2d$server$2f$getMessages$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__getMessages$3e$__["getMessages"])();
@@ -75,17 +76,17 @@ async function LocaleLayout({ children, params: { locale } }) {
                 children: children
             }, void 0, false, {
                 fileName: "[project]/frontend/src/app/[locale]/layout.tsx",
-                lineNumber: 26,
+                lineNumber: 28,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/frontend/src/app/[locale]/layout.tsx",
-            lineNumber: 25,
+            lineNumber: 27,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/app/[locale]/layout.tsx",
-        lineNumber: 24,
+        lineNumber: 26,
         columnNumber: 5
     }, this);
 }
