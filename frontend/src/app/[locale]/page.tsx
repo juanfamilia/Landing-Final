@@ -5,7 +5,6 @@ import Product from '@/components/sections/Product';
 import Research from '@/components/sections/Research';
 import CTA from '@/components/sections/CTA';
 import Footer from '@/components/sections/Footer';
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
 
@@ -46,7 +45,7 @@ export async function generateMetadata({ params: { locale } }: Props): Promise<M
   };
 }
 
-export default function Home({ params: { locale } }: Props) {
+export default function Home() {
   return (
     <>
       <Navigation />
