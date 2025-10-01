@@ -1,1 +1,6 @@
-{"version":3,"sources":["turbopack:///[project]/frontend/src/app/layout.tsx"],"sourcesContent":["import type { Metadata } from \"next\";\nimport \"./globals.css\";\n\nexport const metadata: Metadata = {\n  title: \"Siete CX - Customer Experience Platform\",\n  description: \"Transform your customer experience with Siete CX\",\n};\n\nexport default function RootLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  return children;\n}"],"names":[],"mappings":"+EAGO,IAAM,EAAqB,CAChC,MAAO,0CACP,YAAa,kDACf,EAEe,SAAS,EAAW,UACjC,CAAQ,CAGT,EACC,OAAO,CACT"}
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///app/frontend/src/app/layout.tsx"],"sourcesContent":["import type { Metadata } from \"next\";\nimport \"./globals.css\";\n\nexport const metadata: Metadata = {\n  title: \"Siete CX - Customer Experience Platform\",\n  description: \"Transform your customer experience with Siete CX\",\n};\n\nexport default function RootLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  return children;\n}"],"names":[],"mappings":";;;;;;;AAGO,MAAM,WAAqB;IAChC,OAAO;IACP,aAAa;AACf;AAEe,SAAS,WAAW,EACjC,QAAQ,EAGT;IACC,OAAO;AACT","debugId":null}}]
+}
