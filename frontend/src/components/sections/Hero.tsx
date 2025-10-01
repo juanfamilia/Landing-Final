@@ -1,13 +1,11 @@
 'use client';
 
 import { Play, ArrowRight } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import DemoForm from '../DemoForm';
 
 export default function Hero() {
   const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
-  const t = useTranslations('hero');
   
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -24,18 +22,18 @@ export default function Hero() {
             {/* Left Content */}
             <div className="text-left">
               <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-6">
-                {t('badge')}
+                Premium Customer Experience Platform
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                <span className="block">{t('title')}</span>
+                <span className="block">Siete CX –</span>
                 <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                  {t('titleAccent')}
+                  Customer Experience Platform
                 </span>
               </h1>
 
               <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl">
-                {t('subtitle')}
+                Measure, analyze, and improve customer experience with video mystery shopping and call analysis.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -44,14 +42,14 @@ export default function Hero() {
                   className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white px-8 py-4 text-lg rounded-full font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
                 >
                   <Play className="w-5 h-5 mr-2" />
-                  {t('requestDemo')}
+                  Request a Demo
                 </button>
                 
                 <button
                   onClick={() => scrollToSection('#benefits')}
                   className="px-8 py-4 text-lg rounded-full font-semibold border-2 border-gray-300 text-gray-700 hover:border-blue-600 hover:text-blue-600 bg-white/80 backdrop-blur-sm transition-all duration-300 flex items-center justify-center"
                 >
-                  {t('learnMore')}
+                  Learn More
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </button>
               </div>
@@ -64,14 +62,14 @@ export default function Hero() {
                     <div className="w-8 h-8 bg-teal-500 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold">B</div>
                     <div className="w-8 h-8 bg-blue-600 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold">C</div>
                   </div>
-                  <span>{t('trustedBy')}</span>
+                  <span>Trusted by 500+ companies</span>
                 </div>
                 
                 <div className="flex items-center space-x-1 text-sm text-gray-500">
                   <div className="flex text-yellow-400">
                     {'★'.repeat(5)}
                   </div>
-                  <span>{t('rating')}</span>
+                  <span>4.9/5 Customer Rating</span>
                 </div>
               </div>
             </div>
@@ -86,7 +84,7 @@ export default function Hero() {
                     <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                     <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                   </div>
-                  <div className="text-sm font-medium text-gray-600">{t('dashboardTitle')}</div>
+                  <div className="text-sm font-medium text-gray-600">Siete CX Dashboard</div>
                 </div>
 
                 <div className="mb-6">
