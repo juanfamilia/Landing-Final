@@ -139,10 +139,10 @@ export default function Navigation() {
           {isOpen && (
             <div className="md:hidden border-t border-gray-200 bg-white">
               <div className="px-2 pt-2 pb-3 space-y-1">
-                <button onClick={() => scrollToSection('#benefits')} className="block w-full text-left px-3 py-2">{t('benefits')}</button>
-                <button onClick={() => scrollToSection('#product')} className="block w-full text-left px-3 py-2">{t('product')}</button>
-                <button onClick={() => scrollToSection('#research')} className="block w-full text-left px-3 py-2">{t('research')}</button>
-                <button onClick={() => scrollToSection('#contact')} className="block w-full text-left px-3 py-2">{t('contact')}</button>
+                <button onClick={() => scrollToSection('#benefits')} className="block w-full text-left px-3 py-2">{t.benefits}</button>
+                <button onClick={() => scrollToSection('#product')} className="block w-full text-left px-3 py-2">{t.product}</button>
+                <button onClick={() => scrollToSection('#research')} className="block w-full text-left px-3 py-2">{t.research}</button>
+                <button onClick={() => scrollToSection('#contact')} className="block w-full text-left px-3 py-2">{t.contact}</button>
                 
                 {/* Mobile Language Switcher */}
                 <div className="px-3 pt-2 border-t border-gray-200">
