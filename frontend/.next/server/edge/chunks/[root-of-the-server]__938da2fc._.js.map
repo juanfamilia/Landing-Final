@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/frontend/src/middleware.ts"],"sourcesContent":["import { NextRequest, NextResponse } from 'next/server';\n\nexport function middleware(request: NextRequest) {\n  const pathname = request.nextUrl.pathname;\n  \n  // If root path, redirect to /en\n  if (pathname === '/') {\n    return NextResponse.redirect(new URL('/en', request.url));\n  }\n  \n  return NextResponse.next();\n}\n\nexport const config = {\n  matcher: ['/', '/((?!_next|api|favicon.ico).*)']\n};"],"names":[],"mappings":";;;;;;AAAA;AAAA;;AAEO,SAAS,WAAW,OAAoB;IAC7C,MAAM,WAAW,QAAQ,OAAO,CAAC,QAAQ;IAEzC,gCAAgC;IAChC,IAAI,aAAa,KAAK;QACpB,OAAO,4MAAY,CAAC,QAAQ,CAAC,IAAI,IAAI,OAAO,QAAQ,GAAG;IACzD;IAEA,OAAO,4MAAY,CAAC,IAAI;AAC1B;AAEO,MAAM,SAAS;IACpB,SAAS;QAAC;QAAK;KAAiC;AAClD"}}]
+}
