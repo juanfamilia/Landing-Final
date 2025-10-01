@@ -13,6 +13,20 @@ export interface HubSpotFormData {
   locale?: string;
 }
 
+interface HubSpotField {
+  name: string;
+  value: string;
+}
+
+interface HubSpotSubmissionData {
+  fields: HubSpotField[];
+  context: {
+    pageUri: string;
+    pageName: string;
+    hutk: string | null;
+  };
+}
+
 // Submit form to HubSpot
 export const submitToHubSpot = async (formData: HubSpotFormData): Promise<boolean> => {
   if (!HUBSPOT_PORTAL_ID || !HUBSPOT_FORM_ID) {
@@ -24,6 +38,23 @@ export const submitToHubSpot = async (formData: HubSpotFormData): Promise<boolea
   }
 
   try {
+    const submissionData: HubSpotSubmissionData = {
+      fields: [
+        { name: 'firstname', value: formData.name.split(' ')[0] || formData.name },
+        { name: 'lastname', value: formData.name.split(' ').slice(1).join(' ') || '' },
+        { name: 'email', value: formData.email },
+        { name: 'company', value: formData.company },
+        { name: 'phone', value: formData.phone || '' },
+        { name: 'message', value: formData.message || '' },
+        { name: 'hs_language', value: formData.locale === 'es' ? 'es' : 'en' },
+      ],
+      context: {
+        pageUri: window.location.href,
+        pageName: document.title,
+        hutk: getHubSpotCookie(),
+      },
+    };
+
     const response = await fetch(
       `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`,
       {
@@ -31,22 +62,7 @@ export const submitToHubSpot = async (formData: HubSpotFormData): Promise<boolea
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          fields: [
-            { name: 'firstname', value: formData.name.split(' ')[0] || formData.name },
-            { name: 'lastname', value: formData.name.split(' ').slice(1).join(' ') || '' },
-            { name: 'email', value: formData.email },
-            { name: 'company', value: formData.company },
-            { name: 'phone', value: formData.phone || '' },
-            { name: 'message', value: formData.message || '' },
-            { name: 'hs_language', value: formData.locale === 'es' ? 'es' : 'en' },
-          ],
-          context: {
-            pageUri: window.location.href,
-            pageName: document.title,
-            hutk: getHubSpotCookie(),
-          },
-        }),
+        body: JSON.stringify(submissionData),
       }
     );
 
@@ -99,16 +115,16 @@ export const initHubSpot = () => {
 };
 
 // Track page views in HubSpot
-export const trackHubSpotPageView = (path: string) => {
-  if (typeof window !== 'undefined' && (window as any)._hsq) {
-    (window as any)._hsq.push(['trackPageView']);
+export const trackHubSpotPageView = () => {
+  if (typeof window !== 'undefined' && (window as unknown as { _hsq?: unknown[] })._hsq) {
+    (window as unknown as { _hsq: unknown[] })._hsq.push(['trackPageView']);
   }
 };
 
 // Track custom events in HubSpot
-export const trackHubSpotEvent = (eventName: string, properties: Record<string, any> = {}) => {
-  if (typeof window !== 'undefined' && (window as any)._hsq) {
-    (window as any)._hsq.push([
+export const trackHubSpotEvent = (eventName: string, properties: Record<string, unknown> = {}) => {
+  if (typeof window !== 'undefined' && (window as unknown as { _hsq?: unknown[] })._hsq) {
+    (window as unknown as { _hsq: unknown[] })._hsq.push([
       'trackEvent',
       {
         id: eventName,

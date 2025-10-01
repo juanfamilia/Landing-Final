@@ -3,6 +3,11 @@
 import { TrendingDown, TrendingUp, Phone, BarChart3 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+interface BenefitItem {
+  title: string;
+  description: string;
+}
+
 export default function Benefits() {
   const t = useTranslations('benefits');
 
@@ -23,7 +28,7 @@ export default function Benefits() {
 
         {/* Benefits Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {t.raw('items').map((benefit: any, index: number) => {
+          {(t.raw('items') as BenefitItem[]).map((benefit, index: number) => {
             const Icon = icons[index];
             return (
               <div key={index} className="group">
