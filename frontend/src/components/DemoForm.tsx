@@ -27,7 +27,6 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
 
   const pathname = usePathname();
   const currentLocale = pathname.startsWith('/es') ? 'es' : 'en';
-  const t = useTranslations('demoForm');
 
   const sectors = [
     'Banking & Financial Services',
