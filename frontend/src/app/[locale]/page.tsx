@@ -1,29 +1,42 @@
-import Navigation from '@/components/sections/Navigation';
+import NavigationSimple from '@/components/sections/NavigationSimple';
 import Hero from '@/components/sections/Hero';
 import Benefits from '@/components/sections/Benefits';
 import Product from '@/components/sections/Product';
 import Research from '@/components/sections/Research';
 import CTA from '@/components/sections/CTA';
 import Footer from '@/components/sections/Footer';
-import { getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
 
-type Props = {
-  params: Promise<{ locale: string }>;
+const isSpanish = false; // We'll make this dynamic based on the route
+
+const getTranslations = (locale: string) => {
+  const translations: any = {
+    en: {
+      title: 'Siete CX - Customer Experience Platform | Video Mystery Shopping & Call Analysis',
+      description: 'Transform your customer experience with Siete CX. Measure, analyze, and improve CX with video mystery shopping and call analysis. Book your free demo today.',
+      keywords: 'customer experience, mystery shopping, call analysis, CX platform, customer satisfaction, NPS, CSAT'
+    },
+    es: {
+      title: 'Siete CX - Plataforma de Experiencia del Cliente | Video Mystery Shopping y Análisis de Llamadas',
+      description: 'Transforma tu experiencia del cliente con Siete CX. Mide, analiza y mejora la CX con video mystery shopping y análisis de llamadas. Reserva tu demo gratuito hoy.',
+      keywords: 'experiencia del cliente, mystery shopping, análisis de llamadas, plataforma CX, satisfacción del cliente, NPS, CSAT'
+    }
+  };
+  return translations[locale];
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta' });
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = isSpanish ? 'es' : 'en';
+  const t = getTranslations(locale);
 
   return {
-    title: t('title'),
-    description: t('description'),
-    keywords: t('keywords'),
+    title: t.title,
+    description: t.description,
+    keywords: t.keywords,
     authors: [{ name: 'Siete Inteligencia Creativa' }],
     openGraph: {
-      title: t('title'),
-      description: t('description'),
+      title: t.title,
+      description: t.description,
       url: 'https://siete-cx.com',
       siteName: 'Siete CX',
       images: [
@@ -39,19 +52,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
+      title: t.title,
+      description: t.description,
       images: ['https://customer-assets.emergentagent.com/job_premium-cx/artifacts/p2reh895_Logo%20Siete%20CX.png'],
     },
   };
 }
 
-export default async function Home({ params }: Props) {
-  const { locale } = await params;
-  
+export default async function Home() {
   return (
     <>
-      <Navigation />
+      <NavigationSimple />
       <main>
         <Hero />
         <Benefits />
