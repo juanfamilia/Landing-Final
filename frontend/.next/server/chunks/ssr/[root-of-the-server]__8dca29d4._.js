@@ -1,3 +1,0 @@
-module.exports=[64433,a=>{a.v({className:"inter_5972bc34-module__OU16Qa__className"})},87693,a=>{"use strict";a.s(["default",()=>d]);var b=a.i(64433);let c={className:b.default.className,style:{fontFamily:"'Inter', 'Inter Fallback'",fontStyle:"normal"}};null!=b.default.variable&&(c.variable=b.default.variable);let d=c},35829,a=>{"use strict";a.s(["default",()=>c,"metadata",()=>b]),a.i(87693);let b={title:"Siete CX - Customer Experience Platform",description:"Transform your customer experience with Siete CX"};function c({children:a}){return a}}];
-
-//# sourceMappingURL=%5Broot-of-the-server%5D__8dca29d4._.js.map
