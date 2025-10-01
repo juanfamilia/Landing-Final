@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "sorted_middleware": [],
   "middleware": {
     "/": {
       "files": [
@@ -11,15 +11,15 @@
       "page": "/",
       "matchers": [
         {
-          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/(\\/?index|\\/?index\\\\.json))?[\\/#\\?]?$",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/(/?index|/?index\\\\.json)?",
           "originalSource": "/"
         },
         {
-          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/(en|es))(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/(en|es)/:path*{(\\\\.json)}?",
           "originalSource": "/(en|es)/:path*"
         },
         {
-          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next|_vercel|.*\\..*).*))(\\\\.json)?[\\/#\\?]?$",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/((?!_next|_vercel|.*\\..*).*){(\\\\.json)}?",
           "originalSource": "/((?!_next|_vercel|.*\\..*).*)"
         }
       ],
@@ -34,8 +34,6 @@
       }
     }
   },
-  "sortedMiddleware": [
-    "/"
-  ],
+  "instrumentation": null,
   "functions": {}
 }

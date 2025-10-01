@@ -1,29 +1,12 @@
 globalThis.__BUILD_MANIFEST = {
   "pages": {
-    "/_app": [
-      "static/chunks/ee8805d0a44ac57d.js",
-      "static/chunks/10d8590afadc6186.js",
-      "static/chunks/turbopack-74a95af5f39c087a.js"
-    ],
-    "/_error": [
-      "static/chunks/a6a8b147318253ee.js",
-      "static/chunks/10d8590afadc6186.js",
-      "static/chunks/turbopack-58ae807f0ec2e3c8.js"
-    ]
+    "/_app": []
   },
   "devFiles": [],
   "ampDevFiles": [],
-  "polyfillFiles": [
-    "static/chunks/a6dad97d9634a72d.js"
-  ],
+  "polyfillFiles": [],
   "lowPriorityFiles": [],
-  "rootMainFiles": [
-    "static/chunks/fb79d5a7656a2fa5.js",
-    "static/chunks/89ca605801017f35.js",
-    "static/chunks/80c22a23c5108cda.js",
-    "static/chunks/371af6986a30695b.js",
-    "static/chunks/turbopack-11c1a3ae11c2a69d.js"
-  ],
+  "rootMainFiles": [],
   "ampFirstPages": []
 };
 globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
