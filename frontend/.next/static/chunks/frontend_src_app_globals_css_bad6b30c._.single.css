@@ -1,0 +1,150 @@
+/* [project]/frontend/src/app/globals.css [app-client] (css) */
+@layer properties {
+  @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
+    *, :before, :after {
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
+      --tw-border-style: solid;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-scale-z: 1;
+    }
+
+    ::backdrop {
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
+      --tw-border-style: solid;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-scale-z: 1;
+    }
+  }
+}
+
+.fixed {
+  position: fixed;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.transform {
+  transform: var(--tw-rotate-x, ) var(--tw-rotate-y, ) var(--tw-rotate-z, ) var(--tw-skew-x, ) var(--tw-skew-y, );
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+
+.bg-gradient-to-br {
+  --tw-gradient-position: to bottom right in oklab;
+  background-image: linear-gradient(var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-r {
+  --tw-gradient-position: to right in oklab;
+  background-image: linear-gradient(var(--tw-gradient-stops));
+}
+
+.text-center {
+  text-align: center;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, ease);
+  transition-duration: var(--tw-duration, 0s);
+}
+
+@media (hover: hover) {
+  .hover\:scale-105:hover {
+    --tw-scale-x: 105%;
+    --tw-scale-y: 105%;
+    --tw-scale-z: 105%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+}
+
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-scale-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+/*# sourceMappingURL=frontend_src_app_globals_css_bad6b30c._.single.css.map*/
