@@ -37,7 +37,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-20">
           {/* Logo - Made larger as requested */}
           <div className="flex items-center">
-            <Link href={`/${locale}`} className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3">
               <Image
                 src="https://customer-assets.emergentagent.com/job_premium-cx/artifacts/p2reh895_Logo%20Siete%20CX.png"
                 alt="Siete CX Logo"
@@ -46,7 +46,7 @@ export default function Navigation() {
                 className="h-12 w-auto"
                 priority
               />
-            </Link>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
