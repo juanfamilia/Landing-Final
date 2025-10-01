@@ -95,8 +95,8 @@ const RE_HEX_ESCAPE = /[\da-f]/i;
 module.exports = function tokenizer(input, options = {}) {
     let css = input.css.valueOf();
     let ignore = options.ignoreErrors;
-    let code, next, quote, content, escape;
-    let escaped, escapePos, prev, n, currentToken;
+    let code, content, escape, next, quote;
+    let currentToken, escaped, escapePos, n, prev;
     let length = css.length;
     let pos = 0;
     let buffer = [];
@@ -439,29 +439,37 @@ class CssSyntaxError extends Error {
         if (!this.source) return '';
         let css = this.source;
         if (color == null) color = pico.isColorSupported;
-        if (terminalHighlight) {
-            if (color) css = terminalHighlight(css);
+        let aside = (text)=>text;
+        let mark = (text)=>text;
+        let highlight = (text)=>text;
+        if (color) {
+            let { bold, gray, red } = pico.createColors(true);
+            mark = (text)=>bold(red(text));
+            aside = (text)=>gray(text);
+            if (terminalHighlight) {
+                highlight = (text)=>terminalHighlight(text);
+            }
         }
         let lines = css.split(/\r?\n/);
         let start = Math.max(this.line - 3, 0);
         let end = Math.min(this.line + 2, lines.length);
         let maxWidth = String(end).length;
-        let mark, aside;
-        if (color) {
-            let { bold, gray, red } = pico.createColors(true);
-            mark = (text)=>bold(red(text));
-            aside = (text)=>gray(text);
-        } else {
-            mark = aside = (str)=>str;
-        }
         return lines.slice(start, end).map((line, index)=>{
             let number = start + 1 + index;
             let gutter = ' ' + (' ' + number).slice(-maxWidth) + ' | ';
             if (number === this.line) {
+                if (line.length > 160) {
+                    let padding = 20;
+                    let subLineStart = Math.max(0, this.column - padding);
+                    let subLineEnd = Math.max(this.column + padding, this.endColumn + padding);
+                    let subLine = line.slice(subLineStart, subLineEnd);
+                    let spacing = aside(gutter.replace(/\d/g, ' ')) + line.slice(0, Math.min(this.column - 1, padding - 1)).replace(/[^\t]/g, ' ');
+                    return mark('>') + aside(gutter) + highlight(subLine) + '\n ' + spacing + mark('^');
+                }
                 let spacing = aside(gutter.replace(/\d/g, ' ')) + line.slice(0, this.column - 1).replace(/[^\t]/g, ' ');
-                return mark('>') + aside(gutter) + line + '\n ' + spacing + mark('^');
+                return mark('>') + aside(gutter) + highlight(line) + '\n ' + spacing + mark('^');
             }
-            return ' ' + aside(gutter) + line;
+            return ' ' + aside(gutter) + highlight(line);
         }).join('\n');
     }
     toString() {
@@ -474,12 +482,6 @@ class CssSyntaxError extends Error {
 }
 module.exports = CssSyntaxError;
 CssSyntaxError.default = CssSyntaxError;
-}),
-"[project]/frontend/node_modules/postcss/lib/symbols.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-module.exports.isClean = Symbol('isClean');
-module.exports.my = Symbol('my');
 }),
 "[project]/frontend/node_modules/postcss/lib/stringifier.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
@@ -796,13 +798,19 @@ function stringify(node, builder) {
 module.exports = stringify;
 stringify.default = stringify;
 }),
+"[project]/frontend/node_modules/postcss/lib/symbols.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+module.exports.isClean = Symbol('isClean');
+module.exports.my = Symbol('my');
+}),
 "[project]/frontend/node_modules/postcss/lib/node.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
 
-let { isClean, my } = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/symbols.js [postcss] (ecmascript)");
 let CssSyntaxError = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/css-syntax-error.js [postcss] (ecmascript)");
 let Stringifier = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/stringifier.js [postcss] (ecmascript)");
 let stringify = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/stringify.js [postcss] (ecmascript)");
+let { isClean, my } = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/symbols.js [postcss] (ecmascript)");
 function cloneNode(obj, parent) {
     let cloned = new obj.constructor();
     for(let i in obj){
@@ -825,7 +833,32 @@ function cloneNode(obj, parent) {
     }
     return cloned;
 }
+function sourceOffset(inputCSS, position) {
+    // Not all custom syntaxes support `offset` in `source.start` and `source.end`
+    if (position && typeof position.offset !== 'undefined') {
+        return position.offset;
+    }
+    let column = 1;
+    let line = 1;
+    let offset = 0;
+    for(let i = 0; i < inputCSS.length; i++){
+        if (line === position.line && column === position.column) {
+            offset = i;
+            break;
+        }
+        if (inputCSS[i] === '\n') {
+            column = 1;
+            line += 1;
+        } else {
+            column += 1;
+        }
+    }
+    return offset;
+}
 class Node {
+    get proxyOf() {
+        return this;
+    }
     constructor(defaults = {}){
         this.raws = {};
         this[isClean] = false;
@@ -923,6 +956,9 @@ class Node {
             }
         };
     }
+    /* c8 ignore next 3 */ markClean() {
+        this[isClean] = true;
+    }
     markDirty() {
         if (this[isClean]) {
             this[isClean] = false;
@@ -937,23 +973,26 @@ class Node {
         let index = this.parent.index(this);
         return this.parent.nodes[index + 1];
     }
-    positionBy(opts, stringRepresentation) {
+    positionBy(opts = {}) {
         let pos = this.source.start;
         if (opts.index) {
-            pos = this.positionInside(opts.index, stringRepresentation);
+            pos = this.positionInside(opts.index);
         } else if (opts.word) {
-            stringRepresentation = this.toString();
+            let inputString = 'document' in this.source.input ? this.source.input.document : this.source.input.css;
+            let stringRepresentation = inputString.slice(sourceOffset(inputString, this.source.start), sourceOffset(inputString, this.source.end));
             let index = stringRepresentation.indexOf(opts.word);
-            if (index !== -1) pos = this.positionInside(index, stringRepresentation);
+            if (index !== -1) pos = this.positionInside(index);
         }
         return pos;
     }
-    positionInside(index, stringRepresentation) {
-        let string = stringRepresentation || this.toString();
+    positionInside(index) {
         let column = this.source.start.column;
         let line = this.source.start.line;
-        for(let i = 0; i < index; i++){
-            if (string[i] === '\n') {
+        let inputString = 'document' in this.source.input ? this.source.input.document : this.source.input.css;
+        let offset = sourceOffset(inputString, this.source.start);
+        let end = offset + index;
+        for(let i = offset; i < end; i++){
+            if (inputString[i] === '\n') {
                 column = 1;
                 line += 1;
             } else {
@@ -962,7 +1001,8 @@ class Node {
         }
         return {
             column,
-            line
+            line,
+            offset: end
         };
     }
     prev() {
@@ -970,30 +1010,37 @@ class Node {
         let index = this.parent.index(this);
         return this.parent.nodes[index - 1];
     }
-    rangeBy(opts) {
+    rangeBy(opts = {}) {
+        let inputString = 'document' in this.source.input ? this.source.input.document : this.source.input.css;
         let start = {
             column: this.source.start.column,
-            line: this.source.start.line
+            line: this.source.start.line,
+            offset: sourceOffset(inputString, this.source.start)
         };
         let end = this.source.end ? {
             column: this.source.end.column + 1,
-            line: this.source.end.line
+            line: this.source.end.line,
+            offset: typeof this.source.end.offset === 'number' ? this.source.end.offset : // the `sourceOffset(... , this.source.end)` returns an inclusive offset.
+            // So, we add 1 to convert it to exclusive.
+            sourceOffset(inputString, this.source.end) + 1
         } : {
             column: start.column + 1,
-            line: start.line
+            line: start.line,
+            offset: start.offset + 1
         };
         if (opts.word) {
-            let stringRepresentation = this.toString();
+            let stringRepresentation = inputString.slice(sourceOffset(inputString, this.source.start), sourceOffset(inputString, this.source.end));
             let index = stringRepresentation.indexOf(opts.word);
             if (index !== -1) {
-                start = this.positionInside(index, stringRepresentation);
-                end = this.positionInside(index + opts.word.length, stringRepresentation);
+                start = this.positionInside(index);
+                end = this.positionInside(index + opts.word.length);
             }
         } else {
             if (opts.start) {
                 start = {
                     column: opts.start.column,
-                    line: opts.start.line
+                    line: opts.start.line,
+                    offset: sourceOffset(inputString, opts.start)
                 };
             } else if (opts.index) {
                 start = this.positionInside(opts.index);
@@ -1001,9 +1048,10 @@ class Node {
             if (opts.end) {
                 end = {
                     column: opts.end.column,
-                    line: opts.end.line
+                    line: opts.end.line,
+                    offset: sourceOffset(inputString, opts.end)
                 };
-            } else if (opts.endIndex) {
+            } else if (typeof opts.endIndex === 'number') {
                 end = this.positionInside(opts.endIndex);
             } else if (opts.index) {
                 end = this.positionInside(opts.index + 1);
@@ -1012,7 +1060,8 @@ class Node {
         if (end.line < start.line || end.line === start.line && end.column <= start.column) {
             end = {
                 column: start.column + 1,
-                line: start.line
+                line: start.line,
+                offset: start.offset + 1
             };
         }
         return {
@@ -1080,6 +1129,7 @@ class Node {
             } else if (typeof value === 'object' && value.toJSON) {
                 fixed[name] = value.toJSON(null, inputs);
             } else if (name === 'source') {
+                if (value == null) continue;
                 let inputId = inputs.get(value.input);
                 if (inputId == null) {
                     inputId = inputsNextIndex;
@@ -1116,25 +1166,38 @@ class Node {
         });
         return result;
     }
-    warn(result, text, opts) {
+    warn(result, text, opts = {}) {
         let data = {
             node: this
         };
         for(let i in opts)data[i] = opts[i];
         return result.warn(text, data);
     }
-    get proxyOf() {
-        return this;
-    }
 }
 module.exports = Node;
 Node.default = Node;
+}),
+"[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+let Node = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/node.js [postcss] (ecmascript)");
+class Comment extends Node {
+    constructor(defaults){
+        super(defaults);
+        this.type = 'comment';
+    }
+}
+module.exports = Comment;
+Comment.default = Comment;
 }),
 "[project]/frontend/node_modules/postcss/lib/declaration.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
 
 let Node = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/node.js [postcss] (ecmascript)");
 class Declaration extends Node {
+    get variable() {
+        return this.prop.startsWith('--') || this.prop[0] === '$';
+    }
     constructor(defaults){
         if (defaults && typeof defaults.value !== 'undefined' && typeof defaults.value !== 'string') {
             defaults = {
@@ -1145,12 +1208,478 @@ class Declaration extends Node {
         super(defaults);
         this.type = 'decl';
     }
-    get variable() {
-        return this.prop.startsWith('--') || this.prop[0] === '$';
-    }
 }
 module.exports = Declaration;
 Declaration.default = Declaration;
+}),
+"[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+let Comment = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)");
+let Declaration = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/declaration.js [postcss] (ecmascript)");
+let Node = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/node.js [postcss] (ecmascript)");
+let { isClean, my } = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/symbols.js [postcss] (ecmascript)");
+let AtRule, parse, Root, Rule;
+function cleanSource(nodes) {
+    return nodes.map((i)=>{
+        if (i.nodes) i.nodes = cleanSource(i.nodes);
+        delete i.source;
+        return i;
+    });
+}
+function markTreeDirty(node) {
+    node[isClean] = false;
+    if (node.proxyOf.nodes) {
+        for (let i of node.proxyOf.nodes){
+            markTreeDirty(i);
+        }
+    }
+}
+class Container extends Node {
+    get first() {
+        if (!this.proxyOf.nodes) return undefined;
+        return this.proxyOf.nodes[0];
+    }
+    get last() {
+        if (!this.proxyOf.nodes) return undefined;
+        return this.proxyOf.nodes[this.proxyOf.nodes.length - 1];
+    }
+    append(...children) {
+        for (let child of children){
+            let nodes = this.normalize(child, this.last);
+            for (let node of nodes)this.proxyOf.nodes.push(node);
+        }
+        this.markDirty();
+        return this;
+    }
+    cleanRaws(keepBetween) {
+        super.cleanRaws(keepBetween);
+        if (this.nodes) {
+            for (let node of this.nodes)node.cleanRaws(keepBetween);
+        }
+    }
+    each(callback) {
+        if (!this.proxyOf.nodes) return undefined;
+        let iterator = this.getIterator();
+        let index, result;
+        while(this.indexes[iterator] < this.proxyOf.nodes.length){
+            index = this.indexes[iterator];
+            result = callback(this.proxyOf.nodes[index], index);
+            if (result === false) break;
+            this.indexes[iterator] += 1;
+        }
+        delete this.indexes[iterator];
+        return result;
+    }
+    every(condition) {
+        return this.nodes.every(condition);
+    }
+    getIterator() {
+        if (!this.lastEach) this.lastEach = 0;
+        if (!this.indexes) this.indexes = {};
+        this.lastEach += 1;
+        let iterator = this.lastEach;
+        this.indexes[iterator] = 0;
+        return iterator;
+    }
+    getProxyProcessor() {
+        return {
+            get (node, prop) {
+                if (prop === 'proxyOf') {
+                    return node;
+                } else if (!node[prop]) {
+                    return node[prop];
+                } else if (prop === 'each' || typeof prop === 'string' && prop.startsWith('walk')) {
+                    return (...args)=>{
+                        return node[prop](...args.map((i)=>{
+                            if (typeof i === 'function') {
+                                return (child, index)=>i(child.toProxy(), index);
+                            } else {
+                                return i;
+                            }
+                        }));
+                    };
+                } else if (prop === 'every' || prop === 'some') {
+                    return (cb)=>{
+                        return node[prop]((child, ...other)=>cb(child.toProxy(), ...other));
+                    };
+                } else if (prop === 'root') {
+                    return ()=>node.root().toProxy();
+                } else if (prop === 'nodes') {
+                    return node.nodes.map((i)=>i.toProxy());
+                } else if (prop === 'first' || prop === 'last') {
+                    return node[prop].toProxy();
+                } else {
+                    return node[prop];
+                }
+            },
+            set (node, prop, value) {
+                if (node[prop] === value) return true;
+                node[prop] = value;
+                if (prop === 'name' || prop === 'params' || prop === 'selector') {
+                    node.markDirty();
+                }
+                return true;
+            }
+        };
+    }
+    index(child) {
+        if (typeof child === 'number') return child;
+        if (child.proxyOf) child = child.proxyOf;
+        return this.proxyOf.nodes.indexOf(child);
+    }
+    insertAfter(exist, add) {
+        let existIndex = this.index(exist);
+        let nodes = this.normalize(add, this.proxyOf.nodes[existIndex]).reverse();
+        existIndex = this.index(exist);
+        for (let node of nodes)this.proxyOf.nodes.splice(existIndex + 1, 0, node);
+        let index;
+        for(let id in this.indexes){
+            index = this.indexes[id];
+            if (existIndex < index) {
+                this.indexes[id] = index + nodes.length;
+            }
+        }
+        this.markDirty();
+        return this;
+    }
+    insertBefore(exist, add) {
+        let existIndex = this.index(exist);
+        let type = existIndex === 0 ? 'prepend' : false;
+        let nodes = this.normalize(add, this.proxyOf.nodes[existIndex], type).reverse();
+        existIndex = this.index(exist);
+        for (let node of nodes)this.proxyOf.nodes.splice(existIndex, 0, node);
+        let index;
+        for(let id in this.indexes){
+            index = this.indexes[id];
+            if (existIndex <= index) {
+                this.indexes[id] = index + nodes.length;
+            }
+        }
+        this.markDirty();
+        return this;
+    }
+    normalize(nodes, sample) {
+        if (typeof nodes === 'string') {
+            nodes = cleanSource(parse(nodes).nodes);
+        } else if (typeof nodes === 'undefined') {
+            nodes = [];
+        } else if (Array.isArray(nodes)) {
+            nodes = nodes.slice(0);
+            for (let i of nodes){
+                if (i.parent) i.parent.removeChild(i, 'ignore');
+            }
+        } else if (nodes.type === 'root' && this.type !== 'document') {
+            nodes = nodes.nodes.slice(0);
+            for (let i of nodes){
+                if (i.parent) i.parent.removeChild(i, 'ignore');
+            }
+        } else if (nodes.type) {
+            nodes = [
+                nodes
+            ];
+        } else if (nodes.prop) {
+            if (typeof nodes.value === 'undefined') {
+                throw new Error('Value field is missed in node creation');
+            } else if (typeof nodes.value !== 'string') {
+                nodes.value = String(nodes.value);
+            }
+            nodes = [
+                new Declaration(nodes)
+            ];
+        } else if (nodes.selector || nodes.selectors) {
+            nodes = [
+                new Rule(nodes)
+            ];
+        } else if (nodes.name) {
+            nodes = [
+                new AtRule(nodes)
+            ];
+        } else if (nodes.text) {
+            nodes = [
+                new Comment(nodes)
+            ];
+        } else {
+            throw new Error('Unknown node type in node creation');
+        }
+        let processed = nodes.map((i)=>{
+            /* c8 ignore next */ if (!i[my]) Container.rebuild(i);
+            i = i.proxyOf;
+            if (i.parent) i.parent.removeChild(i);
+            if (i[isClean]) markTreeDirty(i);
+            if (!i.raws) i.raws = {};
+            if (typeof i.raws.before === 'undefined') {
+                if (sample && typeof sample.raws.before !== 'undefined') {
+                    i.raws.before = sample.raws.before.replace(/\S/g, '');
+                }
+            }
+            i.parent = this.proxyOf;
+            return i;
+        });
+        return processed;
+    }
+    prepend(...children) {
+        children = children.reverse();
+        for (let child of children){
+            let nodes = this.normalize(child, this.first, 'prepend').reverse();
+            for (let node of nodes)this.proxyOf.nodes.unshift(node);
+            for(let id in this.indexes){
+                this.indexes[id] = this.indexes[id] + nodes.length;
+            }
+        }
+        this.markDirty();
+        return this;
+    }
+    push(child) {
+        child.parent = this;
+        this.proxyOf.nodes.push(child);
+        return this;
+    }
+    removeAll() {
+        for (let node of this.proxyOf.nodes)node.parent = undefined;
+        this.proxyOf.nodes = [];
+        this.markDirty();
+        return this;
+    }
+    removeChild(child) {
+        child = this.index(child);
+        this.proxyOf.nodes[child].parent = undefined;
+        this.proxyOf.nodes.splice(child, 1);
+        let index;
+        for(let id in this.indexes){
+            index = this.indexes[id];
+            if (index >= child) {
+                this.indexes[id] = index - 1;
+            }
+        }
+        this.markDirty();
+        return this;
+    }
+    replaceValues(pattern, opts, callback) {
+        if (!callback) {
+            callback = opts;
+            opts = {};
+        }
+        this.walkDecls((decl)=>{
+            if (opts.props && !opts.props.includes(decl.prop)) return;
+            if (opts.fast && !decl.value.includes(opts.fast)) return;
+            decl.value = decl.value.replace(pattern, callback);
+        });
+        this.markDirty();
+        return this;
+    }
+    some(condition) {
+        return this.nodes.some(condition);
+    }
+    walk(callback) {
+        return this.each((child, i)=>{
+            let result;
+            try {
+                result = callback(child, i);
+            } catch (e) {
+                throw child.addToError(e);
+            }
+            if (result !== false && child.walk) {
+                result = child.walk(callback);
+            }
+            return result;
+        });
+    }
+    walkAtRules(name, callback) {
+        if (!callback) {
+            callback = name;
+            return this.walk((child, i)=>{
+                if (child.type === 'atrule') {
+                    return callback(child, i);
+                }
+            });
+        }
+        if (name instanceof RegExp) {
+            return this.walk((child, i)=>{
+                if (child.type === 'atrule' && name.test(child.name)) {
+                    return callback(child, i);
+                }
+            });
+        }
+        return this.walk((child, i)=>{
+            if (child.type === 'atrule' && child.name === name) {
+                return callback(child, i);
+            }
+        });
+    }
+    walkComments(callback) {
+        return this.walk((child, i)=>{
+            if (child.type === 'comment') {
+                return callback(child, i);
+            }
+        });
+    }
+    walkDecls(prop, callback) {
+        if (!callback) {
+            callback = prop;
+            return this.walk((child, i)=>{
+                if (child.type === 'decl') {
+                    return callback(child, i);
+                }
+            });
+        }
+        if (prop instanceof RegExp) {
+            return this.walk((child, i)=>{
+                if (child.type === 'decl' && prop.test(child.prop)) {
+                    return callback(child, i);
+                }
+            });
+        }
+        return this.walk((child, i)=>{
+            if (child.type === 'decl' && child.prop === prop) {
+                return callback(child, i);
+            }
+        });
+    }
+    walkRules(selector, callback) {
+        if (!callback) {
+            callback = selector;
+            return this.walk((child, i)=>{
+                if (child.type === 'rule') {
+                    return callback(child, i);
+                }
+            });
+        }
+        if (selector instanceof RegExp) {
+            return this.walk((child, i)=>{
+                if (child.type === 'rule' && selector.test(child.selector)) {
+                    return callback(child, i);
+                }
+            });
+        }
+        return this.walk((child, i)=>{
+            if (child.type === 'rule' && child.selector === selector) {
+                return callback(child, i);
+            }
+        });
+    }
+}
+Container.registerParse = (dependant)=>{
+    parse = dependant;
+};
+Container.registerRule = (dependant)=>{
+    Rule = dependant;
+};
+Container.registerAtRule = (dependant)=>{
+    AtRule = dependant;
+};
+Container.registerRoot = (dependant)=>{
+    Root = dependant;
+};
+module.exports = Container;
+Container.default = Container;
+/* c8 ignore start */ Container.rebuild = (node)=>{
+    if (node.type === 'atrule') {
+        Object.setPrototypeOf(node, AtRule.prototype);
+    } else if (node.type === 'rule') {
+        Object.setPrototypeOf(node, Rule.prototype);
+    } else if (node.type === 'decl') {
+        Object.setPrototypeOf(node, Declaration.prototype);
+    } else if (node.type === 'comment') {
+        Object.setPrototypeOf(node, Comment.prototype);
+    } else if (node.type === 'root') {
+        Object.setPrototypeOf(node, Root.prototype);
+    }
+    node[my] = true;
+    if (node.nodes) {
+        node.nodes.forEach((child)=>{
+            Container.rebuild(child);
+        });
+    }
+}; /* c8 ignore stop */ 
+}),
+"[project]/frontend/node_modules/postcss/lib/at-rule.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
+class AtRule extends Container {
+    constructor(defaults){
+        super(defaults);
+        this.type = 'atrule';
+    }
+    append(...children) {
+        if (!this.proxyOf.nodes) this.nodes = [];
+        return super.append(...children);
+    }
+    prepend(...children) {
+        if (!this.proxyOf.nodes) this.nodes = [];
+        return super.prepend(...children);
+    }
+}
+module.exports = AtRule;
+AtRule.default = AtRule;
+Container.registerAtRule(AtRule);
+}),
+"[project]/frontend/node_modules/postcss/lib/document.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
+let LazyResult, Processor;
+class Document extends Container {
+    constructor(defaults){
+        // type needs to be passed to super, otherwise child roots won't be normalized correctly
+        super({
+            type: 'document',
+            ...defaults
+        });
+        if (!this.nodes) {
+            this.nodes = [];
+        }
+    }
+    toResult(opts = {}) {
+        let lazy = new LazyResult(new Processor(), this, opts);
+        return lazy.stringify();
+    }
+}
+Document.registerLazyResult = (dependant)=>{
+    LazyResult = dependant;
+};
+Document.registerProcessor = (dependant)=>{
+    Processor = dependant;
+};
+module.exports = Document;
+Document.default = Document;
+}),
+"[project]/frontend/node_modules/nanoid/non-secure/index.cjs [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+// This alphabet uses `A-Za-z0-9_-` symbols.
+// The order of characters is optimized for better gzip and brotli compression.
+// References to the same file (works both for gzip and brotli):
+// `'use`, `andom`, and `rict'`
+// References to the brotli default dictionary:
+// `-26T`, `1983`, `40px`, `75px`, `bush`, `jack`, `mind`, `very`, and `wolf`
+let urlAlphabet = 'useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict';
+let customAlphabet = (alphabet, defaultSize = 21)=>{
+    return (size = defaultSize)=>{
+        let id = '';
+        // A compact alternative for `for (var i = 0; i < step; i++)`.
+        let i = size | 0;
+        while(i--){
+            // `| 0` is more compact and faster than `Math.floor()`.
+            id += alphabet[Math.random() * alphabet.length | 0];
+        }
+        return id;
+    };
+};
+let nanoid = (size = 21)=>{
+    let id = '';
+    // A compact alternative for `for (var i = 0; i < step; i++)`.
+    let i = size | 0;
+    while(i--){
+        // `| 0` is more compact and faster than `Math.floor()`.
+        id += urlAlphabet[Math.random() * 64 | 0];
+    }
+    return id;
+};
+module.exports = {
+    nanoid,
+    customAlphabet
+};
 }),
 "[project]/frontend/node_modules/source-map-js/lib/base64.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 
@@ -3900,48 +4429,12 @@ exports.SourceNode = SourceNode;
 exports.SourceMapConsumer = __turbopack_context__.r("[project]/frontend/node_modules/source-map-js/lib/source-map-consumer.js [postcss] (ecmascript)").SourceMapConsumer;
 exports.SourceNode = __turbopack_context__.r("[project]/frontend/node_modules/source-map-js/lib/source-node.js [postcss] (ecmascript)").SourceNode;
 }),
-"[project]/frontend/node_modules/nanoid/non-secure/index.cjs [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-
-// This alphabet uses `A-Za-z0-9_-` symbols.
-// The order of characters is optimized for better gzip and brotli compression.
-// References to the same file (works both for gzip and brotli):
-// `'use`, `andom`, and `rict'`
-// References to the brotli default dictionary:
-// `-26T`, `1983`, `40px`, `75px`, `bush`, `jack`, `mind`, `very`, and `wolf`
-let urlAlphabet = 'useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict';
-let customAlphabet = (alphabet, defaultSize = 21)=>{
-    return (size = defaultSize)=>{
-        let id = '';
-        // A compact alternative for `for (var i = 0; i < step; i++)`.
-        let i = size | 0;
-        while(i--){
-            // `| 0` is more compact and faster than `Math.floor()`.
-            id += alphabet[Math.random() * alphabet.length | 0];
-        }
-        return id;
-    };
-};
-let nanoid = (size = 21)=>{
-    let id = '';
-    // A compact alternative for `for (var i = 0; i < step; i++)`.
-    let i = size | 0;
-    while(i--){
-        // `| 0` is more compact and faster than `Math.floor()`.
-        id += urlAlphabet[Math.random() * 64 | 0];
-    }
-    return id;
-};
-module.exports = {
-    nanoid,
-    customAlphabet
-};
-}),
 "[project]/frontend/node_modules/postcss/lib/previous-map.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
 
-let { SourceMapConsumer, SourceMapGenerator } = __turbopack_context__.r("[project]/frontend/node_modules/source-map-js/source-map.js [postcss] (ecmascript)");
 let { existsSync, readFileSync } = __turbopack_context__.r("[externals]/fs [external] (fs, cjs)");
 let { dirname, join } = __turbopack_context__.r("[externals]/path [external] (path, cjs)");
+let { SourceMapConsumer, SourceMapGenerator } = __turbopack_context__.r("[project]/frontend/node_modules/source-map-js/source-map.js [postcss] (ecmascript)");
 function fromBase64(str) {
     if ("TURBOPACK compile-time truthy", 1) {
         return Buffer.from(str, 'base64').toString();
@@ -3972,11 +4465,13 @@ class PreviousMap {
         let baseUri = /^data:application\/json;base64,/;
         let charsetUri = /^data:application\/json;charset=utf-?8,/;
         let uri = /^data:application\/json,/;
-        if (charsetUri.test(text) || uri.test(text)) {
-            return decodeURIComponent(text.substr(RegExp.lastMatch.length));
+        let uriMatch = text.match(charsetUri) || text.match(uri);
+        if (uriMatch) {
+            return decodeURIComponent(text.substr(uriMatch[0].length));
         }
-        if (baseCharsetUri.test(text) || baseUri.test(text)) {
-            return fromBase64(text.substr(RegExp.lastMatch.length));
+        let baseUriMatch = text.match(baseCharsetUri) || text.match(baseUri);
+        if (baseUriMatch) {
+            return fromBase64(text.substr(baseUriMatch[0].length));
         }
         let encoding = text.match(/data:application\/json;([^,]+),/)[1];
         throw new Error('Unsupported source map encoding ' + encoding);
@@ -3989,7 +4484,7 @@ class PreviousMap {
         return typeof map.mappings === 'string' || typeof map._mappings === 'string' || Array.isArray(map.sections);
     }
     loadAnnotation(css) {
-        let comments = css.match(/\/\*\s*# sourceMappingURL=/gm);
+        let comments = css.match(/\/\*\s*# sourceMappingURL=/g);
         if (!comments) return;
         // sourceMappingURLs from comments, strings, etc.
         let start = css.lastIndexOf(comments.pop());
@@ -4051,17 +4546,32 @@ PreviousMap.default = PreviousMap;
 "[project]/frontend/node_modules/postcss/lib/input.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
 
+let { nanoid } = __turbopack_context__.r("[project]/frontend/node_modules/nanoid/non-secure/index.cjs [postcss] (ecmascript)");
+let { isAbsolute, resolve } = __turbopack_context__.r("[externals]/path [external] (path, cjs)");
 let { SourceMapConsumer, SourceMapGenerator } = __turbopack_context__.r("[project]/frontend/node_modules/source-map-js/source-map.js [postcss] (ecmascript)");
 let { fileURLToPath, pathToFileURL } = __turbopack_context__.r("[externals]/url [external] (url, cjs)");
-let { isAbsolute, resolve } = __turbopack_context__.r("[externals]/path [external] (path, cjs)");
-let { nanoid } = __turbopack_context__.r("[project]/frontend/node_modules/nanoid/non-secure/index.cjs [postcss] (ecmascript)");
-let terminalHighlight = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/terminal-highlight.js [postcss] (ecmascript)");
 let CssSyntaxError = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/css-syntax-error.js [postcss] (ecmascript)");
 let PreviousMap = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/previous-map.js [postcss] (ecmascript)");
-let fromOffsetCache = Symbol('fromOffsetCache');
+let terminalHighlight = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/terminal-highlight.js [postcss] (ecmascript)");
+let lineToIndexCache = Symbol('lineToIndexCache');
 let sourceMapAvailable = Boolean(SourceMapConsumer && SourceMapGenerator);
 let pathAvailable = Boolean(resolve && isAbsolute);
+function getLineToIndex(input) {
+    if (input[lineToIndexCache]) return input[lineToIndexCache];
+    let lines = input.css.split('\n');
+    let lineToIndex = new Array(lines.length);
+    let prevIndex = 0;
+    for(let i = 0, l = lines.length; i < l; i++){
+        lineToIndex[i] = prevIndex;
+        prevIndex += lines[i].length + 1;
+    }
+    input[lineToIndexCache] = lineToIndex;
+    return lineToIndex;
+}
 class Input {
+    get from() {
+        return this.file || this.id;
+    }
     constructor(css, opts = {}){
         if (css === null || typeof css === 'undefined' || typeof css === 'object' && !css.toString) {
             throw new Error(`PostCSS received ${css} instead of CSS string`);
@@ -4073,6 +4583,8 @@ class Input {
         } else {
             this.hasBOM = false;
         }
+        this.document = this.css;
+        if (opts.document) this.document = opts.document.toString();
         if (opts.from) {
             if (!pathAvailable || /^\w+:\/\//.test(opts.from) || isAbsolute(opts.from)) {
                 this.file = opts.from;
@@ -4094,30 +4606,37 @@ class Input {
         if (this.map) this.map.file = this.from;
     }
     error(message, line, column, opts = {}) {
-        let result, endLine, endColumn;
+        let endColumn, endLine, endOffset, offset, result;
         if (line && typeof line === 'object') {
             let start = line;
             let end = column;
             if (typeof start.offset === 'number') {
-                let pos = this.fromOffset(start.offset);
+                offset = start.offset;
+                let pos = this.fromOffset(offset);
                 line = pos.line;
                 column = pos.col;
             } else {
                 line = start.line;
                 column = start.column;
+                offset = this.fromLineAndColumn(line, column);
             }
             if (typeof end.offset === 'number') {
-                let pos = this.fromOffset(end.offset);
+                endOffset = end.offset;
+                let pos = this.fromOffset(endOffset);
                 endLine = pos.line;
                 endColumn = pos.col;
             } else {
                 endLine = end.line;
                 endColumn = end.column;
+                endOffset = this.fromLineAndColumn(end.line, end.column);
             }
         } else if (!column) {
-            let pos = this.fromOffset(line);
+            offset = line;
+            let pos = this.fromOffset(offset);
             line = pos.line;
             column = pos.col;
+        } else {
+            offset = this.fromLineAndColumn(line, column);
         }
         let origin = this.origin(line, column, endLine, endColumn);
         if (origin) {
@@ -4141,7 +4660,9 @@ class Input {
             column,
             endColumn,
             endLine,
+            endOffset,
             line,
+            offset,
             source: this.css
         };
         if (this.file) {
@@ -4152,21 +4673,14 @@ class Input {
         }
         return result;
     }
+    fromLineAndColumn(line, column) {
+        let lineToIndex = getLineToIndex(this);
+        let index = lineToIndex[line - 1];
+        return index + column - 1;
+    }
     fromOffset(offset) {
-        let lastLine, lineToIndex;
-        if (!this[fromOffsetCache]) {
-            let lines = this.css.split('\n');
-            lineToIndex = new Array(lines.length);
-            let prevIndex = 0;
-            for(let i = 0, l = lines.length; i < l; i++){
-                lineToIndex[i] = prevIndex;
-                prevIndex += lines[i].length + 1;
-            }
-            this[fromOffsetCache] = lineToIndex;
-        } else {
-            lineToIndex = this[fromOffsetCache];
-        }
-        lastLine = lineToIndex[lineToIndex.length - 1];
+        let lineToIndex = getLineToIndex(this);
+        let lastLine = lineToIndex[lineToIndex.length - 1];
         let min = 0;
         if (offset >= lastLine) {
             min = lineToIndex.length - 1;
@@ -4257,9 +4771,6 @@ class Input {
         }
         return json;
     }
-    get from() {
-        return this.file || this.id;
-    }
 }
 module.exports = Input;
 Input.default = Input;
@@ -4267,11 +4778,200 @@ if (terminalHighlight && terminalHighlight.registerInput) {
     terminalHighlight.registerInput(Input);
 }
 }),
+"[project]/frontend/node_modules/postcss/lib/root.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
+let LazyResult, Processor;
+class Root extends Container {
+    constructor(defaults){
+        super(defaults);
+        this.type = 'root';
+        if (!this.nodes) this.nodes = [];
+    }
+    normalize(child, sample, type) {
+        let nodes = super.normalize(child);
+        if (sample) {
+            if (type === 'prepend') {
+                if (this.nodes.length > 1) {
+                    sample.raws.before = this.nodes[1].raws.before;
+                } else {
+                    delete sample.raws.before;
+                }
+            } else if (this.first !== sample) {
+                for (let node of nodes){
+                    node.raws.before = sample.raws.before;
+                }
+            }
+        }
+        return nodes;
+    }
+    removeChild(child, ignore) {
+        let index = this.index(child);
+        if (!ignore && index === 0 && this.nodes.length > 1) {
+            this.nodes[1].raws.before = this.nodes[index].raws.before;
+        }
+        return super.removeChild(child);
+    }
+    toResult(opts = {}) {
+        let lazy = new LazyResult(new Processor(), this, opts);
+        return lazy.stringify();
+    }
+}
+Root.registerLazyResult = (dependant)=>{
+    LazyResult = dependant;
+};
+Root.registerProcessor = (dependant)=>{
+    Processor = dependant;
+};
+module.exports = Root;
+Root.default = Root;
+Container.registerRoot(Root);
+}),
+"[project]/frontend/node_modules/postcss/lib/list.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+let list = {
+    comma (string) {
+        return list.split(string, [
+            ','
+        ], true);
+    },
+    space (string) {
+        let spaces = [
+            ' ',
+            '\n',
+            '\t'
+        ];
+        return list.split(string, spaces);
+    },
+    split (string, separators, last) {
+        let array = [];
+        let current = '';
+        let split = false;
+        let func = 0;
+        let inQuote = false;
+        let prevQuote = '';
+        let escape = false;
+        for (let letter of string){
+            if (escape) {
+                escape = false;
+            } else if (letter === '\\') {
+                escape = true;
+            } else if (inQuote) {
+                if (letter === prevQuote) {
+                    inQuote = false;
+                }
+            } else if (letter === '"' || letter === "'") {
+                inQuote = true;
+                prevQuote = letter;
+            } else if (letter === '(') {
+                func += 1;
+            } else if (letter === ')') {
+                if (func > 0) func -= 1;
+            } else if (func === 0) {
+                if (separators.includes(letter)) split = true;
+            }
+            if (split) {
+                if (current !== '') array.push(current.trim());
+                current = '';
+                split = false;
+            } else {
+                current += letter;
+            }
+        }
+        if (last || current !== '') array.push(current.trim());
+        return array;
+    }
+};
+module.exports = list;
+list.default = list;
+}),
+"[project]/frontend/node_modules/postcss/lib/rule.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
+let list = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/list.js [postcss] (ecmascript)");
+class Rule extends Container {
+    get selectors() {
+        return list.comma(this.selector);
+    }
+    set selectors(values) {
+        let match = this.selector ? this.selector.match(/,\s*/) : null;
+        let sep = match ? match[0] : ',' + this.raw('between', 'beforeOpen');
+        this.selector = values.join(sep);
+    }
+    constructor(defaults){
+        super(defaults);
+        this.type = 'rule';
+        if (!this.nodes) this.nodes = [];
+    }
+}
+module.exports = Rule;
+Rule.default = Rule;
+Container.registerRule(Rule);
+}),
+"[project]/frontend/node_modules/postcss/lib/fromJSON.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+let AtRule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/at-rule.js [postcss] (ecmascript)");
+let Comment = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)");
+let Declaration = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/declaration.js [postcss] (ecmascript)");
+let Input = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/input.js [postcss] (ecmascript)");
+let PreviousMap = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/previous-map.js [postcss] (ecmascript)");
+let Root = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/root.js [postcss] (ecmascript)");
+let Rule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/rule.js [postcss] (ecmascript)");
+function fromJSON(json, inputs) {
+    if (Array.isArray(json)) return json.map((n)=>fromJSON(n));
+    let { inputs: ownInputs, ...defaults } = json;
+    if (ownInputs) {
+        inputs = [];
+        for (let input of ownInputs){
+            let inputHydrated = {
+                ...input,
+                __proto__: Input.prototype
+            };
+            if (inputHydrated.map) {
+                inputHydrated.map = {
+                    ...inputHydrated.map,
+                    __proto__: PreviousMap.prototype
+                };
+            }
+            inputs.push(inputHydrated);
+        }
+    }
+    if (defaults.nodes) {
+        defaults.nodes = json.nodes.map((n)=>fromJSON(n, inputs));
+    }
+    if (defaults.source) {
+        let { inputId, ...source } = defaults.source;
+        defaults.source = source;
+        if (inputId != null) {
+            defaults.source.input = inputs[inputId];
+        }
+    }
+    if (defaults.type === 'root') {
+        return new Root(defaults);
+    } else if (defaults.type === 'decl') {
+        return new Declaration(defaults);
+    } else if (defaults.type === 'rule') {
+        return new Rule(defaults);
+    } else if (defaults.type === 'comment') {
+        return new Comment(defaults);
+    } else if (defaults.type === 'atrule') {
+        return new AtRule(defaults);
+    } else {
+        throw new Error('Unknown node type: ' + json.type);
+    }
+}
+module.exports = fromJSON;
+fromJSON.default = fromJSON;
+}),
 "[project]/frontend/node_modules/postcss/lib/map-generator.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
 
-let { SourceMapConsumer, SourceMapGenerator } = __turbopack_context__.r("[project]/frontend/node_modules/source-map-js/source-map.js [postcss] (ecmascript)");
 let { dirname, relative, resolve, sep } = __turbopack_context__.r("[externals]/path [external] (path, cjs)");
+let { SourceMapConsumer, SourceMapGenerator } = __turbopack_context__.r("[project]/frontend/node_modules/source-map-js/source-map.js [postcss] (ecmascript)");
 let { pathToFileURL } = __turbopack_context__.r("[externals]/url [external] (url, cjs)");
 let Input = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/input.js [postcss] (ecmascript)");
 let sourceMapAvailable = Boolean(SourceMapConsumer && SourceMapGenerator);
@@ -4283,6 +4983,7 @@ class MapGenerator {
         this.root = root;
         this.opts = opts;
         this.css = cssString;
+        this.originalCSS = cssString;
         this.usesFileUrls = !this.mapOpts.from && this.mapOpts.absolute;
         this.memoizedFileURLs = new Map();
         this.memoizedPaths = new Map();
@@ -4311,7 +5012,7 @@ class MapGenerator {
             if (this.mapOpts.sourcesContent === false) {
                 map = new SourceMapConsumer(prev.text);
                 if (map.sourcesContent) {
-                    map.sourcesContent = map.sourcesContent.map(()=>null);
+                    map.sourcesContent = null;
                 }
             } else {
                 map = prev.consumer();
@@ -4326,12 +5027,12 @@ class MapGenerator {
             for(let i = this.root.nodes.length - 1; i >= 0; i--){
                 node = this.root.nodes[i];
                 if (node.type !== 'comment') continue;
-                if (node.text.indexOf('# sourceMappingURL=') === 0) {
+                if (node.text.startsWith('# sourceMappingURL=')) {
                     this.root.removeChild(i);
                 }
             }
         } else if (this.css) {
-            this.css = this.css.replace(/(\n)?\/\*#[\S\s]*?\*\/$/gm, '');
+            this.css = this.css.replace(/\n*\/\*#[\S\s]*?\*\/$/gm, '');
         }
     }
     generate() {
@@ -4354,10 +5055,13 @@ class MapGenerator {
         } else if (this.previous().length === 1) {
             let prev = this.previous()[0].consumer();
             prev.file = this.outputFile();
-            this.map = SourceMapGenerator.fromSourceMap(prev);
+            this.map = SourceMapGenerator.fromSourceMap(prev, {
+                ignoreInvalidMapping: true
+            });
         } else {
             this.map = new SourceMapGenerator({
-                file: this.outputFile()
+                file: this.outputFile(),
+                ignoreInvalidMapping: true
             });
             this.map.addMapping({
                 generated: {
@@ -4388,7 +5092,8 @@ class MapGenerator {
     generateString() {
         this.css = '';
         this.map = new SourceMapGenerator({
-            file: this.outputFile()
+            file: this.outputFile(),
+            ignoreInvalidMapping: true
         });
         let line = 1;
         let column = 1;
@@ -4404,7 +5109,7 @@ class MapGenerator {
             },
             source: ''
         };
-        let lines, last;
+        let last, lines;
         this.stringify(this.root, (str, node, type)=>{
             this.css += str;
             if (node && type !== 'end') {
@@ -4531,7 +5236,7 @@ class MapGenerator {
                     }
                 });
             } else {
-                let input = new Input(this.css, this.opts);
+                let input = new Input(this.originalCSS, this.opts);
                 if (input.map) this.previousMaps.push(input.map);
             }
         }
@@ -4594,672 +5299,15 @@ class MapGenerator {
 }
 module.exports = MapGenerator;
 }),
-"[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-let Node = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/node.js [postcss] (ecmascript)");
-class Comment extends Node {
-    constructor(defaults){
-        super(defaults);
-        this.type = 'comment';
-    }
-}
-module.exports = Comment;
-Comment.default = Comment;
-}),
-"[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-let { isClean, my } = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/symbols.js [postcss] (ecmascript)");
-let Declaration = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/declaration.js [postcss] (ecmascript)");
-let Comment = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)");
-let Node = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/node.js [postcss] (ecmascript)");
-let parse, Rule, AtRule, Root;
-function cleanSource(nodes) {
-    return nodes.map((i)=>{
-        if (i.nodes) i.nodes = cleanSource(i.nodes);
-        delete i.source;
-        return i;
-    });
-}
-function markDirtyUp(node) {
-    node[isClean] = false;
-    if (node.proxyOf.nodes) {
-        for (let i of node.proxyOf.nodes){
-            markDirtyUp(i);
-        }
-    }
-}
-class Container extends Node {
-    append(...children) {
-        for (let child of children){
-            let nodes = this.normalize(child, this.last);
-            for (let node of nodes)this.proxyOf.nodes.push(node);
-        }
-        this.markDirty();
-        return this;
-    }
-    cleanRaws(keepBetween) {
-        super.cleanRaws(keepBetween);
-        if (this.nodes) {
-            for (let node of this.nodes)node.cleanRaws(keepBetween);
-        }
-    }
-    each(callback) {
-        if (!this.proxyOf.nodes) return undefined;
-        let iterator = this.getIterator();
-        let index, result;
-        while(this.indexes[iterator] < this.proxyOf.nodes.length){
-            index = this.indexes[iterator];
-            result = callback(this.proxyOf.nodes[index], index);
-            if (result === false) break;
-            this.indexes[iterator] += 1;
-        }
-        delete this.indexes[iterator];
-        return result;
-    }
-    every(condition) {
-        return this.nodes.every(condition);
-    }
-    getIterator() {
-        if (!this.lastEach) this.lastEach = 0;
-        if (!this.indexes) this.indexes = {};
-        this.lastEach += 1;
-        let iterator = this.lastEach;
-        this.indexes[iterator] = 0;
-        return iterator;
-    }
-    getProxyProcessor() {
-        return {
-            get (node, prop) {
-                if (prop === 'proxyOf') {
-                    return node;
-                } else if (!node[prop]) {
-                    return node[prop];
-                } else if (prop === 'each' || typeof prop === 'string' && prop.startsWith('walk')) {
-                    return (...args)=>{
-                        return node[prop](...args.map((i)=>{
-                            if (typeof i === 'function') {
-                                return (child, index)=>i(child.toProxy(), index);
-                            } else {
-                                return i;
-                            }
-                        }));
-                    };
-                } else if (prop === 'every' || prop === 'some') {
-                    return (cb)=>{
-                        return node[prop]((child, ...other)=>cb(child.toProxy(), ...other));
-                    };
-                } else if (prop === 'root') {
-                    return ()=>node.root().toProxy();
-                } else if (prop === 'nodes') {
-                    return node.nodes.map((i)=>i.toProxy());
-                } else if (prop === 'first' || prop === 'last') {
-                    return node[prop].toProxy();
-                } else {
-                    return node[prop];
-                }
-            },
-            set (node, prop, value) {
-                if (node[prop] === value) return true;
-                node[prop] = value;
-                if (prop === 'name' || prop === 'params' || prop === 'selector') {
-                    node.markDirty();
-                }
-                return true;
-            }
-        };
-    }
-    index(child) {
-        if (typeof child === 'number') return child;
-        if (child.proxyOf) child = child.proxyOf;
-        return this.proxyOf.nodes.indexOf(child);
-    }
-    insertAfter(exist, add) {
-        let existIndex = this.index(exist);
-        let nodes = this.normalize(add, this.proxyOf.nodes[existIndex]).reverse();
-        existIndex = this.index(exist);
-        for (let node of nodes)this.proxyOf.nodes.splice(existIndex + 1, 0, node);
-        let index;
-        for(let id in this.indexes){
-            index = this.indexes[id];
-            if (existIndex < index) {
-                this.indexes[id] = index + nodes.length;
-            }
-        }
-        this.markDirty();
-        return this;
-    }
-    insertBefore(exist, add) {
-        let existIndex = this.index(exist);
-        let type = existIndex === 0 ? 'prepend' : false;
-        let nodes = this.normalize(add, this.proxyOf.nodes[existIndex], type).reverse();
-        existIndex = this.index(exist);
-        for (let node of nodes)this.proxyOf.nodes.splice(existIndex, 0, node);
-        let index;
-        for(let id in this.indexes){
-            index = this.indexes[id];
-            if (existIndex <= index) {
-                this.indexes[id] = index + nodes.length;
-            }
-        }
-        this.markDirty();
-        return this;
-    }
-    normalize(nodes, sample) {
-        if (typeof nodes === 'string') {
-            nodes = cleanSource(parse(nodes).nodes);
-        } else if (Array.isArray(nodes)) {
-            nodes = nodes.slice(0);
-            for (let i of nodes){
-                if (i.parent) i.parent.removeChild(i, 'ignore');
-            }
-        } else if (nodes.type === 'root' && this.type !== 'document') {
-            nodes = nodes.nodes.slice(0);
-            for (let i of nodes){
-                if (i.parent) i.parent.removeChild(i, 'ignore');
-            }
-        } else if (nodes.type) {
-            nodes = [
-                nodes
-            ];
-        } else if (nodes.prop) {
-            if (typeof nodes.value === 'undefined') {
-                throw new Error('Value field is missed in node creation');
-            } else if (typeof nodes.value !== 'string') {
-                nodes.value = String(nodes.value);
-            }
-            nodes = [
-                new Declaration(nodes)
-            ];
-        } else if (nodes.selector) {
-            nodes = [
-                new Rule(nodes)
-            ];
-        } else if (nodes.name) {
-            nodes = [
-                new AtRule(nodes)
-            ];
-        } else if (nodes.text) {
-            nodes = [
-                new Comment(nodes)
-            ];
-        } else {
-            throw new Error('Unknown node type in node creation');
-        }
-        let processed = nodes.map((i)=>{
-            /* c8 ignore next */ if (!i[my]) Container.rebuild(i);
-            i = i.proxyOf;
-            if (i.parent) i.parent.removeChild(i);
-            if (i[isClean]) markDirtyUp(i);
-            if (typeof i.raws.before === 'undefined') {
-                if (sample && typeof sample.raws.before !== 'undefined') {
-                    i.raws.before = sample.raws.before.replace(/\S/g, '');
-                }
-            }
-            i.parent = this.proxyOf;
-            return i;
-        });
-        return processed;
-    }
-    prepend(...children) {
-        children = children.reverse();
-        for (let child of children){
-            let nodes = this.normalize(child, this.first, 'prepend').reverse();
-            for (let node of nodes)this.proxyOf.nodes.unshift(node);
-            for(let id in this.indexes){
-                this.indexes[id] = this.indexes[id] + nodes.length;
-            }
-        }
-        this.markDirty();
-        return this;
-    }
-    push(child) {
-        child.parent = this;
-        this.proxyOf.nodes.push(child);
-        return this;
-    }
-    removeAll() {
-        for (let node of this.proxyOf.nodes)node.parent = undefined;
-        this.proxyOf.nodes = [];
-        this.markDirty();
-        return this;
-    }
-    removeChild(child) {
-        child = this.index(child);
-        this.proxyOf.nodes[child].parent = undefined;
-        this.proxyOf.nodes.splice(child, 1);
-        let index;
-        for(let id in this.indexes){
-            index = this.indexes[id];
-            if (index >= child) {
-                this.indexes[id] = index - 1;
-            }
-        }
-        this.markDirty();
-        return this;
-    }
-    replaceValues(pattern, opts, callback) {
-        if (!callback) {
-            callback = opts;
-            opts = {};
-        }
-        this.walkDecls((decl)=>{
-            if (opts.props && !opts.props.includes(decl.prop)) return;
-            if (opts.fast && !decl.value.includes(opts.fast)) return;
-            decl.value = decl.value.replace(pattern, callback);
-        });
-        this.markDirty();
-        return this;
-    }
-    some(condition) {
-        return this.nodes.some(condition);
-    }
-    walk(callback) {
-        return this.each((child, i)=>{
-            let result;
-            try {
-                result = callback(child, i);
-            } catch (e) {
-                throw child.addToError(e);
-            }
-            if (result !== false && child.walk) {
-                result = child.walk(callback);
-            }
-            return result;
-        });
-    }
-    walkAtRules(name, callback) {
-        if (!callback) {
-            callback = name;
-            return this.walk((child, i)=>{
-                if (child.type === 'atrule') {
-                    return callback(child, i);
-                }
-            });
-        }
-        if (name instanceof RegExp) {
-            return this.walk((child, i)=>{
-                if (child.type === 'atrule' && name.test(child.name)) {
-                    return callback(child, i);
-                }
-            });
-        }
-        return this.walk((child, i)=>{
-            if (child.type === 'atrule' && child.name === name) {
-                return callback(child, i);
-            }
-        });
-    }
-    walkComments(callback) {
-        return this.walk((child, i)=>{
-            if (child.type === 'comment') {
-                return callback(child, i);
-            }
-        });
-    }
-    walkDecls(prop, callback) {
-        if (!callback) {
-            callback = prop;
-            return this.walk((child, i)=>{
-                if (child.type === 'decl') {
-                    return callback(child, i);
-                }
-            });
-        }
-        if (prop instanceof RegExp) {
-            return this.walk((child, i)=>{
-                if (child.type === 'decl' && prop.test(child.prop)) {
-                    return callback(child, i);
-                }
-            });
-        }
-        return this.walk((child, i)=>{
-            if (child.type === 'decl' && child.prop === prop) {
-                return callback(child, i);
-            }
-        });
-    }
-    walkRules(selector, callback) {
-        if (!callback) {
-            callback = selector;
-            return this.walk((child, i)=>{
-                if (child.type === 'rule') {
-                    return callback(child, i);
-                }
-            });
-        }
-        if (selector instanceof RegExp) {
-            return this.walk((child, i)=>{
-                if (child.type === 'rule' && selector.test(child.selector)) {
-                    return callback(child, i);
-                }
-            });
-        }
-        return this.walk((child, i)=>{
-            if (child.type === 'rule' && child.selector === selector) {
-                return callback(child, i);
-            }
-        });
-    }
-    get first() {
-        if (!this.proxyOf.nodes) return undefined;
-        return this.proxyOf.nodes[0];
-    }
-    get last() {
-        if (!this.proxyOf.nodes) return undefined;
-        return this.proxyOf.nodes[this.proxyOf.nodes.length - 1];
-    }
-}
-Container.registerParse = (dependant)=>{
-    parse = dependant;
-};
-Container.registerRule = (dependant)=>{
-    Rule = dependant;
-};
-Container.registerAtRule = (dependant)=>{
-    AtRule = dependant;
-};
-Container.registerRoot = (dependant)=>{
-    Root = dependant;
-};
-module.exports = Container;
-Container.default = Container;
-/* c8 ignore start */ Container.rebuild = (node)=>{
-    if (node.type === 'atrule') {
-        Object.setPrototypeOf(node, AtRule.prototype);
-    } else if (node.type === 'rule') {
-        Object.setPrototypeOf(node, Rule.prototype);
-    } else if (node.type === 'decl') {
-        Object.setPrototypeOf(node, Declaration.prototype);
-    } else if (node.type === 'comment') {
-        Object.setPrototypeOf(node, Comment.prototype);
-    } else if (node.type === 'root') {
-        Object.setPrototypeOf(node, Root.prototype);
-    }
-    node[my] = true;
-    if (node.nodes) {
-        node.nodes.forEach((child)=>{
-            Container.rebuild(child);
-        });
-    }
-}; /* c8 ignore stop */ 
-}),
-"[project]/frontend/node_modules/postcss/lib/document.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
-let LazyResult, Processor;
-class Document extends Container {
-    constructor(defaults){
-        // type needs to be passed to super, otherwise child roots won't be normalized correctly
-        super({
-            type: 'document',
-            ...defaults
-        });
-        if (!this.nodes) {
-            this.nodes = [];
-        }
-    }
-    toResult(opts = {}) {
-        let lazy = new LazyResult(new Processor(), this, opts);
-        return lazy.stringify();
-    }
-}
-Document.registerLazyResult = (dependant)=>{
-    LazyResult = dependant;
-};
-Document.registerProcessor = (dependant)=>{
-    Processor = dependant;
-};
-module.exports = Document;
-Document.default = Document;
-}),
-"[project]/frontend/node_modules/postcss/lib/warn-once.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-/* eslint-disable no-console */ let printed = {};
-module.exports = function warnOnce(message) {
-    if (printed[message]) return;
-    printed[message] = true;
-    if (typeof console !== 'undefined' && console.warn) {
-        console.warn(message);
-    }
-};
-}),
-"[project]/frontend/node_modules/postcss/lib/warning.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-class Warning {
-    constructor(text, opts = {}){
-        this.type = 'warning';
-        this.text = text;
-        if (opts.node && opts.node.source) {
-            let range = opts.node.rangeBy(opts);
-            this.line = range.start.line;
-            this.column = range.start.column;
-            this.endLine = range.end.line;
-            this.endColumn = range.end.column;
-        }
-        for(let opt in opts)this[opt] = opts[opt];
-    }
-    toString() {
-        if (this.node) {
-            return this.node.error(this.text, {
-                index: this.index,
-                plugin: this.plugin,
-                word: this.word
-            }).message;
-        }
-        if (this.plugin) {
-            return this.plugin + ': ' + this.text;
-        }
-        return this.text;
-    }
-}
-module.exports = Warning;
-Warning.default = Warning;
-}),
-"[project]/frontend/node_modules/postcss/lib/result.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-let Warning = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/warning.js [postcss] (ecmascript)");
-class Result {
-    constructor(processor, root, opts){
-        this.processor = processor;
-        this.messages = [];
-        this.root = root;
-        this.opts = opts;
-        this.css = undefined;
-        this.map = undefined;
-    }
-    toString() {
-        return this.css;
-    }
-    warn(text, opts = {}) {
-        if (!opts.plugin) {
-            if (this.lastPlugin && this.lastPlugin.postcssPlugin) {
-                opts.plugin = this.lastPlugin.postcssPlugin;
-            }
-        }
-        let warning = new Warning(text, opts);
-        this.messages.push(warning);
-        return warning;
-    }
-    warnings() {
-        return this.messages.filter((i)=>i.type === 'warning');
-    }
-    get content() {
-        return this.css;
-    }
-}
-module.exports = Result;
-Result.default = Result;
-}),
-"[project]/frontend/node_modules/postcss/lib/at-rule.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
-class AtRule extends Container {
-    constructor(defaults){
-        super(defaults);
-        this.type = 'atrule';
-    }
-    append(...children) {
-        if (!this.proxyOf.nodes) this.nodes = [];
-        return super.append(...children);
-    }
-    prepend(...children) {
-        if (!this.proxyOf.nodes) this.nodes = [];
-        return super.prepend(...children);
-    }
-}
-module.exports = AtRule;
-AtRule.default = AtRule;
-Container.registerAtRule(AtRule);
-}),
-"[project]/frontend/node_modules/postcss/lib/root.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
-let LazyResult, Processor;
-class Root extends Container {
-    constructor(defaults){
-        super(defaults);
-        this.type = 'root';
-        if (!this.nodes) this.nodes = [];
-    }
-    normalize(child, sample, type) {
-        let nodes = super.normalize(child);
-        if (sample) {
-            if (type === 'prepend') {
-                if (this.nodes.length > 1) {
-                    sample.raws.before = this.nodes[1].raws.before;
-                } else {
-                    delete sample.raws.before;
-                }
-            } else if (this.first !== sample) {
-                for (let node of nodes){
-                    node.raws.before = sample.raws.before;
-                }
-            }
-        }
-        return nodes;
-    }
-    removeChild(child, ignore) {
-        let index = this.index(child);
-        if (!ignore && index === 0 && this.nodes.length > 1) {
-            this.nodes[1].raws.before = this.nodes[index].raws.before;
-        }
-        return super.removeChild(child);
-    }
-    toResult(opts = {}) {
-        let lazy = new LazyResult(new Processor(), this, opts);
-        return lazy.stringify();
-    }
-}
-Root.registerLazyResult = (dependant)=>{
-    LazyResult = dependant;
-};
-Root.registerProcessor = (dependant)=>{
-    Processor = dependant;
-};
-module.exports = Root;
-Root.default = Root;
-Container.registerRoot(Root);
-}),
-"[project]/frontend/node_modules/postcss/lib/list.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-let list = {
-    comma (string) {
-        return list.split(string, [
-            ','
-        ], true);
-    },
-    space (string) {
-        let spaces = [
-            ' ',
-            '\n',
-            '\t'
-        ];
-        return list.split(string, spaces);
-    },
-    split (string, separators, last) {
-        let array = [];
-        let current = '';
-        let split = false;
-        let func = 0;
-        let inQuote = false;
-        let prevQuote = '';
-        let escape = false;
-        for (let letter of string){
-            if (escape) {
-                escape = false;
-            } else if (letter === '\\') {
-                escape = true;
-            } else if (inQuote) {
-                if (letter === prevQuote) {
-                    inQuote = false;
-                }
-            } else if (letter === '"' || letter === "'") {
-                inQuote = true;
-                prevQuote = letter;
-            } else if (letter === '(') {
-                func += 1;
-            } else if (letter === ')') {
-                if (func > 0) func -= 1;
-            } else if (func === 0) {
-                if (separators.includes(letter)) split = true;
-            }
-            if (split) {
-                if (current !== '') array.push(current.trim());
-                current = '';
-                split = false;
-            } else {
-                current += letter;
-            }
-        }
-        if (last || current !== '') array.push(current.trim());
-        return array;
-    }
-};
-module.exports = list;
-list.default = list;
-}),
-"[project]/frontend/node_modules/postcss/lib/rule.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
-let list = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/list.js [postcss] (ecmascript)");
-class Rule extends Container {
-    constructor(defaults){
-        super(defaults);
-        this.type = 'rule';
-        if (!this.nodes) this.nodes = [];
-    }
-    get selectors() {
-        return list.comma(this.selector);
-    }
-    set selectors(values) {
-        let match = this.selector ? this.selector.match(/,\s*/) : null;
-        let sep = match ? match[0] : ',' + this.raw('between', 'beforeOpen');
-        this.selector = values.join(sep);
-    }
-}
-module.exports = Rule;
-Rule.default = Rule;
-Container.registerRule(Rule);
-}),
 "[project]/frontend/node_modules/postcss/lib/parser.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
 
-let Declaration = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/declaration.js [postcss] (ecmascript)");
-let tokenizer = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/tokenize.js [postcss] (ecmascript)");
-let Comment = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)");
 let AtRule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/at-rule.js [postcss] (ecmascript)");
+let Comment = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)");
+let Declaration = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/declaration.js [postcss] (ecmascript)");
 let Root = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/root.js [postcss] (ecmascript)");
 let Rule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/rule.js [postcss] (ecmascript)");
+let tokenizer = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/tokenize.js [postcss] (ecmascript)");
 const SAFE_COMMENT_NEIGHBOR = {
     empty: true,
     space: true
@@ -5278,7 +5326,6 @@ class Parser {
         this.current = this.root;
         this.spaces = '';
         this.semicolon = false;
-        this.customProperty = false;
         this.createTokenizer();
         this.root.source = {
             input,
@@ -5386,7 +5433,7 @@ class Parser {
     }
     colon(tokens) {
         let brackets = 0;
-        let token, type, prev;
+        let prev, token, type;
         for (let [i, element] of tokens.entries()){
             token = element;
             type = token[0];
@@ -5493,12 +5540,12 @@ class Parser {
                 let str = '';
                 for(let j = i; j > 0; j--){
                     let type = cache[j][0];
-                    if (str.trim().indexOf('!') === 0 && type !== 'space') {
+                    if (str.trim().startsWith('!') && type !== 'space') {
                         break;
                     }
                     str = cache.pop()[1] + str;
                 }
-                if (str.trim().indexOf('!') === 0) {
+                if (str.trim().startsWith('!')) {
                     node.important = true;
                     node.raws.important = str;
                     tokens = cache;
@@ -5562,6 +5609,8 @@ class Parser {
             if (prev && prev.type === 'rule' && !prev.raws.ownSemicolon) {
                 prev.raws.ownSemicolon = this.spaces;
                 this.spaces = '';
+                prev.source.end = this.getPosition(token[2]);
+                prev.source.end.offset += prev.raws.ownSemicolon.length;
             }
         }
     }
@@ -5776,7 +5825,7 @@ class Parser {
         });
     }
     unknownWord(tokens) {
-        throw this.input.error('Unknown word', {
+        throw this.input.error('Unknown word ' + tokens[0][1], {
             offset: tokens[0][2]
         }, {
             offset: tokens[0][2] + tokens[0][1].length
@@ -5796,8 +5845,8 @@ module.exports = Parser;
 "use strict";
 
 let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
-let Parser = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/parser.js [postcss] (ecmascript)");
 let Input = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/input.js [postcss] (ecmascript)");
+let Parser = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/parser.js [postcss] (ecmascript)");
 function parse(css, opts) {
     let input = new Input(css, opts);
     let parser = new Parser(input);
@@ -5814,18 +5863,99 @@ module.exports = parse;
 parse.default = parse;
 Container.registerParse(parse);
 }),
+"[project]/frontend/node_modules/postcss/lib/warning.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+class Warning {
+    constructor(text, opts = {}){
+        this.type = 'warning';
+        this.text = text;
+        if (opts.node && opts.node.source) {
+            let range = opts.node.rangeBy(opts);
+            this.line = range.start.line;
+            this.column = range.start.column;
+            this.endLine = range.end.line;
+            this.endColumn = range.end.column;
+        }
+        for(let opt in opts)this[opt] = opts[opt];
+    }
+    toString() {
+        if (this.node) {
+            return this.node.error(this.text, {
+                index: this.index,
+                plugin: this.plugin,
+                word: this.word
+            }).message;
+        }
+        if (this.plugin) {
+            return this.plugin + ': ' + this.text;
+        }
+        return this.text;
+    }
+}
+module.exports = Warning;
+Warning.default = Warning;
+}),
+"[project]/frontend/node_modules/postcss/lib/result.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+let Warning = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/warning.js [postcss] (ecmascript)");
+class Result {
+    get content() {
+        return this.css;
+    }
+    constructor(processor, root, opts){
+        this.processor = processor;
+        this.messages = [];
+        this.root = root;
+        this.opts = opts;
+        this.css = '';
+        this.map = undefined;
+    }
+    toString() {
+        return this.css;
+    }
+    warn(text, opts = {}) {
+        if (!opts.plugin) {
+            if (this.lastPlugin && this.lastPlugin.postcssPlugin) {
+                opts.plugin = this.lastPlugin.postcssPlugin;
+            }
+        }
+        let warning = new Warning(text, opts);
+        this.messages.push(warning);
+        return warning;
+    }
+    warnings() {
+        return this.messages.filter((i)=>i.type === 'warning');
+    }
+}
+module.exports = Result;
+Result.default = Result;
+}),
+"[project]/frontend/node_modules/postcss/lib/warn-once.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+/* eslint-disable no-console */ let printed = {};
+module.exports = function warnOnce(message) {
+    if (printed[message]) return;
+    printed[message] = true;
+    if (typeof console !== 'undefined' && console.warn) {
+        console.warn(message);
+    }
+};
+}),
 "[project]/frontend/node_modules/postcss/lib/lazy-result.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
 
-let { isClean, my } = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/symbols.js [postcss] (ecmascript)");
-let MapGenerator = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/map-generator.js [postcss] (ecmascript)");
-let stringify = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/stringify.js [postcss] (ecmascript)");
 let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
 let Document = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/document.js [postcss] (ecmascript)");
-let warnOnce = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/warn-once.js [postcss] (ecmascript)");
-let Result = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/result.js [postcss] (ecmascript)");
+let MapGenerator = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/map-generator.js [postcss] (ecmascript)");
 let parse = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/parse.js [postcss] (ecmascript)");
+let Result = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/result.js [postcss] (ecmascript)");
 let Root = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/root.js [postcss] (ecmascript)");
+let stringify = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/stringify.js [postcss] (ecmascript)");
+let { isClean, my } = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/symbols.js [postcss] (ecmascript)");
+let warnOnce = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/warn-once.js [postcss] (ecmascript)");
 const TYPE_TO_CLASS_NAME = {
     atrule: 'AtRule',
     comment: 'Comment',
@@ -5930,6 +6060,30 @@ function cleanMarks(node) {
 }
 let postcss = {};
 class LazyResult {
+    get content() {
+        return this.stringify().content;
+    }
+    get css() {
+        return this.stringify().css;
+    }
+    get map() {
+        return this.stringify().map;
+    }
+    get messages() {
+        return this.sync().messages;
+    }
+    get opts() {
+        return this.result.opts;
+    }
+    get processor() {
+        return this.result.processor;
+    }
+    get root() {
+        return this.sync().root;
+    }
+    get [Symbol.toStringTag]() {
+        return 'LazyResult';
+    }
     constructor(processor, css, opts){
         this.stringified = false;
         this.processed = false;
@@ -6260,30 +6414,6 @@ class LazyResult {
     warnings() {
         return this.sync().warnings();
     }
-    get content() {
-        return this.stringify().content;
-    }
-    get css() {
-        return this.stringify().css;
-    }
-    get map() {
-        return this.stringify().map;
-    }
-    get messages() {
-        return this.sync().messages;
-    }
-    get opts() {
-        return this.result.opts;
-    }
-    get processor() {
-        return this.result.processor;
-    }
-    get root() {
-        return this.sync().root;
-    }
-    get [Symbol.toStringTag]() {
-        return 'LazyResult';
-    }
 }
 LazyResult.registerPostcss = (dependant)=>{
     postcss = dependant;
@@ -6297,64 +6427,11 @@ Document.registerLazyResult(LazyResult);
 "use strict";
 
 let MapGenerator = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/map-generator.js [postcss] (ecmascript)");
-let stringify = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/stringify.js [postcss] (ecmascript)");
-let warnOnce = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/warn-once.js [postcss] (ecmascript)");
 let parse = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/parse.js [postcss] (ecmascript)");
 const Result = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/result.js [postcss] (ecmascript)");
+let stringify = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/stringify.js [postcss] (ecmascript)");
+let warnOnce = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/warn-once.js [postcss] (ecmascript)");
 class NoWorkResult {
-    constructor(processor, css, opts){
-        css = css.toString();
-        this.stringified = false;
-        this._processor = processor;
-        this._css = css;
-        this._opts = opts;
-        this._map = undefined;
-        let root;
-        let str = stringify;
-        this.result = new Result(this._processor, root, this._opts);
-        this.result.css = css;
-        let self = this;
-        Object.defineProperty(this.result, 'root', {
-            get () {
-                return self.root;
-            }
-        });
-        let map = new MapGenerator(str, root, this._opts, css);
-        if (map.isMap()) {
-            let [generatedCSS, generatedMap] = map.generate();
-            if (generatedCSS) {
-                this.result.css = generatedCSS;
-            }
-            if (generatedMap) {
-                this.result.map = generatedMap;
-            }
-        }
-    }
-    async() {
-        if (this.error) return Promise.reject(this.error);
-        return Promise.resolve(this.result);
-    }
-    catch(onRejected) {
-        return this.async().catch(onRejected);
-    }
-    finally(onFinally) {
-        return this.async().then(onFinally, onFinally);
-    }
-    sync() {
-        if (this.error) throw this.error;
-        return this.result;
-    }
-    then(onFulfilled, onRejected) {
-        if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
-        ;
-        return this.async().then(onFulfilled, onRejected);
-    }
-    toString() {
-        return this._css;
-    }
-    warnings() {
-        return [];
-    }
     get content() {
         return this.result.css;
     }
@@ -6394,6 +6471,62 @@ class NoWorkResult {
     get [Symbol.toStringTag]() {
         return 'NoWorkResult';
     }
+    constructor(processor, css, opts){
+        css = css.toString();
+        this.stringified = false;
+        this._processor = processor;
+        this._css = css;
+        this._opts = opts;
+        this._map = undefined;
+        let root;
+        let str = stringify;
+        this.result = new Result(this._processor, root, this._opts);
+        this.result.css = css;
+        let self = this;
+        Object.defineProperty(this.result, 'root', {
+            get () {
+                return self.root;
+            }
+        });
+        let map = new MapGenerator(str, root, this._opts, css);
+        if (map.isMap()) {
+            let [generatedCSS, generatedMap] = map.generate();
+            if (generatedCSS) {
+                this.result.css = generatedCSS;
+            }
+            if (generatedMap) {
+                this.result.map = generatedMap;
+            }
+        } else {
+            map.clearAnnotation();
+            this.result.css = map.css;
+        }
+    }
+    async() {
+        if (this.error) return Promise.reject(this.error);
+        return Promise.resolve(this.result);
+    }
+    catch(onRejected) {
+        return this.async().catch(onRejected);
+    }
+    finally(onFinally) {
+        return this.async().then(onFinally, onFinally);
+    }
+    sync() {
+        if (this.error) throw this.error;
+        return this.result;
+    }
+    then(onFulfilled, onRejected) {
+        if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+        ;
+        return this.async().then(onFulfilled, onRejected);
+    }
+    toString() {
+        return this._css;
+    }
+    warnings() {
+        return [];
+    }
 }
 module.exports = NoWorkResult;
 NoWorkResult.default = NoWorkResult;
@@ -6401,13 +6534,13 @@ NoWorkResult.default = NoWorkResult;
 "[project]/frontend/node_modules/postcss/lib/processor.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
 
-let NoWorkResult = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/no-work-result.js [postcss] (ecmascript)");
-let LazyResult = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/lazy-result.js [postcss] (ecmascript)");
 let Document = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/document.js [postcss] (ecmascript)");
+let LazyResult = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/lazy-result.js [postcss] (ecmascript)");
+let NoWorkResult = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/no-work-result.js [postcss] (ecmascript)");
 let Root = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/root.js [postcss] (ecmascript)");
 class Processor {
     constructor(plugins = []){
-        this.version = '8.4.31';
+        this.version = '8.5.6';
         this.plugins = this.normalize(plugins);
     }
     normalize(plugins) {
@@ -6434,7 +6567,7 @@ class Processor {
         return normalized;
     }
     process(css, opts = {}) {
-        if (this.plugins.length === 0 && typeof opts.parser === 'undefined' && typeof opts.stringifier === 'undefined' && typeof opts.syntax === 'undefined') {
+        if (!this.plugins.length && !opts.parser && !opts.stringifier && !opts.syntax) {
             return new NoWorkResult(this, css, opts);
         } else {
             return new LazyResult(this, css, opts);
@@ -6452,83 +6585,27 @@ Processor.default = Processor;
 Root.registerProcessor(Processor);
 Document.registerProcessor(Processor);
 }),
-"[project]/frontend/node_modules/postcss/lib/fromJSON.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
-"use strict";
-
-let Declaration = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/declaration.js [postcss] (ecmascript)");
-let PreviousMap = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/previous-map.js [postcss] (ecmascript)");
-let Comment = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)");
-let AtRule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/at-rule.js [postcss] (ecmascript)");
-let Input = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/input.js [postcss] (ecmascript)");
-let Root = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/root.js [postcss] (ecmascript)");
-let Rule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/rule.js [postcss] (ecmascript)");
-function fromJSON(json, inputs) {
-    if (Array.isArray(json)) return json.map((n)=>fromJSON(n));
-    let { inputs: ownInputs, ...defaults } = json;
-    if (ownInputs) {
-        inputs = [];
-        for (let input of ownInputs){
-            let inputHydrated = {
-                ...input,
-                __proto__: Input.prototype
-            };
-            if (inputHydrated.map) {
-                inputHydrated.map = {
-                    ...inputHydrated.map,
-                    __proto__: PreviousMap.prototype
-                };
-            }
-            inputs.push(inputHydrated);
-        }
-    }
-    if (defaults.nodes) {
-        defaults.nodes = json.nodes.map((n)=>fromJSON(n, inputs));
-    }
-    if (defaults.source) {
-        let { inputId, ...source } = defaults.source;
-        defaults.source = source;
-        if (inputId != null) {
-            defaults.source.input = inputs[inputId];
-        }
-    }
-    if (defaults.type === 'root') {
-        return new Root(defaults);
-    } else if (defaults.type === 'decl') {
-        return new Declaration(defaults);
-    } else if (defaults.type === 'rule') {
-        return new Rule(defaults);
-    } else if (defaults.type === 'comment') {
-        return new Comment(defaults);
-    } else if (defaults.type === 'atrule') {
-        return new AtRule(defaults);
-    } else {
-        throw new Error('Unknown node type: ' + json.type);
-    }
-}
-module.exports = fromJSON;
-fromJSON.default = fromJSON;
-}),
 "[project]/frontend/node_modules/postcss/lib/postcss.js [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 "use strict";
 
+let AtRule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/at-rule.js [postcss] (ecmascript)");
+let Comment = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)");
+let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
 let CssSyntaxError = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/css-syntax-error.js [postcss] (ecmascript)");
 let Declaration = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/declaration.js [postcss] (ecmascript)");
-let LazyResult = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/lazy-result.js [postcss] (ecmascript)");
-let Container = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/container.js [postcss] (ecmascript)");
-let Processor = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/processor.js [postcss] (ecmascript)");
-let stringify = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/stringify.js [postcss] (ecmascript)");
-let fromJSON = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/fromJSON.js [postcss] (ecmascript)");
 let Document = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/document.js [postcss] (ecmascript)");
-let Warning = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/warning.js [postcss] (ecmascript)");
-let Comment = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/comment.js [postcss] (ecmascript)");
-let AtRule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/at-rule.js [postcss] (ecmascript)");
-let Result = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/result.js [postcss] (ecmascript)");
+let fromJSON = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/fromJSON.js [postcss] (ecmascript)");
 let Input = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/input.js [postcss] (ecmascript)");
-let parse = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/parse.js [postcss] (ecmascript)");
+let LazyResult = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/lazy-result.js [postcss] (ecmascript)");
 let list = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/list.js [postcss] (ecmascript)");
-let Rule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/rule.js [postcss] (ecmascript)");
-let Root = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/root.js [postcss] (ecmascript)");
 let Node = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/node.js [postcss] (ecmascript)");
+let parse = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/parse.js [postcss] (ecmascript)");
+let Processor = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/processor.js [postcss] (ecmascript)");
+let Result = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/result.js [postcss] (ecmascript)");
+let Root = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/root.js [postcss] (ecmascript)");
+let Rule = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/rule.js [postcss] (ecmascript)");
+let stringify = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/stringify.js [postcss] (ecmascript)");
+let Warning = __turbopack_context__.r("[project]/frontend/node_modules/postcss/lib/warning.js [postcss] (ecmascript)");
 function postcss(...plugins) {
     if (plugins.length === 1 && Array.isArray(plugins[0])) {
         plugins = plugins[0];
@@ -6679,4 +6756,4 @@ const Node = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_mo
 }),
 ];
 
-//# sourceMappingURL=9e883_51af48a2._.js.map
+//# sourceMappingURL=9e883_174fdf60._.js.map
