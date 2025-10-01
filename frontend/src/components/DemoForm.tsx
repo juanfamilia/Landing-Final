@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Calendar, CheckCircle, X, User, Mail, Building, Phone, MessageSquare } from 'lucide-react';
 import { submitToHubSpot } from '@/lib/hubspot';
 import { trackDemoRequest } from '@/lib/analytics';
-import { useLocale } from 'next-intl';
 import { usePathname } from 'next/navigation';
 
 interface DemoFormProps {

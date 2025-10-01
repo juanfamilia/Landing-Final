@@ -339,7 +339,7 @@ function DemoForm(param) {
                             children: currentLocale === 'es' ? 'Agendar Demo Personalizada' : 'Schedule Personalized Demo'
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                            lineNumber: 113,
+                            lineNumber: 112,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -349,18 +349,18 @@ function DemoForm(param) {
                                 className: "w-6 h-6"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 117,
+                                lineNumber: 116,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                            lineNumber: 116,
+                            lineNumber: 115,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                    lineNumber: 112,
+                    lineNumber: 111,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -373,14 +373,14 @@ function DemoForm(param) {
                                 children: "1"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 124,
+                                lineNumber: 123,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex-1 h-1 rounded-full ".concat(step >= 2 ? 'bg-blue-600' : 'bg-gray-200')
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 129,
+                                lineNumber: 128,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -388,18 +388,18 @@ function DemoForm(param) {
                                 children: "2"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 130,
+                                lineNumber: 129,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                        lineNumber: 123,
+                        lineNumber: 122,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                    lineNumber: 122,
+                    lineNumber: 121,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -411,7 +411,7 @@ function DemoForm(param) {
                                 className: "w-16 h-16 text-green-500 mx-auto mb-4"
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 142,
+                                lineNumber: 141,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -419,7 +419,7 @@ function DemoForm(param) {
                                 children: currentLocale === 'es' ? '¡Demo Agendada!' : 'Demo Scheduled!'
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 143,
+                                lineNumber: 142,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -427,13 +427,13 @@ function DemoForm(param) {
                                 children: currentLocale === 'es' ? 'Te contactaremos pronto para confirmar tu demo personalizada.' : "We'll contact you soon to confirm your personalized demo."
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 146,
+                                lineNumber: 145,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                        lineNumber: 141,
+                        lineNumber: 140,
                         columnNumber: 13
                     }, this) : step === 1 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "space-y-4",
@@ -443,7 +443,7 @@ function DemoForm(param) {
                                 children: currentLocale === 'es' ? 'Información de Contacto' : 'Contact Information'
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 155,
+                                lineNumber: 154,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -453,7 +453,7 @@ function DemoForm(param) {
                                         className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 160,
+                                        lineNumber: 159,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -466,13 +466,13 @@ function DemoForm(param) {
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 160,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 159,
+                                lineNumber: 158,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -482,7 +482,7 @@ function DemoForm(param) {
                                         className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 173,
+                                        lineNumber: 172,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -495,13 +495,13 @@ function DemoForm(param) {
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 174,
+                                        lineNumber: 173,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 172,
+                                lineNumber: 171,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -511,7 +511,7 @@ function DemoForm(param) {
                                         className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 186,
+                                        lineNumber: 185,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -524,13 +524,13 @@ function DemoForm(param) {
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 187,
+                                        lineNumber: 186,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 185,
+                                lineNumber: 184,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -540,7 +540,7 @@ function DemoForm(param) {
                                         className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 199,
+                                        lineNumber: 198,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -552,13 +552,13 @@ function DemoForm(param) {
                                         className: "w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 200,
+                                        lineNumber: 199,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 198,
+                                lineNumber: 197,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -573,7 +573,7 @@ function DemoForm(param) {
                                         children: currentLocale === 'es' ? 'Selecciona tu sector' : 'Select your sector'
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 217,
+                                        lineNumber: 216,
                                         columnNumber: 17
                                     }, this),
                                     sectors.map((sector)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -581,13 +581,13 @@ function DemoForm(param) {
                                             children: sector
                                         }, sector, false, {
                                             fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                            lineNumber: 221,
+                                            lineNumber: 220,
                                             columnNumber: 19
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 210,
+                                lineNumber: 209,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -597,7 +597,7 @@ function DemoForm(param) {
                                         className: "absolute left-3 top-3 text-gray-400 w-5 h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 228,
+                                        lineNumber: 227,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -609,19 +609,19 @@ function DemoForm(param) {
                                         className: "w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
                                     }, void 0, false, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 229,
+                                        lineNumber: 228,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 227,
+                                lineNumber: 226,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                        lineNumber: 154,
+                        lineNumber: 153,
                         columnNumber: 13
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "space-y-4",
@@ -631,7 +631,7 @@ function DemoForm(param) {
                                 children: currentLocale === 'es' ? 'Selecciona tu Horario Preferido' : 'Select Your Preferred Time'
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 241,
+                                lineNumber: 240,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -639,7 +639,7 @@ function DemoForm(param) {
                                 children: currentLocale === 'es' ? 'Elige el mejor horario para tu demo personalizada de 30 minutos' : 'Choose the best time for your 30-minute personalized demo'
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 245,
+                                lineNumber: 244,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -655,30 +655,30 @@ function DemoForm(param) {
                                                 className: "w-4 h-4 inline mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                                lineNumber: 263,
+                                                lineNumber: 262,
                                                 columnNumber: 21
                                             }, this),
                                             slot
                                         ]
                                     }, slot, true, {
                                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                        lineNumber: 254,
+                                        lineNumber: 253,
                                         columnNumber: 19
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 252,
+                                lineNumber: 251,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                        lineNumber: 240,
+                        lineNumber: 239,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                    lineNumber: 139,
+                    lineNumber: 138,
                     columnNumber: 9
                 }, this),
                 !isSubmitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -690,7 +690,7 @@ function DemoForm(param) {
                             children: currentLocale === 'es' ? 'Atrás' : 'Back'
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                            lineNumber: 276,
+                            lineNumber: 275,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -702,7 +702,7 @@ function DemoForm(param) {
                                 children: currentLocale === 'es' ? 'Continuar' : 'Continue'
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 286,
+                                lineNumber: 285,
                                 columnNumber: 17
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: handleSubmit,
@@ -714,7 +714,7 @@ function DemoForm(param) {
                                             className: "animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                            lineNumber: 301,
+                                            lineNumber: 300,
                                             columnNumber: 23
                                         }, this),
                                         currentLocale === 'es' ? 'Enviando...' : 'Submitting...'
@@ -725,7 +725,7 @@ function DemoForm(param) {
                                             className: "w-4 h-4 mr-2"
                                         }, void 0, false, {
                                             fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                            lineNumber: 306,
+                                            lineNumber: 305,
                                             columnNumber: 23
                                         }, this),
                                         currentLocale === 'es' ? 'Confirmar Demo' : 'Confirm Demo'
@@ -733,29 +733,29 @@ function DemoForm(param) {
                                 }, void 0, true)
                             }, void 0, false, {
                                 fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                                lineNumber: 294,
+                                lineNumber: 293,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                            lineNumber: 284,
+                            lineNumber: 283,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/frontend/src/components/DemoForm.tsx",
-                    lineNumber: 274,
+                    lineNumber: 273,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/frontend/src/components/DemoForm.tsx",
-            lineNumber: 110,
+            lineNumber: 109,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/frontend/src/components/DemoForm.tsx",
-        lineNumber: 109,
+        lineNumber: 108,
         columnNumber: 5
     }, this);
 }
