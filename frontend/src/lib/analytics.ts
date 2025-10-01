@@ -1,9 +1,23 @@
 // Google Analytics 4 Integration
 // Ready for configuration once GA4 Measurement ID is provided
 
+interface GtagConfig {
+  page_path?: string;
+  event_category?: string;
+  event_label?: string;
+  value?: number;
+}
+
+interface GtagEvent {
+  action: string;
+  category: string;
+  label?: string;
+  value?: number;
+}
+
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
+    gtag: (command: string, targetId: string, config?: GtagConfig) => void;
   }
 }
 
@@ -24,12 +38,7 @@ export const event = ({
   category,
   label,
   value,
-}: {
-  action: string;
-  category: string;
-  label?: string;
-  value?: number;
-}) => {
+}: GtagEvent) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', action, {
       event_category: category,
@@ -71,11 +80,12 @@ export const initGA = () => {
   document.head.appendChild(script);
 
   // Initialize gtag
-  window.gtag = window.gtag || function () {
-    (window.gtag as any).q = (window.gtag as any).q || [];
-    (window.gtag as any).q.push(arguments);
+  window.gtag = window.gtag || function (command: string, targetId: string, config?: GtagConfig) {
+    // eslint-disable-next-line prefer-rest-params
+    ((window.gtag as unknown as { q: IArguments[] }).q = (window.gtag as unknown as { q: IArguments[] }).q || []).push(arguments);
   };
-  window.gtag('js', new Date());
+  
+  window.gtag('js', new Date().toISOString());
   window.gtag('config', GA_MEASUREMENT_ID, {
     page_path: window.location.pathname,
   });
