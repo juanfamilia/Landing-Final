@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///app/frontend/src/app/%5Blocale%5D/layout.tsx"],"sourcesContent":["import { Inter } from 'next/font/google';\nimport '../globals.css';\n\nconst inter = Inter({ subsets: ['latin'] });\n\nexport function generateStaticParams() {\n  return [{ locale: 'en' }, { locale: 'es' }];\n}\n\nexport default function LocaleLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  return (\n    <html lang=\"en\">\n      <body className={inter.className}>\n        {children}\n      </body>\n    </html>\n  );\n}"],"names":[],"mappings":";;;;;;;;;;;AAKO,SAAS;IACd,OAAO;QAAC;YAAE,QAAQ;QAAK;QAAG;YAAE,QAAQ;QAAK;KAAE;AAC7C;AAEe,SAAS,aAAa,EACnC,QAAQ,EAGT;IACC,qBACE,0PAAC;QAAK,MAAK;kBACT,cAAA,0PAAC;YAAK,WAAW,oJAAK,CAAC,SAAS;sBAC7B;;;;;;;;;;;AAIT","debugId":null}}]
+}
