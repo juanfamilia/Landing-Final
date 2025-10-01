@@ -161,7 +161,7 @@ export default function Navigation() {
                 onClick={() => scrollToSection('#contact')}
                 className="w-full bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white rounded-full font-semibold"
               >
-                {t('requestDemo')}
+                Request Demo
               </Button>
             </div>
           </div>
