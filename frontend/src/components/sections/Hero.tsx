@@ -2,18 +2,47 @@
 
 import { Play, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
 import DemoForm from '../DemoForm';
 
 export default function Hero() {
   const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
-  const t = useTranslations('hero');
+  const pathname = usePathname();
+  const isSpanish = pathname.startsWith('/es');
   
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const t = (key: string) => {
+    const translations: any = {
+      en: {
+        badge: "Premium Customer Experience Platform",
+        title: "Siete CX –",
+        titleAccent: "Customer Experience Platform",
+        subtitle: "Measure, analyze, and improve customer experience with video mystery shopping and call analysis.",
+        requestDemo: "Request a Demo",
+        learnMore: "Learn More",
+        trustedBy: "Trusted by 500+ companies",
+        rating: "4.9/5 Customer Rating",
+        dashboardTitle: "Siete CX Dashboard"
+      },
+      es: {
+        badge: "Plataforma Premium de Experiencia del Cliente",
+        title: "Siete CX –",
+        titleAccent: "Plataforma de Experiencia del Cliente",
+        subtitle: "Mide, analiza y mejora la experiencia del cliente con video mystery shopping y análisis de llamadas.",
+        requestDemo: "Solicitar Demo",
+        learnMore: "Saber Más",
+        trustedBy: "Confiado por más de 500 empresas",
+        rating: "4.9/5 Calificación de Clientes",
+        dashboardTitle: "Panel de Control Siete CX"
+      }
+    };
+    return translations[isSpanish ? 'es' : 'en'][key] || key;
   };
 
   return (
