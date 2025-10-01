@@ -6,6 +6,14 @@ import Research from '@/components/sections/Research';
 import CTA from '@/components/sections/CTA';
 import Footer from '@/components/sections/Footer';
 import { Metadata } from 'next';
+import { isValidLocale } from '@/i18n';
+import { notFound } from 'next/navigation';
+
+interface PageParams {
+  params: Promise<{
+    locale: string;
+  }>;
+}
 
 interface TranslationData {
   title: string;
@@ -17,8 +25,6 @@ interface Translations {
   en: TranslationData;
   es: TranslationData;
 }
-
-const isSpanish = false; // We'll make this dynamic based on the route
 
 const getTranslations = (locale: string): TranslationData => {
   const translations: Translations = {
@@ -36,8 +42,14 @@ const getTranslations = (locale: string): TranslationData => {
   return translations[locale as keyof Translations];
 };
 
-export async function generateMetadata(): Promise<Metadata> {
-  const locale = isSpanish ? 'es' : 'en';
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
+  const resolvedParams = await params;
+  const { locale } = resolvedParams;
+  
+  if (!isValidLocale(locale)) {
+    notFound();
+  }
+  
   const t = getTranslations(locale);
 
   return {
@@ -70,7 +82,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Home() {
+export default async function Home({ params }: PageParams) {
+  const resolvedParams = await params;
+  const { locale } = resolvedParams;
+  
+  if (!isValidLocale(locale)) {
+    notFound();
+  }
+
   return (
     <>
       <Navigation />
