@@ -1,13 +1,12 @@
 {
-  "buildCommand": "yarn build",
-  "outputDirectory": "build",
-  "devCommand": "yarn dev",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "devCommand": "npm run dev",
   "installCommand": "yarn install",
-  "framework": "vite",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+  "framework": "nextjs",
+  "functions": {
+    "src/app/**/*.{js,ts,jsx,tsx}": {
+      "runtime": "nodejs18.x"
     }
-  ]
+  }
 }
