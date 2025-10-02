@@ -1,5 +1,5 @@
 {
-  "sorted_middleware": [],
+  "version": 3,
   "middleware": {
     "/": {
       "files": [
@@ -11,11 +11,11 @@
       "page": "/",
       "matchers": [
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/(/?index|/?index\\\\.json)?",
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/(\\/?index|\\/?index\\\\.json))?[\\/#\\?]?$",
           "originalSource": "/"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/((?!_next|api|favicon.ico).*){(\\\\.json)}?",
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next|api|favicon.ico).*))(\\\\.json)?[\\/#\\?]?$",
           "originalSource": "/((?!_next|api|favicon.ico).*)"
         }
       ],
@@ -30,6 +30,8 @@
       }
     }
   },
-  "instrumentation": null,
+  "sortedMiddleware": [
+    "/"
+  ],
   "functions": {}
 }
