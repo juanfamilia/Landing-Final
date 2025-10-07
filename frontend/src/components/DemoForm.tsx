@@ -1,17 +1,22 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calendar, CheckCircle, X, User, Mail, Building, Phone, MessageSquare } from 'lucide-react';
+import {
+  Calendar,
+  CheckCircle,
+  X,
+  User,
+  Mail,
+  Building,
+  Phone,
+  MessageSquare,
+  Clock,
+} from 'lucide-react';
 import { trackDemoRequest } from '@/lib/analytics';
 import { usePathname } from 'next/navigation';
 import { submitToHubSpot } from '@/lib/hubspot';
 
-interface DemoFormProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
+export default function DemoForm({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: '',
@@ -39,56 +44,17 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
     'Other',
   ];
 
-  const isStep1Valid = formData.name && formData.email && formData.company && formData.sector;
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Validaciones
+  const isStep1Valid =
+    formData.name && formData.email && formData.company && formData.sector;
   const isStep2Valid = selectedDateTime !== '';
-
-  // 🔹 Generar los próximos 10 días hábiles
-  const getBusinessDays = () => {
-    const days: string[] = [];
-    const today = new Date();
-
-    for (let i = 0; days.length < 10; i++) {
-      const date = new Date();
-      date.setDate(today.getDate() + i);
-      const day = date.getDay();
-      if (day !== 0 && day !== 6) {
-        days.push(date.toISOString().split('T')[0]);
-      }
-    }
-    return days;
-  };
-
-  const businessDays = getBusinessDays();
-
-  // 🔹 Generar intervalos de 30 minutos (de 09:00 a 18:00)
-  const getAvailableTimeSlots = (dateStr: string) => {
-    const slots: string[] = [];
-    const now = new Date();
-    const selectedDate = new Date(dateStr);
-
-    for (let h = 9; h < 18; h++) {
-      for (let m = 0; m < 60; m += 30) {
-        const slotDate = new Date(selectedDate);
-        slotDate.setHours(h, m, 0, 0);
-
-        // Si es hoy, mostrar solo horas futuras
-        if (selectedDate.toDateString() === now.toDateString()) {
-          if (slotDate > now) {
-            slots.push(slotDate.toTimeString().slice(0, 5));
-          }
-        } else {
-          slots.push(slotDate.toTimeString().slice(0, 5));
-        }
-      }
-    }
-    return slots;
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -131,6 +97,22 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
 
   if (!isOpen) return null;
 
+  // 🔹 Generar lista de horas válidas entre 9:00 y 18:00
+  const generateTimeSlots = () => {
+    const slots = [];
+    for (let h = 9; h < 18; h++) {
+      slots.push(`${h.toString().padStart(2, '0')}:00`);
+      slots.push(`${h.toString().padStart(2, '0')}:30`);
+    }
+    return slots;
+  };
+
+  // 🔹 Validar días (solo lunes a viernes)
+  const isWeekday = (dateString) => {
+    const day = new Date(dateString).getDay(); // 0 domingo, 6 sábado
+    return day >= 1 && day <= 5;
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
@@ -141,7 +123,10 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
               ? 'Agendar Demo Personalizada'
               : 'Schedule Personalized Demo'}
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600"
+          >
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -151,7 +136,9 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
           <div className="flex items-center space-x-4">
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                step >= 1
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 text-gray-600'
               }`}
             >
               1
@@ -163,7 +150,9 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
             ></div>
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                step >= 2
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 text-gray-600'
               }`}
             >
               2
@@ -177,7 +166,9 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
             <div className="text-center py-8">
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-gray-900 mb-2">
-                {currentLocale === 'es' ? '¡Demo Agendada!' : 'Demo Scheduled!'}
+                {currentLocale === 'es'
+                  ? '¡Demo Agendada!'
+                  : 'Demo Scheduled!'}
               </h3>
               <p className="text-gray-600">
                 {currentLocale === 'es'
@@ -186,7 +177,6 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
               </p>
             </div>
           ) : step === 1 ? (
-            // 🔹 Paso 1: información de contacto
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 {currentLocale === 'es'
@@ -194,69 +184,60 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                   : 'Contact Information'}
               </h3>
 
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  name="name"
-                  placeholder={
-                    currentLocale === 'es' ? 'Nombre completo' : 'Full name'
-                  }
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-              </div>
-
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder={
+              {/* Campos del formulario */}
+              {[
+                {
+                  name: 'name',
+                  placeholder:
+                    currentLocale === 'es'
+                      ? 'Nombre completo'
+                      : 'Full name',
+                  icon: User,
+                  type: 'text',
+                },
+                {
+                  name: 'email',
+                  placeholder:
                     currentLocale === 'es'
                       ? 'Correo electrónico'
-                      : 'Email address'
-                  }
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-              </div>
-
-              <div className="relative">
-                <Building className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  name="company"
-                  placeholder={
-                    currentLocale === 'es' ? 'Empresa' : 'Company'
-                  }
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-              </div>
-
-              <div className="relative">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder={
+                      : 'Email address',
+                  icon: Mail,
+                  type: 'email',
+                },
+                {
+                  name: 'company',
+                  placeholder:
+                    currentLocale === 'es' ? 'Empresa' : 'Company',
+                  icon: Building,
+                  type: 'text',
+                },
+                {
+                  name: 'phone',
+                  placeholder:
                     currentLocale === 'es'
                       ? 'Teléfono (opcional)'
-                      : 'Phone (optional)'
-                  }
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
+                      : 'Phone (optional)',
+                  icon: Phone,
+                  type: 'tel',
+                },
+              ].map((field) => (
+                <div key={field.name} className="relative">
+                  <field.icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    value={formData[field.name]}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    required={['name', 'email', 'company'].includes(
+                      field.name
+                    )}
+                  />
+                </div>
+              ))}
 
+              {/* Sector */}
               <select
                 name="sector"
                 value={formData.sector}
@@ -276,6 +257,7 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                 ))}
               </select>
 
+              {/* Mensaje */}
               <div className="relative">
                 <MessageSquare className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
                 <textarea
@@ -293,59 +275,64 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
               </div>
             </div>
           ) : (
-            // 🔹 Paso 2: fecha y hora
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 {currentLocale === 'es'
-                  ? 'Selecciona tu Horario Preferido'
-                  : 'Select Your Preferred Time'}
+                  ? 'Selecciona tu Fecha y Horario Preferido'
+                  : 'Select Your Preferred Date and Time'}
               </h3>
+              <p className="text-sm text-gray-600 mb-4">
+                {currentLocale === 'es'
+                  ? 'Elige el mejor momento entre lunes y viernes, de 9:00 a 18:00.'
+                  : 'Choose the best time between Monday and Friday, 9:00 AM to 6:00 PM.'}
+              </p>
 
-              <div className="flex space-x-2">
-                <select
-                  value={selectedDateTime.split('T')[0] || ''}
+              {/* 📅 Fecha */}
+              <div className="relative">
+                <Calendar className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
+                <input
+                  type="date"
+                  value={selectedDateTime ? selectedDateTime.split('T')[0] : ''}
                   onChange={(e) => {
-                    const timePart = selectedDateTime.split('T')[1] || '';
-                    setSelectedDateTime(`${e.target.value}T${timePart}`);
+                    const date = e.target.value;
+                    if (!isWeekday(date)) return; // ignora sábados/domingos
+                    const time =
+                      selectedDateTime.split('T')[1] || '09:00';
+                    setSelectedDateTime(`${date}T${time}`);
                   }}
-                  className="w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  min={new Date().toISOString().split('T')[0]}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* ⏰ Hora */}
+              <div className="relative">
+                <Clock className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
+                <select
+                  value={
+                    selectedDateTime
+                      ? selectedDateTime.split('T')[1]?.slice(0, 5)
+                      : ''
+                  }
+                  onChange={(e) => {
+                    const time = e.target.value;
+                    const date =
+                      selectedDateTime.split('T')[0] ||
+                      new Date().toISOString().split('T')[0];
+                    setSelectedDateTime(`${date}T${time}`);
+                  }}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="">
                     {currentLocale === 'es'
-                      ? 'Selecciona fecha'
-                      : 'Select date'}
+                      ? 'Selecciona una hora'
+                      : 'Select a time'}
                   </option>
-                  {businessDays.map((date) => (
-                    <option key={date} value={date}>
-                      {new Date(date).toLocaleDateString(
-                        currentLocale === 'es' ? 'es-ES' : 'en-US',
-                        { weekday: 'long', day: '2-digit', month: '2-digit' }
-                      )}
+                  {generateTimeSlots().map((time) => (
+                    <option key={time} value={time}>
+                      {time}
                     </option>
                   ))}
-                </select>
-
-                <select
-                  value={selectedDateTime.split('T')[1] || ''}
-                  onChange={(e) => {
-                    const datePart = selectedDateTime.split('T')[0] || '';
-                    setSelectedDateTime(`${datePart}T${e.target.value}`);
-                  }}
-                  className="w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="">
-                    {currentLocale === 'es'
-                      ? 'Selecciona hora'
-                      : 'Select time'}
-                  </option>
-                  {selectedDateTime.split('T')[0] &&
-                    getAvailableTimeSlots(
-                      selectedDateTime.split('T')[0]
-                    ).map((slot) => (
-                      <option key={slot} value={slot}>
-                        {slot}
-                      </option>
-                    ))}
                 </select>
               </div>
             </div>
@@ -363,7 +350,6 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                 {currentLocale === 'es' ? 'Atrás' : 'Back'}
               </button>
             )}
-
             <div className="ml-auto">
               {step === 1 ? (
                 <button
