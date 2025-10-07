@@ -29,6 +29,34 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        {/* ----- INICIO: Google Analytics 4 ----- */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZTT75599MP"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-ZTT75599MP', { page_path: window.location.pathname });
+            `,
+          }}
+        />
+        {/* ----- FIN: Google Analytics 4 ----- */}
+
+        {/* ----- INICIO: HubSpot Tracking ----- */}
+        <script
+          type="text/javascript"
+          id="hs-script-loader"
+          async
+          defer
+          src="//js.hs-scripts.com/47559443.js"
+        ></script>
+        {/* ----- FIN: HubSpot Tracking ----- */}
+      </head>
       <body className={inter.className}>
         {children}
       </body>
