@@ -1,75 +1,81 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import {
-  Calendar,
-  CheckCircle,
-  X,
-  User,
-  Mail,
-  Building,
-  Phone,
-  MessageSquare,
-} from "lucide-react";
-import { submitToHubSpot } from "@/lib/hubspot";
+'use client';
 
-export default function DemoForm({ isOpen, onClose }) {
-  const initialFormState = {
-    firstname: "",
-    lastname: "",
-    email: "",
-    company: "",
-    phone: "",
-    message: "",
-    date: "",
-    timeSlot: "",
-  };
+import React, { useState, useEffect } from 'react';
+import { Calendar, CheckCircle, X, User, Mail, Building, Phone, MessageSquare } from 'lucide-react';
+import { submitToHubSpot } from '@/lib/hubspot';
 
-  const [formData, setFormData] = useState(initialFormState);
-  const [availableDates, setAvailableDates] = useState([]);
-  const [availableTimes, setAvailableTimes] = useState([]);
+interface DemoFormProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+interface FormData {
+  firstname: string;
+  lastname: string;
+  email: string;
+  company: string;
+  phone: string;
+  message: string;
+  date: string;
+  timeSlot: string;
+}
+
+export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
+  const [formData, setFormData] = useState<FormData>({
+    firstname: '',
+    lastname: '',
+    email: '',
+    company: '',
+    phone: '',
+    message: '',
+    date: '',
+    timeSlot: '',
+  });
+
+  const [availableDates, setAvailableDates] = useState<string[]>([]);
+  const [availableTimes, setAvailableTimes] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // 🔹 Fechas hábiles (próximos 14 días, lunes a viernes)
+  // Generar fechas disponibles (lunes a viernes próximos 14 días)
   useEffect(() => {
     const today = new Date();
-    const dates = [];
+    const days: string[] = [];
+
     for (let i = 0; i < 14; i++) {
-      const d = new Date(today);
-      d.setDate(today.getDate() + i);
-      const day = d.getDay();
-      if (day >= 1 && day <= 5) {
-        dates.push(d.toISOString().split("T")[0]);
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      const dayOfWeek = date.getDay();
+      if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+        days.push(date.toISOString().split('T')[0]);
       }
     }
-    setAvailableDates(dates);
+
+    setAvailableDates(days);
   }, []);
 
-  // 🔹 Horarios: 9:00 - 18:00 cada 30 min
+  // Generar horarios de 9:00 a 18:00 cada 30 minutos
   useEffect(() => {
-    const times = [];
-    for (let h = 9; h < 18; h++) {
-      times.push(`${String(h).padStart(2, "0")}:00`);
-      times.push(`${String(h).padStart(2, "0")}:30`);
+    const times: string[] = [];
+    for (let hour = 9; hour < 18; hour++) {
+      times.push(`${hour.toString().padStart(2, '0')}:00`);
+      times.push(`${hour.toString().padStart(2, '0')}:30`);
     }
     setAvailableTimes(times);
   }, []);
 
-  // 🔹 Manejo de inputs
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((f) => ({ ...f, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  // 🔹 Envío a HubSpot
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.date || !formData.timeSlot) {
-      alert("Por favor selecciona una fecha y hora disponibles.");
-      return;
-    }
-
     setLoading(true);
+
     try {
       await submitToHubSpot({
         ...formData,
@@ -80,10 +86,19 @@ export default function DemoForm({ isOpen, onClose }) {
       });
 
       setSuccess(true);
-      setFormData(initialFormState);
-    } catch (err) {
-      console.error("❌ Error enviando datos a HubSpot:", err);
-      alert("Ocurrió un error al enviar el formulario. Intenta nuevamente.");
+      setFormData({
+        firstname: '',
+        lastname: '',
+        email: '',
+        company: '',
+        phone: '',
+        message: '',
+        date: '',
+        timeSlot: '',
+      });
+    } catch (error) {
+      console.error('Error enviando datos a HubSpot:', error);
+      alert('Hubo un error al enviar el formulario. Intenta nuevamente.');
     } finally {
       setLoading(false);
     }
@@ -92,12 +107,11 @@ export default function DemoForm({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex justify-center items-center">
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white rounded-2xl shadow-lg w-full max-w-lg p-6 relative">
         <button
           onClick={onClose}
-          aria-label="Cerrar"
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
         >
           <X size={20} />
         </button>
@@ -112,32 +126,35 @@ export default function DemoForm({ isOpen, onClose }) {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <h2 className="text-2xl font-bold text-center mb-4">
-              Agenda tu demostración
-            </h2>
+            <h2 className="text-2xl font-bold text-center mb-4">Agenda tu demostración</h2>
 
-            {/* Nombre y Apellido */}
             <div className="grid grid-cols-2 gap-3">
-              {[
-                { name: "firstname", placeholder: "Nombre" },
-                { name: "lastname", placeholder: "Apellido" },
-              ].map((f) => (
-                <div className="relative" key={f.name}>
-                  <User className="absolute left-3 top-3 text-gray-400" size={18} />
-                  <input
-                    type="text"
-                    name={f.name}
-                    placeholder={f.placeholder}
-                    value={formData[f.name]}
-                    onChange={handleChange}
-                    required
-                    className="pl-10 p-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              ))}
+              <div className="relative">
+                <User className="absolute left-3 top-3 text-gray-400" size={18} />
+                <input
+                  type="text"
+                  name="firstname"
+                  placeholder="Nombre"
+                  value={formData.firstname}
+                  onChange={handleChange}
+                  required
+                  className="pl-10 p-2 border rounded-lg w-full"
+                />
+              </div>
+              <div className="relative">
+                <User className="absolute left-3 top-3 text-gray-400" size={18} />
+                <input
+                  type="text"
+                  name="lastname"
+                  placeholder="Apellido"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                  required
+                  className="pl-10 p-2 border rounded-lg w-full"
+                />
+              </div>
             </div>
 
-            {/* Email */}
             <div className="relative">
               <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
               <input
@@ -147,11 +164,10 @@ export default function DemoForm({ isOpen, onClose }) {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="pl-10 p-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="pl-10 p-2 border rounded-lg w-full"
               />
             </div>
 
-            {/* Empresa */}
             <div className="relative">
               <Building className="absolute left-3 top-3 text-gray-400" size={18} />
               <input
@@ -160,11 +176,10 @@ export default function DemoForm({ isOpen, onClose }) {
                 placeholder="Empresa"
                 value={formData.company}
                 onChange={handleChange}
-                className="pl-10 p-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="pl-10 p-2 border rounded-lg w-full"
               />
             </div>
 
-            {/* Teléfono */}
             <div className="relative">
               <Phone className="absolute left-3 top-3 text-gray-400" size={18} />
               <input
@@ -173,11 +188,10 @@ export default function DemoForm({ isOpen, onClose }) {
                 placeholder="Teléfono"
                 value={formData.phone}
                 onChange={handleChange}
-                className="pl-10 p-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="pl-10 p-2 border rounded-lg w-full"
               />
             </div>
 
-            {/* Fecha */}
             <div className="relative">
               <Calendar className="absolute left-3 top-3 text-gray-400" size={18} />
               <select
@@ -185,22 +199,21 @@ export default function DemoForm({ isOpen, onClose }) {
                 value={formData.date}
                 onChange={handleChange}
                 required
-                className="pl-10 p-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="pl-10 p-2 border rounded-lg w-full"
               >
                 <option value="">Selecciona una fecha</option>
-                {availableDates.map((d) => (
-                  <option key={d} value={d}>
-                    {new Date(d).toLocaleDateString("es-ES", {
-                      weekday: "long",
-                      day: "numeric",
-                      month: "long",
+                {availableDates.map((date) => (
+                  <option key={date} value={date}>
+                    {new Date(date).toLocaleDateString('es-ES', {
+                      weekday: 'long',
+                      day: 'numeric',
+                      month: 'long',
                     })}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Hora */}
             <div className="relative">
               <Calendar className="absolute left-3 top-3 text-gray-400" size={18} />
               <select
@@ -208,18 +221,17 @@ export default function DemoForm({ isOpen, onClose }) {
                 value={formData.timeSlot}
                 onChange={handleChange}
                 required
-                className="pl-10 p-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="pl-10 p-2 border rounded-lg w-full"
               >
                 <option value="">Selecciona una hora</option>
-                {availableTimes.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
+                {availableTimes.map((time) => (
+                  <option key={time} value={time}>
+                    {time}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Mensaje */}
             <div className="relative">
               <MessageSquare className="absolute left-3 top-3 text-gray-400" size={18} />
               <textarea
@@ -227,21 +239,17 @@ export default function DemoForm({ isOpen, onClose }) {
                 placeholder="Mensaje (opcional)"
                 value={formData.message}
                 onChange={handleChange}
-                rows="3"
-                className="pl-10 p-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                rows={3}
+                className="pl-10 p-2 border rounded-lg w-full"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-2 rounded-lg font-semibold text-white transition ${
-                loading
-                  ? "bg-blue-400 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
-              }`}
+              className="bg-blue-600 hover:bg-blue-700 text-white w-full py-2 rounded-lg font-semibold transition"
             >
-              {loading ? "Enviando..." : "Agendar demostración"}
+              {loading ? 'Enviando...' : 'Agendar demostración'}
             </button>
           </form>
         )}
