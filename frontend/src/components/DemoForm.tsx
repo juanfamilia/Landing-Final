@@ -1,10 +1,10 @@
 'use client';
-
 import { useState, useEffect } from 'react';
-import { Calendar, CheckCircle, X, User, Mail, Building, Phone, MessageSquare } from 'lucide-react';
+import { CheckCircle, X } from 'lucide-react';
 import { submitToHubSpot } from '@/lib/hubspot';
-import { trackDemoRequest } from '@/lib/analytics';
 import { usePathname } from 'next/navigation';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 interface DemoFormProps {
   isOpen: boolean;
@@ -18,7 +18,7 @@ interface FormData {
   phone: string;
   sector: string;
   message: string;
-  date: string;
+  date: Date | null;
   timeSlot: string;
 }
 
@@ -31,9 +31,10 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
     phone: '',
     sector: '',
     message: '',
-    date: '',
+    date: null,
     timeSlot: '',
   });
+  const [unavailableSlots, setUnavailableSlots] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
@@ -51,16 +52,28 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
     'Other',
   ];
 
-  const availableDates: string[] = Array.from({ length: 14 }, (_, i) => {
-    const d = new Date();
-    d.setDate(d.getDate() + i);
-    return d.toISOString().split('T')[0];
-  });
-
-  const availableTimes: string[] = Array.from({ length: 18 - 9 }, (_, h) => {
+  // Horarios de 09:00 a 17:30, cada 30 min
+  const allTimes: string[] = Array.from({ length: 18 - 9 }, (_, h) => {
     const hour = h + 9;
     return [`${hour.toString().padStart(2, '0')}:00`, `${hour.toString().padStart(2, '0')}:30`];
   }).flat();
+
+  // Función para filtrar solo lunes a viernes
+  const isWeekday = (date: Date) => date.getDay() !== 0 && date.getDay() !== 6;
+
+  // Cuando cambia la fecha, traemos los slots ocupados desde el endpoint
+  useEffect(() => {
+    if (!formData.date) return;
+
+    const dateStr = formData.date.toISOString().split('T')[0];
+    fetch(`/api/hubspot-booked-slots?date=${dateStr}`)
+      .then(res => res.json())
+      .then(data => {
+        setUnavailableSlots(data.bookedSlots || []);
+        setFormData(prev => ({ ...prev, timeSlot: '' })); // reset hora
+      })
+      .catch(() => setUnavailableSlots([]));
+  }, [formData.date]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -76,14 +89,12 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
         email: formData.email,
         company: formData.company,
         phone: formData.phone,
-        message: `Sector: ${formData.sector}\nFecha: ${formData.date}\nHora: ${formData.timeSlot}\n\nMensaje: ${formData.message}`,
+        message: `Sector: ${formData.sector}\nFecha: ${formData.date?.toLocaleDateString()}\nHora: ${formData.timeSlot}\n\nMensaje: ${formData.message}`,
         locale: currentLocale,
       });
 
       if (success) {
-        trackDemoRequest(currentLocale);
         setIsSubmitted(true);
-
         setTimeout(() => {
           onClose();
           setTimeout(() => {
@@ -96,7 +107,7 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
               phone: '',
               sector: '',
               message: '',
-              date: '',
+              date: null,
               timeSlot: '',
             });
           }, 500);
@@ -114,9 +125,13 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
 
   if (!isOpen) return null;
 
+  // Filtra las horas disponibles para la fecha seleccionada
+  const availableTimesForDate = formData.date ? allTimes.filter(time => !unavailableSlots.includes(time)) : [];
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto flex flex-col">
+        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-bold text-gray-900">{currentLocale === 'es' ? 'Agendar Demo' : 'Schedule Demo'}</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
@@ -124,13 +139,22 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
           </button>
         </div>
 
+        {/* Step indicators */}
         <div className="px-6 py-4 flex items-center space-x-4">
           {[1, 2].map(n => (
-            <div key={n} className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step >= n ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'}`}>{n}</div>
+            <div
+              key={n}
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                step >= n ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+              }`}
+            >
+              {n}
+            </div>
           ))}
         </div>
 
-        <div className="p-6">
+        {/* Form content */}
+        <div className="p-6 flex-1 overflow-y-auto">
           {isSubmitted ? (
             <div className="text-center py-8">
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -149,33 +173,84 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                   />
                 </div>
               ))}
-              <select name="sector" value={formData.sector} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg mb-4">
+              <select
+                name="sector"
+                value={formData.sector}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border rounded-lg mb-4"
+              >
                 <option value="">{currentLocale === 'es' ? 'Selecciona sector' : 'Select sector'}</option>
-                {sectors.map(s => <option key={s} value={s}>{s}</option>)}
+                {sectors.map(s => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
               </select>
-              <textarea name="message" value={formData.message} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg" placeholder="Mensaje (opcional)" />
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border rounded-lg"
+                placeholder="Mensaje (opcional)"
+              />
             </>
           ) : (
             <>
-              {availableDates.map(date => (
-                <button key={date} onClick={() => setFormData(prev => ({ ...prev, date }))} className={`p-2 border rounded mb-2 ${formData.date === date ? 'bg-blue-50 border-blue-500' : 'border-gray-300'}`}>
-                  {date}
-                </button>
-              ))}
-              {availableTimes.map(time => (
-                <button key={time} onClick={() => setFormData(prev => ({ ...prev, timeSlot: time }))} className={`p-2 border rounded mb-2 ${formData.timeSlot === time ? 'bg-blue-50 border-blue-500' : 'border-gray-300'}`}>
-                  {time}
-                </button>
-              ))}
+              <div className="mb-4">
+                <label className="block mb-2 font-medium">{currentLocale === 'es' ? 'Selecciona fecha' : 'Select date'}</label>
+                <DatePicker
+                  selected={formData.date}
+                  onChange={date => setFormData(prev => ({ ...prev, date }))}
+                  filterDate={isWeekday}
+                  minDate={new Date()}
+                  placeholderText={currentLocale === 'es' ? 'Elige una fecha' : 'Pick a date'}
+                  className="w-full px-3 py-2 border rounded-lg"
+                  dateFormat="dd/MM/yyyy"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block mb-2 font-medium">{currentLocale === 'es' ? 'Selecciona hora disponible' : 'Select available time'}</label>
+                <div className="max-h-48 overflow-y-auto border p-2 rounded-lg grid grid-cols-3 gap-2">
+                  {availableTimesForDate.length > 0 ? (
+                    availableTimesForDate.map(time => (
+                      <button
+                        key={time}
+                        onClick={() => setFormData(prev => ({ ...prev, timeSlot: time }))}
+                        className={`px-3 py-2 border rounded text-sm ${
+                          formData.timeSlot === time ? 'bg-blue-50 border-blue-500' : 'border-gray-300'
+                        }`}
+                      >
+                        {time}
+                      </button>
+                    ))
+                  ) : (
+                    <p className="col-span-3 text-center text-gray-500">{currentLocale === 'es' ? 'No hay horas disponibles' : 'No available times'}</p>
+                  )}
+                </div>
+              </div>
             </>
           )}
         </div>
 
+        {/* Footer */}
         {!isSubmitted && (
           <div className="flex justify-between items-center p-6 border-t border-gray-200">
-            {step === 2 && <button onClick={() => setStep(1)}>Atrás</button>}
-            <button onClick={step === 1 ? () => setStep(2) : handleSubmit} disabled={step === 1 ? !isStep1Valid : !isStep2Valid || isSubmitting}>
-              {step === 1 ? 'Continuar' : isSubmitting ? 'Enviando...' : 'Confirmar Demo'}
+            {step === 2 && (
+              <button onClick={() => setStep(1)} className="px-4 py-2 border rounded">
+                {currentLocale === 'es' ? 'Atrás' : 'Back'}
+              </button>
+            )}
+            <button
+              onClick={step === 1 ? () => setStep(2) : handleSubmit}
+              disabled={step === 1 ? !isStep1Valid : !isStep2Valid || isSubmitting}
+              className="px-4 py-2 bg-blue-600 text-white rounded disabled:bg-gray-300"
+            >
+              {step === 1
+                ? currentLocale === 'es' ? 'Continuar' : 'Next'
+                : isSubmitting
+                ? currentLocale === 'es' ? 'Enviando...' : 'Submitting...'
+                : currentLocale === 'es' ? 'Confirmar Demo' : 'Confirm Demo'}
             </button>
           </div>
         )}
