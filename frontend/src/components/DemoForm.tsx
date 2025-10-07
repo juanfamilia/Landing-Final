@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Calendar, CheckCircle, X, User, Mail, Building, Phone, MessageSquare } from 'lucide-react';
 // 🔹 CAMBIO: importar getGAClientId aquí (no dentro de handleSubmit)
-import { getGAClientId, trackDemoRequest } from '@/lib/analytics';
+import { trackDemoRequest } from '@/lib/analytics';
 import { usePathname } from 'next/navigation';
 import { submitToHubSpot } from '@/lib/hubspot';
 interface DemoFormProps {
@@ -54,9 +54,6 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
     setIsSubmitting(true);
     
     try {
-      // 🔹 CAMBIO: obtener GA Client ID
-      const clientId = getGAClientId();
-     
       // Submit to HubSpot
       const success = await submitToHubSpot({
         name: formData.name,
@@ -65,8 +62,6 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
         phone: formData.phone,
         message: `Sector: ${formData.sector}\nPreferred Time: ${selectedDateTime}\n\nMessage: ${formData.message}`,
         locale: currentLocale,
-        // 🔹 CAMBIO: agregar gaClientId
-        gaClientId: clientId,
       });
 
       if (success) {
