@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { Calendar, CheckCircle, X, User, Mail, Building, Phone, MessageSquare } from 'lucide-react';
-// 🔹 CAMBIO: importar getGAClientId aquí (no dentro de handleSubmit)
 import { trackDemoRequest } from '@/lib/analytics';
 import { usePathname } from 'next/navigation';
 import { submitToHubSpot } from '@/lib/hubspot';
+
 interface DemoFormProps {
   isOpen: boolean;
   onClose: () => void;
@@ -20,8 +20,8 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
     phone: '',
     sector: '',
     message: '',
-    
   });
+  const [selectedDateTime, setSelectedDateTime] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -30,31 +30,69 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
 
   const sectors = [
     'Banking & Financial Services',
-    'Retail & E-commerce', 
+    'Retail & E-commerce',
     'Healthcare',
     'Telecommunications',
     'Insurance',
     'Technology',
     'Government',
-    'Other'
+    'Other',
   ];
 
-  const [selectedDateTime, setSelectedDateTime] = useState('')
-  const isStep2Valid = selectedDateTime !== '' 
-;
+  const isStep1Valid = formData.name && formData.email && formData.company && formData.sector;
+  const isStep2Valid = selectedDateTime !== '';
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  // 🔹 Generar los próximos 10 días hábiles
+  const getBusinessDays = () => {
+    const days: string[] = [];
+    const today = new Date();
+
+    for (let i = 0; days.length < 10; i++) {
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+      const day = date.getDay();
+      if (day !== 0 && day !== 6) {
+        days.push(date.toISOString().split('T')[0]);
+      }
+    }
+    return days;
+  };
+
+  const businessDays = getBusinessDays();
+
+  // 🔹 Generar intervalos de 30 minutos (de 09:00 a 18:00)
+  const getAvailableTimeSlots = (dateStr: string) => {
+    const slots: string[] = [];
+    const now = new Date();
+    const selectedDate = new Date(dateStr);
+
+    for (let h = 9; h < 18; h++) {
+      for (let m = 0; m < 60; m += 30) {
+        const slotDate = new Date(selectedDate);
+        slotDate.setHours(h, m, 0, 0);
+
+        // Si es hoy, mostrar solo horas futuras
+        if (selectedDate.toDateString() === now.toDateString()) {
+          if (slotDate > now) {
+            slots.push(slotDate.toTimeString().slice(0, 5));
+          }
+        } else {
+          slots.push(slotDate.toTimeString().slice(0, 5));
+        }
+      }
+    }
+    return slots;
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
     try {
-      // Submit to HubSpot
       const success = await submitToHubSpot({
         name: formData.name,
         email: formData.email,
@@ -65,13 +103,10 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
       });
 
       if (success) {
-        // Track analytics
         trackDemoRequest(currentLocale);
-        
         setIsSubmitted(true);
         setTimeout(() => {
           onClose();
-          // Reset form after closing
           setTimeout(() => {
             setStep(1);
             setIsSubmitted(false);
@@ -94,9 +129,6 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
     }
   };
 
-  const isStep1Valid = formData.name && formData.email && formData.company && formData.sector;
-  
-
   if (!isOpen) return null;
 
   return (
@@ -105,7 +137,9 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-bold text-gray-900">
-            {currentLocale === 'es' ? 'Agendar Demo Personalizada' : 'Schedule Personalized Demo'}
+            {currentLocale === 'es'
+              ? 'Agendar Demo Personalizada'
+              : 'Schedule Personalized Demo'}
           </h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
             <X className="w-6 h-6" />
@@ -115,15 +149,23 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
         {/* Progress */}
         <div className="px-6 py-4">
           <div className="flex items-center space-x-4">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-              step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
-            }`}>
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+              }`}
+            >
               1
             </div>
-            <div className={`flex-1 h-1 rounded-full ${step >= 2 ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-              step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
-            }`}>
+            <div
+              className={`flex-1 h-1 rounded-full ${
+                step >= 2 ? 'bg-blue-600' : 'bg-gray-200'
+              }`}
+            ></div>
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+              }`}
+            >
               2
             </div>
           </div>
@@ -138,70 +180,83 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                 {currentLocale === 'es' ? '¡Demo Agendada!' : 'Demo Scheduled!'}
               </h3>
               <p className="text-gray-600">
-                {currentLocale === 'es' 
+                {currentLocale === 'es'
                   ? 'Te contactaremos pronto para confirmar tu demo personalizada.'
-                  : "We'll contact you soon to confirm your personalized demo."
-                }
+                  : "We'll contact you soon to confirm your personalized demo."}
               </p>
             </div>
           ) : step === 1 ? (
+            // 🔹 Paso 1: información de contacto
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                {currentLocale === 'es' ? 'Información de Contacto' : 'Contact Information'}
+                {currentLocale === 'es'
+                  ? 'Información de Contacto'
+                  : 'Contact Information'}
               </h3>
-              
+
               <div className="relative">
-                
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
                   name="name"
-                  placeholder={currentLocale === 'es' ? 'Nombre completo' : 'Full name'}
+                  placeholder={
+                    currentLocale === 'es' ? 'Nombre completo' : 'Full name'
+                  }
                   value={formData.name}
                   onChange={handleInputChange}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
               </div>
-              
+
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="email"
                   name="email"
-                  placeholder={currentLocale === 'es' ? 'Correo electrónico' : 'Email address'}
+                  placeholder={
+                    currentLocale === 'es'
+                      ? 'Correo electrónico'
+                      : 'Email address'
+                  }
                   value={formData.email}
                   onChange={handleInputChange}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
               </div>
-              
+
               <div className="relative">
-                <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Building className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
                   name="company"
-                  placeholder={currentLocale === 'es' ? 'Empresa' : 'Company'}
+                  placeholder={
+                    currentLocale === 'es' ? 'Empresa' : 'Company'
+                  }
                   value={formData.company}
                   onChange={handleInputChange}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
               </div>
-              
+
               <div className="relative">
-                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="tel"
                   name="phone"
-                  placeholder={currentLocale === 'es' ? 'Teléfono (opcional)' : 'Phone (optional)'}
+                  placeholder={
+                    currentLocale === 'es'
+                      ? 'Teléfono (opcional)'
+                      : 'Phone (optional)'
+                  }
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-              
+
               <select
                 name="sector"
                 value={formData.sector}
@@ -210,7 +265,9 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                 required
               >
                 <option value="">
-                  {currentLocale === 'es' ? 'Selecciona tu sector' : 'Select your sector'}
+                  {currentLocale === 'es'
+                    ? 'Selecciona tu sector'
+                    : 'Select your sector'}
                 </option>
                 {sectors.map((sector) => (
                   <option key={sector} value={sector}>
@@ -218,12 +275,16 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                   </option>
                 ))}
               </select>
-              
+
               <div className="relative">
                 <MessageSquare className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
                 <textarea
                   name="message"
-                  placeholder={currentLocale === 'es' ? 'Mensaje adicional (opcional)' : 'Additional message (optional)'}
+                  placeholder={
+                    currentLocale === 'es'
+                      ? 'Mensaje adicional (opcional)'
+                      : 'Additional message (optional)'
+                  }
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={3}
@@ -232,26 +293,61 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
               </div>
             </div>
           ) : (
+            // 🔹 Paso 2: fecha y hora
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                {currentLocale === 'es' ? 'Selecciona tu Horario Preferido' : 'Select Your Preferred Time'}
+                {currentLocale === 'es'
+                  ? 'Selecciona tu Horario Preferido'
+                  : 'Select Your Preferred Time'}
               </h3>
-              
-              <p className="text-sm text-gray-600 mb-4">
-                {currentLocale === 'es' 
-                  ? 'Elige el mejor horario para tu demo personalizada de 30 minutos'
-                  : 'Choose the best time for your 30-minute personalized demo'
-                }
-              </p>
-              
-              <div className="relative">
-                <input
-                  type="datetime-local"
-                  value={selectedDateTime}
-                  onChange={(e) => setSelectedDateTime(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
+
+              <div className="flex space-x-2">
+                <select
+                  value={selectedDateTime.split('T')[0] || ''}
+                  onChange={(e) => {
+                    const timePart = selectedDateTime.split('T')[1] || '';
+                    setSelectedDateTime(`${e.target.value}T${timePart}`);
+                  }}
+                  className="w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="">
+                    {currentLocale === 'es'
+                      ? 'Selecciona fecha'
+                      : 'Select date'}
+                  </option>
+                  {businessDays.map((date) => (
+                    <option key={date} value={date}>
+                      {new Date(date).toLocaleDateString(
+                        currentLocale === 'es' ? 'es-ES' : 'en-US',
+                        { weekday: 'long', day: '2-digit', month: '2-digit' }
+                      )}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={selectedDateTime.split('T')[1] || ''}
+                  onChange={(e) => {
+                    const datePart = selectedDateTime.split('T')[0] || '';
+                    setSelectedDateTime(`${datePart}T${e.target.value}`);
+                  }}
+                  className="w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="">
+                    {currentLocale === 'es'
+                      ? 'Selecciona hora'
+                      : 'Select time'}
+                  </option>
+                  {selectedDateTime.split('T')[0] &&
+                    getAvailableTimeSlots(
+                      selectedDateTime.split('T')[0]
+                    ).map((slot) => (
+                      <option key={slot} value={slot}>
+                        {slot}
+                      </option>
+                    ))}
+                </select>
+              </div>
             </div>
           )}
         </div>
@@ -267,7 +363,7 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                 {currentLocale === 'es' ? 'Atrás' : 'Back'}
               </button>
             )}
-            
+
             <div className="ml-auto">
               {step === 1 ? (
                 <button
@@ -286,12 +382,16 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                   {isSubmitting ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      {currentLocale === 'es' ? 'Enviando...' : 'Submitting...'}
+                      {currentLocale === 'es'
+                        ? 'Enviando...'
+                        : 'Submitting...'}
                     </>
                   ) : (
                     <>
                       <Calendar className="w-4 h-4 mr-2" />
-                      {currentLocale === 'es' ? 'Confirmar Demo' : 'Confirm Demo'}
+                      {currentLocale === 'es'
+                        ? 'Confirmar Demo'
+                        : 'Confirm Demo'}
                     </>
                   )}
                 </button>
