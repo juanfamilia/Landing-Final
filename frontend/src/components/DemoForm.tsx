@@ -39,14 +39,9 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
     'Other'
   ];
 
-  const timeSlots = [
-    '9:00 AM - 9:30 AM',
-    '10:00 AM - 10:30 AM', 
-    '11:00 AM - 11:30 AM',
-    '2:00 PM - 2:30 PM',
-    '3:00 PM - 3:30 PM',
-    '4:00 PM - 4:30 PM'
-  ];
+  const [selectedDateTime, setSelectedDateTime] = useState('')
+  const isStep2Valid = selectedDateTime !== '' 
+;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -65,7 +60,7 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
         email: formData.email,
         company: formData.company,
         phone: formData.phone,
-        message: `Sector: ${formData.sector}\nPreferred Time: ${formData.timeSlot}\n\nMessage: ${formData.message}`,
+        message: `Sector: ${formData.sector}\nPreferred Time: ${selectedDateTime}\n\nMessage: ${formData.message}`,
         locale: currentLocale,
       });
 
@@ -100,7 +95,7 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
   };
 
   const isStep1Valid = formData.name && formData.email && formData.company && formData.sector;
-  const isStep2Valid = formData.timeSlot;
+  
 
   if (!isOpen) return null;
 
@@ -156,6 +151,7 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
               </h3>
               
               <div className="relative">
+                
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
@@ -248,22 +244,14 @@ export default function DemoForm({ isOpen, onClose }: DemoFormProps) {
                 }
               </p>
               
-              <div className="grid grid-cols-1 gap-3">
-                {timeSlots.map((slot) => (
-                  <button
-                    key={slot}
-                    onClick={() => setFormData({ ...formData, timeSlot: slot })}
-                    className={`p-3 border rounded-lg text-left transition-colors ${
-                      formData.timeSlot === slot
-                        ? 'border-blue-500 bg-blue-50 text-blue-700'
-                        : 'border-gray-300 hover:border-gray-400'
-                    }`}
-                  >
-                    <Calendar className="w-4 h-4 inline mr-2" />
-                    {slot}
-                  </button>
-                ))}
-              </div>
+              <div className="relative">
+                <input
+                  type="datetime-local"
+                  value={selectedDateTime}
+                  onChange={(e) => setSelectedDateTime(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
             </div>
           )}
         </div>
