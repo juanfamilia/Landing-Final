@@ -50,20 +50,20 @@ export default function Benefits() {
         subtitle: "Insights poderosos para impulsar resultados reales de negocio",
         items: [
           {
+            title: "Ciclos de decisión más ágiles",
+            description: "Reduce la brecha entre el levantamiento de datos, el análisis y la ejecución."
+          },
+          {
+            title: "Eficiencia operativa",
+            description: "Disminuye el tiempo en campo y enfoca los recursos donde generan mayor valor."
+          },
+          {
             title: "Visibilidad estratégica",
             description: "Accede a inteligencia en tiempo real que convierte los datos de experiencia en ventaja competitiva."
           },
           {
-            title: "Analítica accionable",
-            description: "Transforma la información del cliente en decisiones estratégicas de negocio."
-          },
-          {
-            title: "Trazabilidad",
-            description: "Observa la evolución de tus indicadores con precisión y claridad estratégica."
-          },
-          {
             title: "Analítica Accionable",
-            description: "Convierte los datos de experiencia del cliente en decisiones estratégicas de negocio."
+            description: "Transforma la información del cliente en decisiones estratégicas de negocio."
           }
         ],
         stats: {
