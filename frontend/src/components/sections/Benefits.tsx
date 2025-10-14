@@ -19,20 +19,20 @@ export default function Benefits() {
   const t = (): BenefitsTranslations => {
     const translations: Record<string, BenefitsTranslations> = {
       en: {
-        title: "Transform Your Customer Experience",
-        subtitle: "Powerful insights to drive real business results",
+        title: "Elevate Your CX Intelligence",
+        subtitle: "Eliminate delays. Strengthen insights. Drive action with clarity.",
         items: [
           {
-            title: "Reduce Churn",
-            description: "Identify friction points before customers leave and improve retention rates."
+            title: "Faster Decision Cycles",
+            description: "Reduce the gap between data collection, analysis, and execution."
           },
           {
-            title: "Increase CSAT",
-            description: "Boost customer satisfaction scores with data-driven experience improvements."
+            title: "Operational Efficiency",
+            description: "Cut unnecessary field time and focus resources where they create the most value."
           },
           {
-            title: "Real Call Insights",
-            description: "Get actionable intelligence from actual customer interactions and calls."
+            title: "Strategic Visibility",
+            description: "Access clear, real-time intelligence that turns experience data into business advantage."
           },
           {
             title: "Actionable Analytics",
@@ -40,26 +40,26 @@ export default function Benefits() {
           }
         ],
         stats: {
-          companies: "Companies Trust Us",
-          csatIncrease: "Average CSAT Increase",
-          satisfaction: "Customer Satisfaction"
+          companies: "Leaders Transforming CX Operations,
+          csatIncrease: "Cycle Time Reductio",
+          satisfaction: "Insight Reliability"
         }
       },
       es: {
-        title: "Transforma Tu Experiencia del Cliente",
+        title: "Eleva tu Inteligencia en Experiencia del Cliente",
         subtitle: "Insights poderosos para impulsar resultados reales de negocio",
         items: [
           {
-            title: "Reducir Abandono",
-            description: "Identifica puntos de fricción antes de que los clientes se vayan y mejora las tasas de retención."
+            title: "Visibilidad estratégica",
+            description: "Accede a inteligencia en tiempo real que convierte los datos de experiencia en ventaja competitiva."
           },
           {
-            title: "Aumentar CSAT",
-            description: "Aumenta los puntajes de satisfacción del cliente con mejoras de experiencia basadas en datos."
+            title: "Analítica accionable",
+            description: "Transforma la información del cliente en decisiones estratégicas de negocio."
           },
           {
-            title: "Insights de Llamadas Reales",
-            description: "Obtén inteligencia accionable de las interacciones y llamadas reales de clientes."
+            title: "Trazabilidad",
+            description: "Observa la evolución de tus indicadores con precisión y claridad estratégica."
           },
           {
             title: "Analítica Accionable",
@@ -67,9 +67,9 @@ export default function Benefits() {
           }
         ],
         stats: {
-          companies: "Empresas Nos Confían",
-          csatIncrease: "Aumento Promedio de CSAT",
-          satisfaction: "Satisfacción del Cliente"
+          companies: "Líderes transformando la gestión de CX",
+          csatIncrease: "Reducción del ciclo de análisis",
+          satisfaction: "Confiabilidad de los insights"
         }
       }
     };
