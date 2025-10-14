@@ -40,7 +40,7 @@ export default function Benefits() {
           }
         ],
         stats: {
-          companies: "Leaders Transforming CX Operations,
+          companies: "Leaders Transforming CX Operations",
           csatIncrease: "Cycle Time Reductio",
           satisfaction: "Insight Reliability"
         }
