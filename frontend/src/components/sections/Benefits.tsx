@@ -1,6 +1,6 @@
 'use client';
 
-import { TrendingDown, TrendingUp, Phone, BarChart3 } from 'lucide-react';
+import { ClockArrowDown, Zap, Eye, ChartColumnIncreasing } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { BenefitItem, StatsData } from '@/types/translations';
 
@@ -14,7 +14,7 @@ interface BenefitsTranslations {
 export default function Benefits() {
   const pathname = usePathname();
   const isSpanish = pathname.startsWith('/es');
-  const icons = [TrendingDown, TrendingUp, Phone, BarChart3];
+  const icons = [ClockArrowDown, Zap, Eye, ChartColumnIncreasing];
 
   const t = (): BenefitsTranslations => {
     const translations: Record<string, BenefitsTranslations> = {
